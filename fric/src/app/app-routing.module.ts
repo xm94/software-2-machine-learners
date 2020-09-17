@@ -12,6 +12,7 @@ import { SubtasksComponent } from './subtasks/subtasks.component';
 
 
 const routes: Routes = [
+  {path: "home", component: HomeComponent},
   {path: "event", component: EventComponent},
   {path: "system", component: SystemComponent},
   {path: "tasks", component: TasksComponent},
