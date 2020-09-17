@@ -22,6 +22,7 @@ import { ArchiveComponent } from './archive/archive.component';
 import { ConfigurationComponent } from './configuration/configuration.component';
 import { SetupComponent } from './setup/setup.component';
 import { HelpComponent } from './help/help.component';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { HelpComponent } from './help/help.component';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    MatSliderModule,
     ReactiveFormsModule
   ],
   providers: [],
