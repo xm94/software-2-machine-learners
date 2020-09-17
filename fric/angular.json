@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -93,6 +94,7 @@
               "src/assets"
             ],
             "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],
             "scripts": []
@@ -124,6 +126,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "fric"
+    }
+  },
+  "defaultProject": "fric",
+  "cli": {
+    "analytics": "27fb2ea5-c1d2-4703-af7d-93fd778f529b"
+  }
 }
