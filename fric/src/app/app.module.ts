@@ -25,7 +25,8 @@ import { HelpComponent } from './help/help.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon'
-
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatMenuModule} from '@angular/material/menu'
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +56,9 @@ import { MatIconModule } from '@angular/material/icon'
     MatSliderModule,
     MatTreeModule,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    MatBadgeModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]
