@@ -26,8 +26,12 @@ import { SetupComponent } from './setup/setup.component';
 import { HelpComponent } from './help/help.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatIconModule } from '@angular/material/icon';
-import { EventdetailedComponent } from './eventdetailed/eventdetailed.component'
+import { MatIconModule } from '@angular/material/icon'
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatMenuModule} from '@angular/material/menu';
+import { NotificationModalComponent } from './components/notification-modal/notification-modal.component'
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -45,6 +49,7 @@ import { EventdetailedComponent } from './eventdetailed/eventdetailed.component'
     ConfigurationComponent,
     SetupComponent,
     HelpComponent,
+    NotificationModalComponent,
     EventdetailedComponent,
   ],
   imports: [
@@ -62,8 +67,15 @@ import { EventdetailedComponent } from './eventdetailed/eventdetailed.component'
     MatSliderModule,
     MatTreeModule,
     ReactiveFormsModule,
-    MatIconModule
-  ],
+    MatIconModule,
+    MatBadgeModule,
+    MatMenuModule,
+    MatDialogModule,
+    MatTableModule
+  ],entryComponents: [
+    NotificationModalComponent,
+  
+ ],
   providers: [],
   bootstrap: [AppComponent]
 })
