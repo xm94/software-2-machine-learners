@@ -7,7 +7,9 @@ import { EventComponent } from './event/event.component';
 import { FindingsComponent } from './findings/findings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
@@ -30,6 +32,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { NotificationModalComponent } from './components/notification-modal/notification-modal.component'
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,6 +50,7 @@ import { MatTableModule } from '@angular/material/table';
     SetupComponent,
     HelpComponent,
     NotificationModalComponent,
+    EventdetailedComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +61,9 @@ import { MatTableModule } from '@angular/material/table';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    MatTableModule,
+    MatCheckboxModule,
+    MatIconModule,
     MatSliderModule,
     MatTreeModule,
     ReactiveFormsModule,
