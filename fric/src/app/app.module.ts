@@ -26,7 +26,10 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon'
 import {MatBadgeModule} from '@angular/material/badge';
-import {MatMenuModule} from '@angular/material/menu'
+import {MatMenuModule} from '@angular/material/menu';
+import { NotificationModalComponent } from './components/notification-modal/notification-modal.component'
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,6 +46,7 @@ import {MatMenuModule} from '@angular/material/menu'
     ConfigurationComponent,
     SetupComponent,
     HelpComponent,
+    NotificationModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -58,8 +62,13 @@ import {MatMenuModule} from '@angular/material/menu'
     ReactiveFormsModule,
     MatIconModule,
     MatBadgeModule,
-    MatMenuModule
-  ],
+    MatMenuModule,
+    MatDialogModule,
+    MatTableModule
+  ],entryComponents: [
+    NotificationModalComponent,
+  
+ ],
   providers: [],
   bootstrap: [AppComponent]
 })
