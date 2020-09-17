@@ -26,7 +26,8 @@ import { SetupComponent } from './setup/setup.component';
 import { HelpComponent } from './help/help.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatIconModule } from '@angular/material/icon'
+import { MatIconModule } from '@angular/material/icon';
+import { EventdetailedComponent } from './eventdetailed/eventdetailed.component'
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { MatIconModule } from '@angular/material/icon'
     ConfigurationComponent,
     SetupComponent,
     HelpComponent,
+    EventdetailedComponent,
   ],
   imports: [
     BrowserModule,

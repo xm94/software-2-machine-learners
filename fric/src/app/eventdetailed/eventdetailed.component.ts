@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FormControl} from '@angular/forms';
 
 
 export interface PeriodicElement {
@@ -42,17 +43,18 @@ const ELEMENT_DATA: PeriodicElement[] = [
 ];
 
 @Component({
-  selector: 'app-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss']
+  selector: 'app-eventdetailed',
+  templateUrl: './eventdetailed.component.html',
+  styleUrls: ['./eventdetailed.component.scss']
 })
-
-
-export class EventComponent implements OnInit {
+export class EventdetailedComponent implements OnInit {
+  value = 'Clear me';
+  disableSelect = new FormControl(false);
   displayedColumns: string[] = ['checkbox', 'position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
-  constructor() {
-   }
+  toppings = new FormControl();
+  toppingList: string[] = ['type1', 'type2', 'type3'];
+  constructor() { }
 
   ngOnInit() {
   }

@@ -9,6 +9,8 @@ import { HelpComponent } from './help/help.component';
 import { SystemComponent } from './system/system.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { SubtasksComponent } from './subtasks/subtasks.component';
+import { EventdetailedComponent } from './eventdetailed/eventdetailed.component';
+
 
 
 const routes: Routes = [
@@ -21,7 +23,8 @@ const routes: Routes = [
   {path: "archive", component: EventComponent},
   {path: "configuration", component: ConfigurationComponent},
   {path: "setup", component: SetupComponent},
-  {path: "help", component: HelpComponent}
+  {path: "help", component: HelpComponent},
+  {path: "eventdetailed", component: EventdetailedComponent}
 ];
 
 @NgModule({
