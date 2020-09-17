@@ -23,6 +23,8 @@ import { ConfigurationComponent } from './configuration/configuration.component'
 import { SetupComponent } from './setup/setup.component';
 import { HelpComponent } from './help/help.component';
 import { MatSliderModule } from '@angular/material/slider';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon'
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import { MatSliderModule } from '@angular/material/slider';
     MatRadioModule,
     MatCardModule,
     MatSliderModule,
-    ReactiveFormsModule
+    MatTreeModule,
+    ReactiveFormsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
