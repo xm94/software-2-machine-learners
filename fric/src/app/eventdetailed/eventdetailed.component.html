@@ -2,73 +2,76 @@
     <mat-card-title class="m-3">Event Detailed</mat-card-title>
     <mat-card>
         <button mat-button> <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">help</mat-icon></button>
-        <mat-card>
-            <mat-card-title class="p-5">Event Basic Information</mat-card-title>
-            <mat-form-field class="example-form-field">
-                <mat-label>Event Name</mat-label>
-                <input matInput type="text" value="eventname">
-            </mat-form-field>
-            <mat-form-field class="example-form-field w-100 h-25">
-                <mat-label>Event Description</mat-label>
-                <input matInput type="text" value="eventdescription">
-            </mat-form-field>
-            <mat-form-field class="example-form-field">
-                <mat-label>Event Name</mat-label>
-                <input matInput type="text" value="eventname">
-            </mat-form-field>
+        <mat-card class="m-3">
+            <div class="form-column">
+                <mat-card-title class="form-row p-5">Event Basic Information</mat-card-title>
+                <mat-form-field class="p-3 form-group ">
+                    <mat-label>Event Name</mat-label>
+                    <input matInput type="text" value="eventname">
+                </mat-form-field>
 
-            <mat-form-field appearance="fill">
-                <mat-label>Event Type</mat-label>
-                <mat-select [disabled]="disableSelect.value">
-                    <mat-option value="option1">Type 1</mat-option>
-                    <mat-option value="option2">Type 2</mat-option>
-                    <mat-option value="option3">Type 3</mat-option>
-                </mat-select>
-            </mat-form-field>
+                <mat-form-field class="p-3 form-group  w-100 h-25">
+                    <mat-label>Event Description</mat-label>
+                    <input matInput type="text" value="eventdescription">
+                </mat-form-field>
 
-            <mat-form-field class="example-form-field">
-                <mat-label>Event Version</mat-label>
-                <input matInput type="text" value="eventversion">
-            </mat-form-field>
-
-            <mat-form-field class="example-form-field">
-                <mat-label>Assessment Date</mat-label>
-                <input matInput type="text" value="05/12/2020">
-            </mat-form-field>
-
-            <mat-form-field class="example-form-field">
-                <mat-label>Organization Name</mat-label>
-                <input matInput type="text" value="organizationname">
-            </mat-form-field>
-
-            <mat-form-field class="example-form-field">
-                <mat-label>Security Classification Title Guide</mat-label>
-                <input matInput type="text" value="titleguide">
-            </mat-form-field>
-
-            <mat-form-field appearance="fill">
-                <mat-label>Event Classification</mat-label>
-                <mat-select [disabled]="disableSelect.value">
-                    <mat-option value="option1">Classification 1</mat-option>
-                    <mat-option value="option2">Classification 2</mat-option>
-                    <mat-option value="option3">Classification 3</mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <mat-form-field class="example-form-field">
-                <mat-label>Declassification Date</mat-label>
-                <input matInput type="text" value="05/12/2020">
-            </mat-form-field>
-
-            <mat-form-field class="example-form-field">
-                <mat-label> Customer Name </mat-label>
-                <input matInput type="text" value="name">
-            </mat-form-field>
-        </mat-card>
-        <mat-card>
-            <mat-card-title class="p-5"> Event Team Information</mat-card-title>
-
+                <mat-form-field class="p-3 form-group ">
+                    <mat-label>Event Name</mat-label>
+                    <input matInput type="text" value="eventname">
+                </mat-form-field>
+    
+                <mat-form-field class="p-3 form-group" appearance="fill">
+                    <mat-label>Event Type</mat-label>
+                    <mat-select [disabled]="disableSelect.value">
+                        <mat-option value="option1">Type 1</mat-option>
+                        <mat-option value="option2">Type 2</mat-option>
+                        <mat-option value="option3">Type 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field class="p-3 form-group ">
+                    <mat-label>Event Version</mat-label>
+                    <input matInput type="text" value="5">
+                </mat-form-field>
+    
+                <mat-form-field class="p-3 ">
+                    <mat-label>Assessment Date</mat-label>
+                    <input matInput type="text" value="05/12/2020">
+                </mat-form-field>
+    
+                <mat-form-field class="p-3 ">
+                    <mat-label>Organization Name</mat-label>
+                    <input matInput type="text" value="organizationname">
+                </mat-form-field>
+    
+                <mat-form-field class="p-3 ">
+                    <mat-label>Security Classification Title Guide</mat-label>
+                    <input matInput type="text" value="titleguide">
+                </mat-form-field>
+    
+                <mat-form-field class="p-3 form-group" appearance="fill">
+                    <mat-label>Event Classification</mat-label>
+                    <mat-select [disabled]="disableSelect.value">
+                        <mat-option value="option1">Classification 1</mat-option>
+                        <mat-option value="option2">Classification 2</mat-option>
+                        <mat-option value="option3">Classification 3</mat-option>
+                    </mat-select>
+                </mat-form-field>
+    
+                <mat-form-field class="p-3 ">
+                    <mat-label>Declassification Date</mat-label>
+                    <input matInput type="text" value="05/12/2020">
+                </mat-form-field>
+    
+                <mat-form-field class="p-3 ">
+                    <mat-label> Customer Name </mat-label>
+                    <input matInput type="text" value="name">
+                </mat-form-field>
+            </div>
             
+        </mat-card>
+        <mat-card class="m-3">
+            <mat-card-title class="p-5"> Event Team Information</mat-card-title>
             <div class="form-inline">
                 <div class="form-column p-3">
                     <mat-card-title> Lead Analyst 
@@ -183,8 +186,69 @@
                     </table>
                 </div>
             </div>
-            
         </mat-card>
+    </mat-card>
+
+    <mat-card class = "w-50 m-4">
+        <mat-card-title>Add/Edit Overlay</mat-card-title>
+        <div class="form-column">
+                <mat-form-field class="p-3 form-field">
+                    <mat-label>First Name</mat-label>
+                    <input matInput type="text" value="Xavier">
+                </mat-form-field>
+        
+                <mat-form-field class="p-3 form-field">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput type="text" value="Hernandez">
+                </mat-form-field>
+        </div>
+
+        <div class="form-column">
+            <mat-form-field class="p-3 ">
+                <mat-label> Initial </mat-label>
+                <input matInput type="text" value="XH">
+            </mat-form-field>
+    
+            <mat-form-field class="p-3 ">
+                <mat-label> Title </mat-label>
+                <input matInput type="text" value="Analyst">
+            </mat-form-field>
+        </div>
+    </mat-card>
+
+    <mat-card class = "w-75 m-4">
+        <mat-card-title>Sync Overlay</mat-card-title>
+        <div class="form-column">
+            <div class="form-row row">
+                <mat-card-title class="p-2 form-field"> From: </mat-card-title>
+                <mat-form-field appearance="fill">
+                    <mat-label>Analyst</mat-label>
+                    <mat-select [disabled]="disableSelect.value">
+                        <mat-option value="option1">XM</mat-option>
+                        <mat-option value="option2">ER</mat-option>
+                        <mat-option value="option3">ZV</mat-option>
+                    </mat-select>
+                </mat-form-field>
+        
+                <mat-form-field class="p-3 form-field">
+                    <mat-label>IP Address: </mat-label>
+                    <input matInput type="text" value="Hernandez">
+                </mat-form-field>
+            </div>
+                
+        </div>
+
+        <div class="form-column">
+            <mat-form-field class="p-3 ">
+                <mat-label> Initial </mat-label>
+                <input matInput type="text" value="XH">
+            </mat-form-field>
+    
+            <mat-form-field class="p-3 ">
+                <mat-label> Title </mat-label>
+                <input matInput type="text" value="Analyst">
+            </mat-form-field>
+        </div>
     </mat-card>
     
 </mat-card>
