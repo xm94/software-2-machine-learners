@@ -29,7 +29,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon'
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatMenuModule} from '@angular/material/menu';
-import { NotificationModalComponent } from './components/notification-modal/notification-modal.component'
+import { NotificationModalComponent } from './notification-modal/notification-modal.component'
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 
