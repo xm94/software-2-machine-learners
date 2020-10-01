@@ -12,4 +12,4 @@ This is the project done for CS4311 by Team 6
 
 ###### Dependencies
 The following dependencies are used in this project
-1.) Mongo DB, used to run locally and store all the necessarry data.
+1. Mongo DB, used to run locally and store all the necessarry data.
