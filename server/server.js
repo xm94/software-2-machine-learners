@@ -15,7 +15,17 @@ app.set("port", process.env.PORT || 4000);
 //var routes = require("./routes");
 /** Include routes.js file */
 // app.use(routes);
+app.get("/ping", (req, res) => {
+    res.send("ok");
+  });
 
+app.get("/login", (req, res) => {
+  res.send("ok");
+});
+
+app.post("/events", (req, res) => {
+    res.send("ok");
+  });
 /** Start local host */
 app.listen(app.get("port"),function(){
     console.log("Server started on port " + app.get("port"));
