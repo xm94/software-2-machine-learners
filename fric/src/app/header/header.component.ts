@@ -34,7 +34,6 @@ export class HeaderComponent implements OnInit {
     } else {
       (<HTMLInputElement> document.getElementById("ipInput")).disabled = true;
     }
-    console.log(document.getElementById('ipInput').getAttribute('disabled'));
   }
 
   ngOnInit() {
