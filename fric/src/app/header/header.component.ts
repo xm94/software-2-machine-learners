@@ -5,7 +5,8 @@ import { NotificationModalComponent } from '../notification-modal/notification-m
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'],
+  
 })
 
 export class HeaderComponent implements OnInit {
@@ -24,6 +25,16 @@ export class HeaderComponent implements OnInit {
     dialogConfig.width = "800px";
     // https://material.angular.io/components/dialog/overview
     const modalDialog = this.matDialog.open(NotificationModalComponent, dialogConfig);
+  }
+
+  checkBoxClicked() {
+
+    if((<HTMLInputElement> document.getElementById("ipInput")).disabled){
+      (<HTMLInputElement> document.getElementById("ipInput")).disabled = false;
+    } else {
+      (<HTMLInputElement> document.getElementById("ipInput")).disabled = true;
+    }
+    console.log(document.getElementById('ipInput').getAttribute('disabled'));
   }
 
   ngOnInit() {
