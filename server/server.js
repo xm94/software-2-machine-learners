@@ -1,9 +1,11 @@
 var express = require("express");
 var path = require("path");
 var bodyParser = require('body-parser');
-var mongo = require('mongoose');
-var expressValidator = require("express-validator");
-var expressSession = require("express-session");
+const monk = require('monk');
+const Joi = require('@hapi/joi');
+
+const db = monk("localhost/fric");
+const fric = db.get('fric');
 
 /** Set up express variable */
 var app = express();
@@ -15,9 +17,17 @@ app.set("port", process.env.PORT || 4000);
 //var routes = require("./routes");
 /** Include routes.js file */
 // app.use(routes);
-app.get("/ping", (req, res) => {
+app.get("/ping", async (req, res) => {
+    try {
+        console.log("Getting ping try");
+        const items = await fric.find({});
+        res.json(items);
+    } catch (error){
+        console.log("Getting ping error");
+        console.log("Error");
+    }
     res.send("ok");
-  });
+});
 
 app.get("/login", (req, res) => {
   res.send("ok");

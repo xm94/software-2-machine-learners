@@ -36,6 +36,9 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  loginButtonClicked(){
+    console.log("Login button clicked!");
+  }
   ngOnInit() {
   }
 
