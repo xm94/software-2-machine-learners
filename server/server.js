@@ -1,9 +1,11 @@
 var express = require("express");
 var path = require("path");
 var bodyParser = require('body-parser');
-var mongo = require('mongoose');
-var expressValidator = require("express-validator");
-var expressSession = require("express-session");
+const monk = require('monk');
+const Joi = require('@hapi/joi');
+
+const db = monk("localhost/fric");
+const fric = db.get('fric');
 
 /** Set up express variable */
 var app = express();
@@ -15,15 +17,39 @@ app.set("port", process.env.PORT || 4000);
 //var routes = require("./routes");
 /** Include routes.js file */
 // app.use(routes);
-app.get("/ping", (req, res) => {
-    res.send("ok");
-  });
+
+app.get("/", async function(req,res,next){
+    console.log("Getting /");
+    try {
+        const items = await fric.find({});
+        res.json(items);
+    } catch (error){
+        next(error);
+    }
+})
+
+app.get("/ping", function(req, res, next){
+    try {
+        console.log("Getting ping try");
+        // const items = await fric.find({});
+        // res.json(items);
+        res.write("THIS IS THE BODY RETURNED app.get(ping) ............");
+        //res.send("ok");
+        return;
+    } catch (error){
+        console.log("Getting ping error");
+        console.log("Error");
+        console.log(error);
+    }
+})
 
 app.get("/login", (req, res) => {
+  console.log("Getting login");
   res.send("ok");
 });
 
 app.post("/events", (req, res) => {
+    console.log("Posting events");
     res.send("ok");
   });
 /** Start local host */
