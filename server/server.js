@@ -18,6 +18,12 @@ app.set("port", process.env.PORT || 4000);
 /** Include routes.js file */
 // app.use(routes);
 
+app.use(function (req, res, next){
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 app.get("/", async function(req,res,next){
     console.log("Getting /");
     try {
@@ -27,19 +33,18 @@ app.get("/", async function(req,res,next){
         next(error);
     }
 })
-
 app.get("/ping", function(req, res, next){
     try {
         console.log("Getting ping try");
         // const items = await fric.find({});
         // res.json(items);
-        res.write("THIS IS THE BODY RETURNED app.get(ping) ............");
-        //res.send("ok");
+        res.json("[]");
         return;
     } catch (error){
         console.log("Getting ping error");
         console.log("Error");
         console.log(error);
+        res.write("ERROR from catch statement");
     }
 })
 
