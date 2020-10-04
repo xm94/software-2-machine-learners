@@ -1,11 +1,4 @@
 var express = require("express");
-var path = require("path");
-var bodyParser = require('body-parser');
-const monk = require('monk');
-const Joi = require('@hapi/joi');
-
-const db = monk("localhost/fric");
-const fric = db.get('fric');
 
 /** Set up express variable */
 var app = express();
@@ -18,6 +11,7 @@ var routes = require("./routes");
 /** Include routes.js file */
 app.use(routes);
 
+/** Allow app to make external requests */
 app.use(function (req, res, next){
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

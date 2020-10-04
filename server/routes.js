@@ -1,6 +1,11 @@
 var express = require("express");
+const monk = require('monk');
+
 
 const router = express.Router();
+
+const db = monk("localhost/fric");
+const fric = db.get('fric');
 
 router.get("/", async function(req,res,next){
     console.log("Getting /");
