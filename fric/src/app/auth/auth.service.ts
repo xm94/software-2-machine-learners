@@ -19,5 +19,15 @@ export class AuthService {
   ping(){
     return this.httpClient.get(`${this.AUTH_SERVER}/ping`);
   }
+
+  pingPut(){
+    const options = {headers: {'Content-Type': 'application/json'}};
+    const data = {
+      "name":"id",
+      "otherParameter": "other",
+      "_id": "12"
+    }
+    this.httpClient.post(`${this.AUTH_SERVER}/testPut`, JSON.stringify(data), options);
+  }
   
 }
