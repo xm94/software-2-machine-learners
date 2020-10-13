@@ -1,13 +1,9 @@
 var express = require("express");
-const bodyParser = require('body-parser');
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
 
 /** Set up express variable */
 var app = express();
-
-
-app.use(bodyParser.json());
 
 // Set the port to 4000
 app.set("port", process.env.PORT || 4000);
