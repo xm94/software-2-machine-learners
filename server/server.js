@@ -1,5 +1,7 @@
 var express = require("express");
 const bodyParser = require('body-parser');
+const { Sequelize } = require('sequelize');
+const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
 
 /** Set up express variable */
 var app = express();
@@ -21,6 +23,12 @@ app.use(function (req, res, next){
 });
 
 /** Start local host */
-app.listen(app.get("port"),function(){
+app.listen(app.get("port"),async function(){
     console.log("Server started on port " + app.get("port"));
+    try {
+        await sequelize.authenticate();
+        console.log('Connection has been established successfully.');
+      } catch (error) {
+        console.error('Unable to connect to the database:', error);
+      }
 });
