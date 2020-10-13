@@ -70,6 +70,7 @@ Event.init({
   tableName: 'events'
 });
 
+
 exports.initdb = async function initdb(){
     try {
         await sequelize.authenticate();
