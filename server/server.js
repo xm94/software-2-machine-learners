@@ -1,10 +1,12 @@
 var express = require("express");
 const bodyParser = require('body-parser');
-const { Sequelize } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
 
 /** Set up express variable */
 var app = express();
+
+
 app.use(bodyParser.json());
 
 // Set the port to 4000
@@ -28,6 +30,18 @@ app.listen(app.get("port"),async function(){
     try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
+        const User = sequelize.define("user", {
+            u_initials: DataTypes.STRING,
+            u_ip: DataTypes.STRING
+          });
+          
+          (async () => {
+            await sequelize.sync();
+            const users = await User.findAll();
+            console.log(users.every(user => user instanceof User)); // true
+            console.log("All users:", JSON.stringify(users, null, 2));
+
+          })();
       } catch (error) {
         console.error('Unable to connect to the database:', error);
       }
