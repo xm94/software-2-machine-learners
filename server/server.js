@@ -1,10 +1,6 @@
 var express = require("express");
-const bodyParser = require('body-parser');
-
 /** Set up express variable */
 var app = express();
-app.use(bodyParser.json());
-
 // Set the port to 4000
 app.set("port", process.env.PORT || 4000);
 
