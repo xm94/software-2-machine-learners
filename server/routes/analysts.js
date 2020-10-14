@@ -66,11 +66,11 @@ exports.initdb = async function initdb(){
         console.log('Connection has been established successfully.');
           (async () => {
             await sequelize.sync();
-            // const xavier = await Analyst.create({ a_id:"2d438a24-cde2-4488-bcec-f1d2e24c4403", a_initials: "XM", a_fname: "Xavier" , a_lname:"Martinez",a_role:"Lead Analyst"});
-            // const erik = await Analyst.create({ a_id:"494e965b-85b5-4174-bf7c-adbc74afde45", a_initials: "EM", a_fname: "Erik" , a_lname:"Martinez",a_role:"Analyst"});
-            // const zabdi = await Analyst.create({ a_id:"88f44655-39d3-4e54-a798-a8cc73d53a4e", a_initials: "ZV", a_fname: "Zabdi" , a_lname:"Valenciana",a_role:"Analyst"});
-            // const luis = await Analyst.create({ a_id:"8a494000-874f-442e-90f6-60f21b9ab66d", a_initials: "LG", a_fname: "Luis" , a_lname:"Garcia",a_role:"Analyst"});
-            // const ricardo = await Analyst.create({ a_id:"73875702-230a-4981-a898-d6d1f60b9814", a_initials: "RG", a_fname: "Ricardo" , a_lname:"Godoy",a_role:"Analyst"});
+            const xavier = await Analyst.create({ a_id:"2d438a24-cde2-4488-bcec-f1d2e24c4403", a_initials: "XM", a_fname: "Xavier" , a_lname:"Martinez",a_role:"Lead Analyst"});
+            const erik = await Analyst.create({ a_id:"494e965b-85b5-4174-bf7c-adbc74afde45", a_initials: "EM", a_fname: "Erik" , a_lname:"Martinez",a_role:"Analyst"});
+            const zabdi = await Analyst.create({ a_id:"88f44655-39d3-4e54-a798-a8cc73d53a4e", a_initials: "ZV", a_fname: "Zabdi" , a_lname:"Valenciana",a_role:"Analyst"});
+            const luis = await Analyst.create({ a_id:"8a494000-874f-442e-90f6-60f21b9ab66d", a_initials: "LG", a_fname: "Luis" , a_lname:"Garcia",a_role:"Analyst"});
+            const ricardo = await Analyst.create({ a_id:"73875702-230a-4981-a898-d6d1f60b9814", a_initials: "RG", a_fname: "Ricardo" , a_lname:"Godoy",a_role:"Analyst"});
             const users = await Analyst.findAll();
             console.log(users.every(user => user instanceof Analyst)); // true
             console.log("All users:", JSON.stringify(users, null, 2));
