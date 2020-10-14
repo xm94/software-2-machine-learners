@@ -1,6 +1,7 @@
 var express = require("express");
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
+var transactionLogs = require("./transactionLogs");
 
 class Event extends Model {}
 Event.init({
@@ -98,34 +99,35 @@ exports.initdb = async function initdb(){
           (async () => {
             await sequelize.sync({force:true});
             
-            const event = await Event.create({ 
-              e_id: "4896b5e9-8c76-4652-8e58-68b32f43c4ea",
-              e_name: "Test Event",
-              e_description: "A test event",
-              e_type: "Cooperative Vulnerability Penetration Assessment (CVPA)",
-              e_version: 1,
-              e_assessment_date: new Date(),
-              e_org_name: "Test Org",
-              e_sec_class_title_guide: "Test Guide",
-              e_classification: "Top Secret",
-              e_declassification_date: new Date(),
-              e_customer: "CEAD",
-              e_archived: false});
+            // const event = await Event.create({ 
+            //   e_id: "4896b5e9-8c76-4652-8e58-68b32f43c4ea",
+            //   e_name: "Test Event",
+            //   e_description: "A test event",
+            //   e_type: "Cooperative Vulnerability Penetration Assessment (CVPA)",
+            //   e_version: 1,
+            //   e_assessment_date: new Date(),
+            //   e_org_name: "Test Org",
+            //   e_sec_class_title_guide: "Test Guide",
+            //   e_classification: "Top Secret",
+            //   e_declassification_date: new Date(),
+            //   e_customer: "CEAD",
+            //   e_archived: false});
 
-            console.log("Created Event " + event.e_name + " with id " + event.e_id);
-            const xavier = await EventTeam.create({ e_id:event.e_id, a_id:"2d438a24-cde2-4488-bcec-f1d2e24c4403"});
-            const erik = await EventTeam.create({ e_id:event.e_id, a_id:"494e965b-85b5-4174-bf7c-adbc74afde45"});
-            const zabdi = await EventTeam.create({ e_id:event.e_id, a_id:"88f44655-39d3-4e54-a798-a8cc73d53a4e"});
-            const luis = await EventTeam.create({ e_id:event.e_id, a_id:"8a494000-874f-442e-90f6-60f21b9ab66d"});
-            const ricardo = await EventTeam.create({ e_id:event.e_id, a_id:"73875702-230a-4981-a898-d6d1f60b9814"});
-            const events = await Event.findAll();
-            console.log(events.every(user => user instanceof Event)); // true
-            console.log("All events:", JSON.stringify(events, null, 2));
-            console.log("Synced Events");
-            const users = await EventTeam.findAll();
-            console.log(users.every(user => user instanceof EventTeam)); // true
-            console.log("All users:", JSON.stringify(users, null, 2));
+            // console.log("Created Event " + event.e_name + " with id " + event.e_id);
+            // const xavier = await EventTeam.create({ e_id:event.e_id, a_id:"2d438a24-cde2-4488-bcec-f1d2e24c4403"});
+            // const erik = await EventTeam.create({ e_id:event.e_id, a_id:"494e965b-85b5-4174-bf7c-adbc74afde45"});
+            // const zabdi = await EventTeam.create({ e_id:event.e_id, a_id:"88f44655-39d3-4e54-a798-a8cc73d53a4e"});
+            // const luis = await EventTeam.create({ e_id:event.e_id, a_id:"8a494000-874f-442e-90f6-60f21b9ab66d"});
+            // const ricardo = await EventTeam.create({ e_id:event.e_id, a_id:"73875702-230a-4981-a898-d6d1f60b9814"});
+            // const events = await Event.findAll();
+            // console.log(events.every(user => user instanceof Event)); // true
+            // console.log("All events:", JSON.stringify(events, null, 2));
+            // console.log("Synced Events");
+            // const users = await EventTeam.findAll();
+            // console.log(users.every(user => user instanceof EventTeam)); // true
+            // console.log("All users:", JSON.stringify(users, null, 2));
             console.log("Synced EventTeams");
+            transactionLogs.insert({a_initials:"XM",tl_action_performed: "Initialized Table", a_id:"2d438a24-cde2-4488-bcec-f1d2e24c4403"})
           })();
       } catch (error) {
         console.error('Unable to connect to the database:', error);
