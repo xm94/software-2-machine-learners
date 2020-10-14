@@ -70,6 +70,26 @@ Event.init({
   tableName: 'events'
 });
 
+class EventTeam extends Model {}
+EventTeam.init({
+  // Model attributes are defined here
+  e_id: {
+    type: DataTypes.UUID,
+    primaryKey: true
+  },
+  a_id: {
+    type: DataTypes.UUID,
+    primaryKey: true
+  }
+}, {
+  // Other model options go here
+  sequelize, // We need to pass the connection instance
+  modelName: 'EventTeam', // We need to choose the model name
+  tableName: 'event_team'
+});
+
+
+
 
 exports.initdb = async function initdb(){
     try {
