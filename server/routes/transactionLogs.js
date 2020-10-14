@@ -19,7 +19,7 @@ TransactionLog.init({
     allowNull: false
   },
   a_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.UUID,
     allowNull: false
     // allowNull defaults to true
   }

@@ -1,43 +1,52 @@
 var express = require("express");
+var bodyParser = require('body-parser')
+var analysts = require("./routes/analysts");
+var transactionLogs = require("./routes/transactionLogs");
+var events = require("./routes/events");
 
 const router = express.Router();
+var jsonParser = bodyParser.json()
 
 // Set up dependencies as objects
 
 
 router.get("/", async function(req,res,next){
     console.log("Getting /");
-    try {
-        const items = await fric.find({});
-        res.json(items);
-    } catch (error){
-        next(error);
-    }
+    users = await analysts.getAll();
+    console.log(users)
+    res.send(users)
 });
 
 router.get("/ping", function(req, res, next){
-    try {
-        console.log("Getting ping try");
-        // const items = await fric.find({});
-        // res.json(items);
-        res.json("[]");
-        return;
-    } catch (error){
-        console.log("Getting ping error");
-        console.log("Error");
-        console.log(error);
-        res.write("ERROR from catch statement");
+    res.send("ping")
+});
+
+// router.get("/login", async function(req, res){
+//   console.log("Getting login");
+//   var user = await analysts.getFromInitials('XM');
+//   console.log(user)
+//   res.send(user);
+// });
+
+router.post("/login", jsonParser, async function(req, res){
+    console.log("Attempting to login with initials " + req.body.initials);
+    var user = await analysts.getFromInitials(req.body.initials);
+    if(user){
+        transactionLogs.insert({a_initials:req.body.initials,tl_action_performed: "Logged in", a_id:user.a_id});
     }
-});
+    res.send(user);
+  });
 
-router.get("/login", (req, res) => {
-  console.log("Getting login");
-  res.send("ok");
-});
 
-router.post("/events", (req, res) => {
-    console.log("Posting events");
-    res.send("ok");
+router.post("/events",jsonParser, async function(req, res){
+    console.log(req.body);
+    console.log("Attempting to create event ");
+    var event = await events.insert(req.body.event);
+    if(event){
+        var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);
+        transactionLogs.insert({a_initials:req.body.analyst.initials,tl_action_performed: "Created New Event", a_id:req.body.analyst.a_id});
+    }
+    res.send(event);
 });
 
 
