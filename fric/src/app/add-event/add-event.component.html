@@ -1,0 +1,81 @@
+<form [formGroup]="addEventForm" (ngSubmit)="submitEventClicked()">
+    <mat-card>
+        <mat-card-title class="m-3">Create New Event</mat-card-title>
+        <mat-card class="bg-secondary">
+            <mat-card class="m-3">
+                <div class="form-column">
+                    <mat-card-title class="form-row p-5">Event Basic Information</mat-card-title>
+                    <mat-form-field class="p-3 form-group ">
+                        <mat-label>Event ID</mat-label>
+                        <input matInput type="text" value="" id="eventID" [value]="eventID" formControlName="eventID">
+                    </mat-form-field>
+                    <mat-form-field class="p-3 form-group ">
+                        <mat-label>Event Name</mat-label>
+                        <input matInput type="text" value="" id="eventName" [value]="eventName" formControlName="eventName">
+                    </mat-form-field>
+
+                    <mat-form-field class="p-3 form-group  w-100 h-25">
+                        <mat-label>Event Description</mat-label>
+                        <input matInput type="text" value="" id="eventDescription" [value]="eventDescription" formControlName="eventDescription">
+                    </mat-form-field>
+
+        
+                    <mat-form-field class="p-3 form-group" appearance="fill">
+                        <mat-label>Event Type</mat-label>
+                        <mat-select [disabled]="disableSelect.value" id="eventType" [value]="eventType" formControlName="eventType">
+                            <mat-option value="option1">Type 1</mat-option>
+                            <mat-option value="option2">Type 2</mat-option>
+                            <mat-option value="option3">Type 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                    <mat-form-field class="p-3 form-group ">
+                        <mat-label>Event Version</mat-label>
+                        <input matInput type="text" value="" id="eventVersion"[value]="eventVersion"  formControlName="eventVersion">
+                    </mat-form-field>
+        
+                    <mat-form-field class="p-3 ">
+                        <mat-label>Assessment Date</mat-label>
+                        <input matInput type="text" value="" id="eventAssesmentDate" [value]="eventAssessmentDate" formControlName="eventAssessmentDate">
+                    </mat-form-field>
+        
+                    <mat-form-field class="p-3 ">
+                        <mat-label>Security Classification Title Guide</mat-label>
+                        <input matInput type="text" value="" id="eventSecClassTitleGuide" [value]="eventSecClassTitleGuide" formControlName="eventSecClassTitleGuide">
+                    </mat-form-field>
+
+                    <mat-form-field class="p-3 ">
+                        <mat-label>Organization Name</mat-label>
+                        <input matInput type="text" value="" id="eventOrganizationName" [value]="eventOrganizationName" formControlName="eventOrganizationName">
+                    </mat-form-field>
+        
+                    <mat-form-field class="p-3 form-group" appearance="fill">
+                        <mat-label>Event Classification</mat-label>
+                        <mat-select [disabled]="disableSelect.value" id="eventClassification" [value]="eventClassification" formControlName="eventClassification">
+                            <mat-option value="option1">Classification 1</mat-option>
+                            <mat-option value="option2">Classification 2</mat-option>
+                            <mat-option value="option3">Classification 3</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                    <mat-form-field class="p-3 ">
+                        <mat-label>Declassification Date</mat-label>
+                        <input matInput type="text" value="" id="eventDeclassificationDate" [value]="eventDeclassificationDate" formControlName="eventDeclassificationDate">
+                    </mat-form-field>
+        
+                    <mat-form-field class="p-3 ">
+                        <mat-label> Customer Name </mat-label>
+                        <input matInput type="text" value="" id="eventCustomer" [value]="eventCustomer" formControlName="eventCustomer">
+                    </mat-form-field>
+                </div>
+                
+            </mat-card>
+            <a class="nav-link">
+                <button mat-button class="bg-primary text-light" type="submit">Submit</button>
+            </a>
+        </mat-card>
+
+        
+    </mat-card>
+
+</form>

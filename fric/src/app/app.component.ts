@@ -1,6 +1,6 @@
 import { Component, NgModule, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormsModule, FormGroup} from '@angular/forms';
 
 import { NotificationModalComponent } from './notification-modal/notification-modal.component';
 import { AuthService } from './auth/auth.service';
@@ -13,14 +13,17 @@ import { AuthService } from './auth/auth.service';
 })
 export class AppComponent {
   // This is just to get rid of the red underline given by vscode
-  myForm = null;
-  otherForm = null;
+  myForm:FormGroup;
+  otherForm : FormGroup;
 
   title = 'Findings and Reportings Information Console';
   constructor( 
+    
     public matDialog: MatDialog,
     private authService: AuthService
-    ) { }
+    ) {
+      
+     }
 
   checkBoxClicked() {
     if((<HTMLInputElement> document.getElementById("ipInput")).disabled){
@@ -35,5 +38,6 @@ export class AppComponent {
       console.log("Done")
       console.log(response);
     });
+
   }
 }
