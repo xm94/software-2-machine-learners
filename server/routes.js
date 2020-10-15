@@ -1,67 +1,33 @@
 var express = require("express");
+var bodyParser = require('body-parser')
+var analysts = require("./dao/analysts");
+var transactionLogs = require("./dao/transactionLogs");
+var events = require("./dao/events");
 
 const router = express.Router();
+var jsonParser = bodyParser.json();
 
 // Set up dependencies as objects
 
 
 router.get("/", async function(req,res,next){
     console.log("Getting /");
-    try {
-        const items = await fric.find({});
-        res.json(items);
-    } catch (error){
-        next(error);
-    }
+    users = await analysts.getAll();
+    console.log(users)
+    res.send(users)
 });
 
 router.get("/ping", function(req, res, next){
-    try {
-        console.log("Getting ping try");
-        // const items = await fric.find({});
-        // res.json(items);
-        res.json("[]");
-        return;
-    } catch (error){
-        console.log("Getting ping error");
-        console.log("Error");
-        console.log(error);
-        res.write("ERROR from catch statement");
+    res.send("ping")
+});
+
+router.post("/login", jsonParser, async function(req, res){
+    console.log("Attempting to login with initials " + req.body.initials);
+    var user = await analysts.getFromInitials(req.body.initials);
+    if(user){
+        transactionLogs.insert({a_initials:req.body.initials,tl_action_performed: "Logged in", a_id:user.a_id});
     }
-});
-
-router.get("/login", (req, res) => {
-  console.log("Getting login");
-  res.send("ok");
-});
-
-router.post("/events", (req, res) => {
-    console.log("Posting events");
-    res.send("ok");
-});
-
-
-
-
-router.get('/findEvent/:id', async function(req, res, next){
-    console.log("Getting /findEvent{id}");
-
-});
-
-router.post("/putEvent", async function(req, res, next){
-    console.log("Posting /testPut");
-
-});
-
-router.put('/updateEvent/:id', async function(req, res, next){
-    console.log("Getting /update");
-
-})
-
-router.delete("/deleteEvent/:id", async function(req, res, next){
-    console.log("Deleting /delete");
-
-})
-
+    res.send(user);
+  });
 
 module.exports = router;
