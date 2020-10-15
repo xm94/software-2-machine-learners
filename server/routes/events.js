@@ -90,7 +90,13 @@ EventTeam.init({
 });
 
 
+exports.insert = async function insert(object){
+  var inserted = await Event.create(object);
+}
 
+exports.addTeamMember = async function addTeamMember(e_id,a_id){
+  var inserted = await EventTeam.create({e_id: e_id, a_id: a_id})
+}
 
 exports.initdb = async function initdb(){
     try {
