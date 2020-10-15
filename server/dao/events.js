@@ -92,10 +92,58 @@ EventTeam.init({
 
 exports.insert = async function insert(object){
   var inserted = await Event.create(object);
+  return inserted;
 }
 
 exports.addTeamMember = async function addTeamMember(e_id,a_id){
-  var inserted = await EventTeam.create({e_id: e_id, a_id: a_id})
+  var inserted = await EventTeam.create({e_id: e_id, a_id: a_id});
+  return inserted;
+}
+
+exports.getAll = async function getAll(){
+  const events = await Event.findAll();
+  return events;
+}
+
+exports.getFromId = async function getFromId(id){
+  var event = await Event.findAll({
+    where: {
+      e_id: id
+    }
+  });
+  return event[0];
+}
+
+exports.updateEvent = async function updateEvent(id,object){
+  var updatedEvent = await Event.update({
+    e_name: object.e_name,
+    e_description: object.e_description,
+    e_type: object.e_type,
+    e_version: object.e_version,
+    e_assessment_date: object.e_assessment_date,
+    e_org_name: object.e_org_name,
+    e_sec_class_title_guide: object.e_sec_class_title_guide,
+    e_classification: object.e_classification,
+    e_declassification_date: object.e_declassification_date,
+    e_customer: object.e_customer,
+    e_archived: object.e_archived
+  }, {
+    where: {
+      e_id: id
+    }
+  });
+  console.log("updateEvent objected");
+  console.log(updatedEvent);
+  return updatedEvent[0];
+}
+
+exports.archiveEvent = async function archiveEvent(id){
+  var archivedEvent = await Event.update({ e_archived: true}, {
+    where: {
+      e_id: id
+    }
+  });
+  return archivedEvent[0];
 }
 
 exports.initdb = async function initdb(){

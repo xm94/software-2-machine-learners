@@ -1,10 +1,10 @@
 var express = require("express");
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test'); // Example for postgres
-var analysts = require("./routes/analysts");
-var transactionLogs = require("./routes/transactionLogs");
-var events = require("./routes/events");
-var systems = require("./routes/systems");
+var analysts = require("./dao/analysts");
+var transactionLogs = require("./dao/transactionLogs");
+var events = require("./dao/events");
+var systems = require("./dao/systems");
 var app = express();
 
 
@@ -13,11 +13,16 @@ var app = express();
 // Set the port to 4000
 app.set("port", process.env.PORT || 4000);
 
-/** Setup routes variable to connect with the routes.js file */
+/** Setup routes*/
 var routes = require("./routes");
-const { Events } = require("pg");
-/** Include routes.js file */
+var systemRoutes = require("./routes/systemRoutes");
+var eventRoutes = require("./routes/eventRoutes");
+var tlRoutes = require("./routes/transactionLogRoutes");
 app.use(routes);
+app.use(systemRoutes);
+app.use(eventRoutes);
+app.use(tlRoutes);
+
 
 /** Allow app to make external requests */
 app.use(function (req, res, next){

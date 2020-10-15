@@ -35,6 +35,12 @@ System.init({
   tableName: 'systems'
 });
 
+exports.insert = async function insert(obj){
+  var inserted = await System.create(obj);
+  console.log("function finished");
+  return inserted;
+}
+
 exports.initdb = async function initdb(){
     try {
         await sequelize.authenticate();

@@ -40,6 +40,21 @@ TransactionLog.init({
 
 exports.insert = async function insert(object){
   var inserted = await TransactionLog.create(object);
+  return inserted;
+}
+
+exports.getAll = async function getAll(){
+  const tls = await TransactionLog.findAll();
+  return tls;
+}
+
+exports.getFromId = async function getFromId(id){
+  var tl = await TransactionLog.findAll({
+    where: {
+      tl_id: id
+    }
+  });
+  return tl[0];
 }
 
 exports.initdb = async function initdb(){
