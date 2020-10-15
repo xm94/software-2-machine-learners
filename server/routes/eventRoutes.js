@@ -1,6 +1,5 @@
 var express = require("express");
 var bodyParser = require('body-parser')
-var analysts = require("../dao/analysts");
 var transactionLogs = require("../dao/transactionLogs");
 var events = require("../dao/events");
 
@@ -33,6 +32,9 @@ router.get('/events/:id', async function(req, res, next){
 router.put("/events/", jsonParser, async function(req, res, next){
     console.log(req.body);
     var updatedEvent = await events.updateEvent(req.body.event.e_id,req.body.event);
+    if(updatedEvent){
+        transactionLogs.insert({a_initials:req.body.analyst.a_initials,tl_action_performed: "Updated Event", a_id:req.body.analyst.a_id});
+    }
     console.log("updated event response: " + updatedEvent);
     res.send(req.body.event);
 });
@@ -50,7 +52,7 @@ router.put('/events/archive', jsonParser, async function(req, res, next){
         var archivedEvent = await events.archiveEvent(req.body.event.e_id);
         console.log("event response " + archivedEvent);
         if(archivedEvent){
-            transactionLogs.insert({a_initials:req.body.analyst.initials,tl_action_performed: "Updated Event", a_id:req.body.analyst.a_id});
+            transactionLogs.insert({a_initials:req.body.analyst.initials,tl_action_performed: "Archived Event", a_id:req.body.analyst.a_id});
         }
         else{
             console.log("error ");

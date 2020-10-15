@@ -80,7 +80,7 @@ router.put('/systems/archive', jsonParser, async function(req, res, next){
         var archivedsystem = await systems.archivesystem(req.body.system.e_id);
         console.log("system response " + archivedsystem);
         if(archivedsystem){
-            transactionLogs.insert({a_initials:req.body.analyst.initials,tl_action_performed: "Updated system", a_id:req.body.analyst.a_id});
+            transactionLogs.insert({a_initials:req.body.analyst.initials,tl_action_performed: "Archived system", a_id:req.body.analyst.a_id});
         }
         else{
             console.log("error ");
