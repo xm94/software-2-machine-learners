@@ -58,8 +58,8 @@ router.get('/findEvent/:id', async function(req, res, next){
 });
 
 router.post("/putEvent", async function(req, res, next){
-    console.log("Posting /testPut");
-
+    console.log("Posting /putEvent");
+    console.log(req.json);
 });
 
 router.put('/updateEvent/:id', async function(req, res, next){

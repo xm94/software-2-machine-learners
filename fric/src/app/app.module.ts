@@ -32,6 +32,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import { NotificationModalComponent } from './notification-modal/notification-modal.component'
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
+import { AddEventComponent } from './add-event/add-event.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { MatTableModule } from '@angular/material/table';
     HelpComponent,
     NotificationModalComponent,
     EventdetailedComponent,
+    AddEventComponent,
   ],
   imports: [
     BrowserModule,

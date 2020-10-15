@@ -5,7 +5,10 @@
     <button mat-button>Save</button>
     <button mat-button>Cancel</button>
     <mat-card>
-        <button mat-button class="bg-primary text-light"> Add Event</button>
+        <a class="nav-link" routerLink="/add-event">
+          <button mat-button class="bg-primary text-light"> Add Event</button>
+        </a>
+        
         <table mat-table [dataSource]="dataSource" class="center mat-elevation-z8">
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->

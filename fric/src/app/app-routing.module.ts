@@ -10,6 +10,7 @@ import { SystemComponent } from './system/system.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { SubtasksComponent } from './subtasks/subtasks.component';
 import { EventdetailedComponent } from './eventdetailed/eventdetailed.component';
+import { AddEventComponent } from './add-event/add-event.component';
 
 
 
@@ -25,7 +26,8 @@ const routes: Routes = [
   {path: "configuration", component: ConfigurationComponent},
   {path: "setup", component: SetupComponent},
   {path: "help", component: HelpComponent},
-  {path: "eventdetailed", component: EventdetailedComponent}
+  {path: "eventdetailed", component: EventdetailedComponent},
+  {path: "add-event", component: AddEventComponent}
 ];
 
 @NgModule({
