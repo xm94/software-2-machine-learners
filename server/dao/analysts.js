@@ -59,6 +59,7 @@ AnalystTitle.init({
 exports.insert = async function insert(obj){
     var inserted = await Analyst.create(obj);
     console.log("function finished");
+    return inserted;
 }
 
 exports.getAll = async function getAll(){
@@ -73,6 +74,40 @@ exports.getFromInitials = async function getFromInitials(initials){
     }
   });
   return analyst[0];
+}
+
+exports.updateLeadStatus = async function updateLeadStatus(id,leadStatus){
+  var analystUpdate = await Analyst.update({
+    a_role: leadStatus ? "Lead Analyst" : "Analyst",
+  }, {
+    where: {
+      a_id: id
+    }
+  });
+  return analystUpdate[0];
+}
+
+exports.updateEvent = async function updateEvent(id,object){
+  var updatedEvent = await Event.update({
+    e_name: object.e_name,
+    e_description: object.e_description,
+    e_type: object.e_type,
+    e_version: object.e_version,
+    e_assessment_date: object.e_assessment_date,
+    e_org_name: object.e_org_name,
+    e_sec_class_title_guide: object.e_sec_class_title_guide,
+    e_classification: object.e_classification,
+    e_declassification_date: object.e_declassification_date,
+    e_customer: object.e_customer,
+    e_archived: object.e_archived
+  }, {
+    where: {
+      e_id: id
+    }
+  });
+  console.log("updateEvent objected");
+  console.log(updatedEvent);
+  return updatedEvent[0];
 }
 
 exports.initdb = async function initdb(){

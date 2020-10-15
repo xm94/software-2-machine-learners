@@ -29,7 +29,9 @@ export const PUT_REQUEST_OPTIONS = new Object({
   observe: 'response'
 });
 
-const BACKEND_URL = 'localhost:4000';
+const BACKEND_URL = 'http://localhost:4000';
+
+@Injectable()
 export class BackendServicesProxy {
     constructor(
         private readonly http: HttpClient,
