@@ -24,9 +24,12 @@ router.get("/ping", function(req, res, next){
 router.post("/login", jsonParser, async function(req, res){
     console.log("Attempting to login with initials " + req.body.initials);
     var user = await analysts.getFromInitials(req.body.initials);
-    if(user){
-        transactionLogs.insert({a_initials:req.body.initials,tl_action_performed: "Logged in", a_id:user.a_id});
+    var updated = await analysts.updateLeadStatus(user.a_id,req.body.lead);
+    var analystRole = req.body.lead ? "Lead Analyst" : "Analyst";
+    if(user && updated){
+        transactionLogs.insert({a_initials:req.body.initials,tl_action_performed: "Logged in as" + analystRole, a_id:user.a_id});
     }
+    user = await analysts.getFromInitials(req.body.initials);
     res.send(user);
   });
 
