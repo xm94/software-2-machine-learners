@@ -33,6 +33,7 @@ import { NotificationModalComponent } from './notification-modal/notification-mo
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { AddEventComponent } from './add-event/add-event.component';
+import { BackendServicesProxy } from './services/backend.service.proxy';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,7 @@ import { AddEventComponent } from './add-event/add-event.component';
     NotificationModalComponent,
   
  ],
-  providers: [],
+  providers: [BackendServicesProxy],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
