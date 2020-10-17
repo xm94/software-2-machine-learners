@@ -18,7 +18,7 @@ export class AnalystService {
 
   private setCurrentUser(response: HttpResponse<Object>){
     this._currentUser = response.body;
-
+    console.log(this._currentUser);
 
 
     return this.currentUser;
@@ -32,19 +32,23 @@ export class AnalystService {
   ) {}
 
 
-  login(login: string, pass: string): Observable<any> {
+  login(initials: string, lead: boolean): Observable<any> {
+    console.log("in login")
     const response: Observable<
       HttpResponse<Object>
-    > = this.backendServicesProxy.post('/auth/login', {
-      login,
-      password: pass
+    > = this.backendServicesProxy.post('/login', {
+      initials: initials,
+      lead: lead
     });
     response.subscribe(() => {
+      console.log("in subscribr")
       var redirectUrl = '/';
       // }
       this.router.navigateByUrl(redirectUrl);
     });
-
+    var test;
+    response.pipe(map(r => test=r));
+    console.log(test)
     return response.pipe(map(r => this.setCurrentUser(r)));
   }
 
