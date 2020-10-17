@@ -7,7 +7,27 @@ var events = require("./dao/events");
 var systems = require("./dao/systems");
 var app = express();
 
+const { networkInterfaces } = require('os');
 
+const nets = networkInterfaces();
+const results = {}; // or just '{}', an empty object
+
+for (const name of Object.keys(nets)) {
+    for (const net of nets[name]) {
+        if (net.family === 'IPv4') {
+            if (!results[name]) {
+                results[name] = [];
+            }
+
+            results[name].push(net.address);
+        }
+    }
+}
+
+
+require('dns').lookup(require('os').hostname(), function (err, add, fam) {
+    console.log('addr: '+add);
+  })
 
 /** Allow app to make external requests */
 app.use(function (req, res, next){
@@ -36,6 +56,9 @@ app.use(tlRoutes);
 /** Start local host */
 app.listen(app.get("port"),async function(){
     console.log("Server started on port " + app.get("port"));
+    console.log(results)
+    console.log(results["en0"][0])
+    console.log(nets)
     analysts.initdb();
     transactionLogs.initdb();
     events.initdb();
