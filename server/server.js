@@ -5,25 +5,9 @@ var analysts = require("./dao/analysts");
 var transactionLogs = require("./dao/transactionLogs");
 var events = require("./dao/events");
 var systems = require("./dao/systems");
+var tasks = require("./dao/tasks");
+var subtasks = require("./dao/subtasks");
 var app = express();
-
-const { networkInterfaces } = require('os');
-
-const nets = networkInterfaces();
-const results = {}; // or just '{}', an empty object
-
-for (const name of Object.keys(nets)) {
-    for (const net of nets[name]) {
-        if (net.family === 'IPv4') {
-            if (!results[name]) {
-                results[name] = [];
-            }
-
-            results[name].push(net.address);
-        }
-    }
-}
-
 
 require('dns').lookup(require('os').hostname(), function (err, add, fam) {
     console.log('addr: '+add);
@@ -50,17 +34,14 @@ app.use(systemRoutes);
 app.use(eventRoutes);
 app.use(tlRoutes);
 
-
-
-
 /** Start local host */
 app.listen(app.get("port"),async function(){
     console.log("Server started on port " + app.get("port"));
-    console.log(results)
-    console.log(results["en0"][0])
-    console.log(nets)
+    console.log("Initialzing tables");
     analysts.initdb();
     transactionLogs.initdb();
     events.initdb();
     systems.initdb();
+    tasks.initdb();
+    subtasks.initdb();
 });

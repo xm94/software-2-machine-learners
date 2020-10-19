@@ -63,14 +63,12 @@ exports.initdb = async function initdb(){
         console.log('Connection has been established successfully.');
           (async () => {
             await sequelize.sync({force:true});
-            
-            const action = await TransactionLog.create({a_initials:"XM",tl_action_performed: "Created a task", a_id:"2d438a24-cde2-4488-bcec-f1d2e24c4403"});
-            //const xavier = await Analyst.create({ u_initials: "xm", u_ip: "4354353" , u_is_lead:true});
+                        //const xavier = await Analyst.create({ u_initials: "xm", u_ip: "4354353" , u_is_lead:true});
             //const erik = await Analyst.create({ u_initials: "er", u_ip: "123213" , u_is_lead: false});
             //const users = await Analyst.findAll();
             //console.log(users.every(user => user instanceof Analyst)); // true
             //console.log("All users:", JSON.stringify(users, null, 2));
-            console.log("Synced transaction logs");
+            //console.log("Synced transaction logs");
           })();
       } catch (error) {
         console.error('Unable to connect to the database:', error);

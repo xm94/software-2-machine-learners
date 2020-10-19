@@ -24,6 +24,23 @@ System.init({
     allowNull: false
     // allowNull defaults to true
   },
+  s_confidentiality: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  s_integrity: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  s_availability: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  e_id: {
+    type: DataTypes.UUID,
+    allowNull: false
+    // allowNull defaults to true
+  },
   s_archived: {
     type: DataTypes.BOOLEAN,
     allowNull: false
@@ -53,7 +70,7 @@ exports.initdb = async function initdb(){
             //const users = await System.findAll();
             //console.log(users.every(user => user instanceof System)); // true
             //console.log("All users:", JSON.stringify(users, null, 2));
-            console.log("Synced Systems");
+            //console.log("Synced Systems");
           })();
       } catch (error) {
         console.error('Unable to connect to the database:', error);
