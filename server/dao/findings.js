@@ -335,16 +335,7 @@ function getImpactScore(c,i,a){
     h = (c=="H"?1:0) + (i=="H"?1:0) + (a=="H"?1:0);
     m = (c=="M"?1:0) + (i=="M"?1:0) + (a=="M"?1:0);
     l = (c=="L"?1:0) + (i=="L"?1:0) + (a=="L"?1:0);
-    if(h=0){
-        if(m=0){
-            if(l=0){
-                return 0;
-            }
-            return impact_score_table.get({level:"L",impacted:l});
-        }
-        return impact_score_table.get({level:"M",impacted:m});
-    }
-    return impact_score_table.get({level:"H",impacted:h});
+    return h==0? m==0? l==0? 0 : impact_score_table.get({level:"L",impacted:l}) : impact_score_table.get({level:"M",impacted:m}) : impact_score_table.get({level:"H",impacted:h});
 }
 
 function getQuantativeVulnerabilitySeverity(vuln_severity){
@@ -365,6 +356,7 @@ function getQuantativeVulnerabilitySeverity(vuln_severity){
 }
 
 exports.insert = async function insert(object,a_id){
+    const t = await sequelize.transaction();
     //calculating derived fields
     var system = systems.getFromId(object.s_id);
     var c_impact = object.f_confidentiality? (system.s_confidentiality=="Informational"? "X" : system.s_confidentiality) : "X";
@@ -413,9 +405,11 @@ exports.insert = async function insert(object,a_id){
         f_level:object.f_level,
         f_archived:object.f_archived
     });
+    await t.commit();
     return inserted;
     }
     catch (error){
+        await t.rollback();
         return error
     } 
   }
