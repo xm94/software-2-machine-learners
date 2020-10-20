@@ -243,6 +243,94 @@ Finding.init({
   tableName: 'findings'
 });
 
+class FindingMitigation extends Model {}
+FindingMitigation.init({
+  // Model attributes are defined here
+  m_id: {
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4, // Or Sequelize.UUIDV1
+    primaryKey: true
+  },
+  m_brief_description: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  m_brief_description: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  f_id: {
+    type: DataTypes.UUID,
+    primaryKey: true
+  }
+}, {
+  // Other model options go here
+  sequelize, // We need to pass the connection instance
+  modelName: 'FindingMitigation', // We need to choose the model name
+  tableName: 'finding_mitigation'
+});
+
+class FindingEvidence extends Model {}
+FindingEvidence.init({
+  // Model attributes are defined here
+  fe_id: {
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4, // Or Sequelize.UUIDV1
+    primaryKey: true
+  },
+  f_id: {
+    type: DataTypes.UUID,
+    primaryKey: true
+  },
+  f_evidence: {
+    type: DataTypes.BLOB,
+    allowNull: false
+  }
+}, {
+  // Other model options go here
+  sequelize, // We need to pass the connection instance
+  modelName: 'FindingEvidence', // We need to choose the model name
+  tableName: 'finding_evidence'
+});
+
+
+class FindingCollaborator extends Model {}
+FindingCollaborator.init({
+  // Model attributes are defined here
+  f_id: {
+    type: DataTypes.UUID,
+    primaryKey: true
+  },
+  a_id: {
+    type: DataTypes.UUID,
+    primaryKey: true
+  }
+}, {
+  // Other model options go here
+  sequelize, // We need to pass the connection instance
+  modelName: 'FindingCollaborator', // We need to choose the model name
+  tableName: 'finding_collaborator'
+});
+
+class FindingAssociation extends Model {}
+FindingAssociation.init({
+  // Model attributes are defined here
+  f_id: {
+    type: DataTypes.UUID,
+    primaryKey: true
+  },
+  assoc_t_id: {
+    type: DataTypes.UUID,
+    primaryKey: true
+  }
+}, {
+  // Other model options go here
+  sequelize, // We need to pass the connection instance
+  modelName: 'FindingAssociation', // We need to choose the model name
+  tableName: 'finding_association'
+});
+
+
 function getImpactScore(c,i,a){
     h = (c=="H"?1:0) + (i=="H"?1:0) + (a=="H"?1:0);
     m = (c=="M"?1:0) + (i=="M"?1:0) + (a=="M"?1:0);
@@ -277,7 +365,7 @@ function getQuantativeVulnerabilitySeverity(vuln_severity){
 }
 
 exports.insert = async function insert(object,a_id){
-    //object has no derived fields
+    //calculating derived fields
     var system = systems.getFromId(object.s_id);
     var c_impact = object.f_confidentiality? (system.s_confidentiality=="Informational"? "X" : system.s_confidentiality) : "X";
     var i_impact = object.f_integrity? (system.s_integrity=="Informational"? "X" : s_integrity) : "X";
@@ -288,6 +376,8 @@ exports.insert = async function insert(object,a_id){
     var quant_vuln_severity = getQuantativeVulnerabilitySeverity(vuln_severity);
     var likelihood = likelihood_table.get({threat_relevance:object.f_relevance,quant_vuln_severity:quant_vuln_severity});
     var risk = risk_table.get({likelihood:likelihood,impact:object.f_impact_level});
+    //creating the object with both sent and derived data
+    try{
     var inserted = await Event.create({
         f_name:object.f_name,
         f_host_name:object.f_host_name,
@@ -324,6 +414,10 @@ exports.insert = async function insert(object,a_id){
         f_archived:object.f_archived
     });
     return inserted;
+    }
+    catch (error){
+        return error
+    } 
   }
 
 

@@ -70,7 +70,7 @@ SubTaskAttachment.init({
   },
   st_attachment: {
     type: DataTypes.BLOB,
-    primaryKey: true
+    allowNull: false
   }
 }, {
   // Other model options go here
