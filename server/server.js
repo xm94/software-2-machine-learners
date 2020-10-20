@@ -7,6 +7,7 @@ var events = require("./dao/events");
 var systems = require("./dao/systems");
 var tasks = require("./dao/tasks");
 var subtasks = require("./dao/subtasks");
+var findings = require("./dao/findings");
 var app = express();
 
 require('dns').lookup(require('os').hostname(), function (err, add, fam) {
@@ -44,4 +45,5 @@ app.listen(app.get("port"),async function(){
     systems.initdb();
     tasks.initdb();
     subtasks.initdb();
+    findings.initdb();
 });

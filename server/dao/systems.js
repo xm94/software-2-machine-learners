@@ -58,6 +58,15 @@ exports.insert = async function insert(obj){
   return inserted;
 }
 
+exports.getFromId = async function getFromId(id){
+  var system = await System.findAll({
+    where: {
+      s_id: id
+    }
+  });
+  return system[0];
+}
+
 exports.initdb = async function initdb(){
     try {
         await sequelize.authenticate();
