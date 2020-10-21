@@ -33,15 +33,6 @@
     "archived":"boolean"
 },
 {
-    "assoc":"other finding - other table",
-}
-{
-    "evidence":"media - other table",
-}
-{
-    "collabs":"aid - other table",
-}
-{
     "mitigation - short":"other table",
     "mitigatmion - long":"other table",
 }
