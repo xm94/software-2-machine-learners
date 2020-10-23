@@ -1,0 +1,43 @@
+{
+	"finding":{ 
+		"f_name":"Test Finding",
+		"f_host_name":"test",
+		"f_ip_port":"0.0.0.0",
+		"f_description":"A Test Finding",
+		"f_long_description":"A Finding created for the purpose of testing",
+		"f_status":"OPEN",
+		"f_type":"INFORMATIONAL",
+		"f_classification":"",
+		"f_confidentiality":"INFO",
+		"f_integrity":"INFO",
+		"f_availability":"INFO",
+		"f_posture":"nearsider",
+		"f_relevance":"very",
+		"f_countermeasure_effectiveness_rating":"",
+		"f_countermeasure_effectiveness_score":"",
+		"f_impact_desc":"",
+		"f_impact_level":"",
+		"f_cat_code":"VH",
+		"s_id":"",
+		"t_id":"",
+		"st_id":"",
+		"f_level":"st",
+		"f_archived":false,
+		"f_mitigations":[
+			{
+				"m_brief_description":"brief",
+				"m_long_description":"long"
+			},
+			{
+				"m_brief_description":"",
+				"m_long_description":""
+			}],
+		"f_evidence":["blah","bleh"],
+		"f_collaborators":["a","b"],
+		"f_associations":["abc"]
+	},
+    "analyst":{
+    	"a_initials":"ZV",
+    	"a_id":"88f44655-39d3-4e54-a798-a8cc73d53a4e"
+    }
+}

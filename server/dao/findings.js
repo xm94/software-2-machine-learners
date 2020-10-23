@@ -170,7 +170,7 @@ FindingMitigation.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  m_brief_description: {
+  m_long_description: {
     type: DataTypes.STRING,
     allowNull: false
   },
@@ -233,7 +233,7 @@ FindingAssociation.init({
     type: DataTypes.UUID,
     primaryKey: true
   },
-  assoc_t_id: {
+  assoc_f_id: {
     type: DataTypes.UUID,
     primaryKey: true
   }
@@ -244,9 +244,13 @@ FindingAssociation.init({
   tableName: 'finding_association'
 });
 
-exports.insert = async function insert(object,a_id,mitigations,evidence,collaborators,associations){
+exports.insert = async function insert(object,a_id){
     const t = await sequelize.transaction();
     //calculating derived fields
+    var mitigations = object.f_mitigations;
+    var evidence = object.f_evidence;
+    var collaborators = object.f_collaborators;
+    var associations = object.f_associations;
     var system = systems.getFromId(object.s_id);
     var c_impact = object.f_confidentiality? (system.s_confidentiality=="Informational"? "X" : system.s_confidentiality) : "X";
     var i_impact = object.f_integrity? (system.s_integrity=="Informational"? "X" : s_integrity) : "X";
@@ -259,7 +263,7 @@ exports.insert = async function insert(object,a_id,mitigations,evidence,collabor
     var risk = fUtils.computeRisk(likelihood,object.f_impact_level);
     //creating the object with both sent and derived data
     try{
-        var inserted = await Event.create({
+        var inserted = await Finding.create({
             f_name:object.f_name,
             f_host_name:object.f_host_name,
             f_ip_port:object.f_ip_port,
@@ -295,7 +299,34 @@ exports.insert = async function insert(object,a_id,mitigations,evidence,collabor
             f_archived:object.f_archived
         });
         for(m in mitigations){
-
+            //each mitiation in form of short long
+            var inserted_m = await FindingMitigation.create({
+                m_brief_description: m.m_brief_description,
+                m_long_description: m.m_long_description,
+                f_id: inserted.f_id
+            });
+        }
+        for(e in evidence){
+            var inserted_e = await FindingEvidence.create({
+                f_id: inserted.f_id,
+                f_evidence: e
+            })
+        }
+        for(c in collaborators){
+             var inserted_c = await FindingCollaborator.create({
+                 f_id: inserted.f_id,
+                 a_id: c
+             });
+        }
+        for(a in associations){
+            var f1_to_f2 = await FindingAssociation.create({
+                f_id: inserted.f_id,
+                assoc_f_id: a
+            });
+            var f2_to_f1 = await FindingAssociation.create({
+                f_id: a,
+                assoc_f_id: inserted.f_id,
+            });
         }
         await t.commit();
         //rebuild finding with all fields as response
@@ -313,7 +344,7 @@ exports.initdb = async function initdb(){
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
           (async () => {
-            await sequelize.sync();
+            await sequelize.sync({ force: true });
           })();
       } catch (error) {
         console.error('Unable to connect to the database:', error);
