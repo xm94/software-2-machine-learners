@@ -251,14 +251,22 @@ exports.insert = async function insert(object,a_id){
     var evidence = object.f_evidence;
     var collaborators = object.f_collaborators;
     var associations = object.f_associations;
-    var system = systems.getFromId(object.s_id);
+    var system = await systems.getFromId(object.s_id);
+    console.log("blah blah blah");
     var c_impact = object.f_confidentiality? (system.s_confidentiality=="Informational"? "X" : system.s_confidentiality) : "X";
-    var i_impact = object.f_integrity? (system.s_integrity=="Informational"? "X" : s_integrity) : "X";
+    console.log(c_impact)
+    var i_impact = object.f_integrity? (system.s_integrity=="Informational"? "X" : system.s_integrity) : "X";
+    console.log(i_impact)
     var a_impact = object.f_availability? (system.s_availability=="Informational"? "X" : system.s_availability) : "X";
+    console.log(a_impact)
     var cat_score = fUtils.computeCATScore(object.f_cat_code);
+    console.log(cat_score)
     var impact_score = fUtils.computeImpactScore(c_impact,i_impact,a_impact);
+    console.log("impact score:" + impact_score);
     var vuln_severity = (cat_score * object.f_countermeasure_effectiveness_score * impact_score)/10;
+    console.log("vuln sev:"+vuln_severity);
     var quant_vuln_severity = fUtils.computeQuantativeVulnerabilitySeverity(vuln_severity);
+    console.log("quant vs" + quant_vuln_severity)
     var likelihood = fUtils.computeLikelihood(object.f_relevance,quant_vuln_severity);
     var risk = fUtils.computeRisk(likelihood,object.f_impact_level);
     //creating the object with both sent and derived data
@@ -298,7 +306,7 @@ exports.insert = async function insert(object,a_id){
             f_level:object.f_level,
             f_archived:object.f_archived
         });
-        for(m in mitigations){
+        for(m of mitigations){
             //each mitiation in form of short long
             var inserted_m = await FindingMitigation.create({
                 m_brief_description: m.m_brief_description,
@@ -306,13 +314,13 @@ exports.insert = async function insert(object,a_id){
                 f_id: inserted.f_id
             });
         }
-        for(e in evidence){
+        for(e of evidence){
             var inserted_e = await FindingEvidence.create({
                 f_id: inserted.f_id,
                 f_evidence: e
             })
         }
-        for(c in collaborators){
+        for(c of collaborators){
              var inserted_c = await FindingCollaborator.create({
                  f_id: inserted.f_id,
                  a_id: c
@@ -334,6 +342,7 @@ exports.insert = async function insert(object,a_id){
     }
     catch (error){
         await t.rollback();
+        console.log(error);
         return error
     } 
   }

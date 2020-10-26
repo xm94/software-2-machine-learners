@@ -37,6 +37,7 @@ app.use(routes);
 app.use(systemRoutes);
 app.use(eventRoutes);
 app.use(tlRoutes);
+app.use(findingRoutes);
 
 /** Start local host */
 app.listen(app.get("port"),async function(){
