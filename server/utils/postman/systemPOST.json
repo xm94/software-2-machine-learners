@@ -1,0 +1,17 @@
+{
+	"system":{ 
+        "s_id": "9cc5d5d9-af5f-46d7-b7e8-08b9f9fb23cc",
+		"s_name":"a",
+		"s_description":"a test system",
+		"s_test_plan":"plan b",
+		"s_confidentiality":"H",
+		"s_integrity":"H",
+		"s_availability":"H",
+		"e_id": "4896b5e9-8c76-4652-8e58-68b32f43c4ea",
+		"s_archived": false
+	},
+    "analyst":{
+    	"a_initials":"ZV",
+    	"a_id":"88f44655-39d3-4e54-a798-a8cc73d53a4e"
+    }
+}

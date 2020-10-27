@@ -11,6 +11,8 @@ var jsonParser = bodyParser.json();
 const nets = networkInterfaces();
 const results = {};
 
+const tables = ["analysts","events","transactionlogs"];
+
 for (const name of Object.keys(nets)) {
     for (const net of nets[name]) {
         if (net.family === 'IPv4') {
@@ -22,6 +24,7 @@ for (const name of Object.keys(nets)) {
         }
     }
 }
+
 
 router.get("/", async function(req,res,next){
     console.log("Getting /");
@@ -46,5 +49,12 @@ router.post("/login", jsonParser, async function(req, res){
     user = await analysts.getFromInitials(req.body.initials);
     res.send(user);
   });
+
+
+  router.get("/table", async function(req, res){
+      var table = {};
+      table["analysts"]=await analysts.getAll();
+      res.send(table);
+  })
 
 module.exports = router;
