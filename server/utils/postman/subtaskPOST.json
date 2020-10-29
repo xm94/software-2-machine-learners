@@ -1,0 +1,22 @@
+{
+	"subtask":{
+		"st_id": "c8bf54e3-81f7-4cb7-b202-aff134c07fa5",
+	    "t_id": "f925a3ed-48d6-45d7-b76d-b5a3395d563e",
+	    "st_name": "a",
+	    "st_description": "task descrdaiption",
+	    "st_priority": "H",
+	    "st_progress": "Not Started",
+	    "st_due_date": "2020-10-13",
+	    "s_id": "9cc5d5d9-af5f-46d7-b7e8-08b9f9fb23cc",
+	    "a_id": "88f44655-39d3-4e54-a798-a8cc73d53a4e",
+	    "st_archived": false,
+	    "st_attachments": ["blah","bleach"],
+	    "st_collaborators": [],
+	    "st_associations": []
+},
+    "analyst":{
+    	"a_initials":"ZV",
+    	"a_id":"88f44655-39d3-4e54-a798-a8cc73d53a4e"
+    },
+    "st_id": "c8bf54e3-81f7-4cb7-b202-aff134c07fa5"
+}
