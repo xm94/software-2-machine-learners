@@ -117,7 +117,7 @@ exports.getAll = async function getAll(){
 }
 
 async function getAttachments(t_id){
-  var attachments = await SubTaskAttachment.findAll({
+  var attachments = await TaskAttachment.findAll({
     where: {
       t_id: t_id
     }
@@ -135,7 +135,7 @@ async function getCollaborators(t_id){
 }
 
 async function getAssociations(t_id){
-  var associations = await SubTaskAssociation.findAll({
+  var associations = await TaskAssociation.findAll({
     where: {
       t_id: t_id
     }
@@ -163,11 +163,12 @@ exports.insert = async function insert(object){
   var associations = object.t_associations;
   try{
     var inserted = await Task.create({
-      t_name: object.st_name,
-      t_description: object.st_description,
-      t_priority: object.st_priority,
-      t_progress: object.st_progress,
-      t_due_date: object.st_due_date,
+      t_id: object.t_id,
+      t_name: object.t_name,
+      t_description: object.t_description,
+      t_priority: object.t_priority,
+      t_progress: object.t_progress,
+      t_due_date: object.t_due_date,
       s_id: object.s_id,
       a_id: object.a_id,
       t_archived: object.t_archived
@@ -185,11 +186,11 @@ exports.insert = async function insert(object){
       });
     }
     for(a of associations){
-      var st1_to_st2 = await SubTaskAssociation.create({
+      var st1_to_st2 = await TaskAssociation.create({
         t_id: inserted.t_id,
         assoc_t_id: a
       });
-      var st2_to_st1 = await SubTaskAssociation.create({
+      var st2_to_st1 = await TaskAssociation.create({
         t_id: a,
         assoc_t_id: inserted.t_id
       });
@@ -203,19 +204,21 @@ exports.insert = async function insert(object){
   }
   catch(error){
     await t.rollback();
+    console.log(error);
     return error;
   }
 }
 exports.update = async function update(object){
   const t = await sequelize.transaction();
-  var newAttach = object.new_attachments;
-  var delAttach = object.del_attachments;
-  var newCollab = object.new_collaborations;
-  var delCollab = object.del_collaborations;
-  var newAssoc = object.new_associations;
-  var delAssoc = object.del_associations;
+  var delAttach = object.del_attachments ? object.del_attachments : [];
+  var newAttach = object.new_attachments ? object.new_attachments : [];
+  var delCollab = object.del_collaborators ? object.del_collaborators : [];
+  var newCollab = object.new_collaborators ? object.new_collaborators : [];
+  var delAssoc = object.del_associations ? object.del_associations : [];
+  var newAssoc = object.new_associations ? object.new_associations : [];
   try{
     var updatedtask = await Task.update({
+      t_id: object.t_id,
       t_name: object.t_name,
       t_description: object.t_description,
       t_priority: object.t_priority,
@@ -280,7 +283,7 @@ exports.update = async function update(object){
     }
     var task = await Task.findAll({
       where: {
-        t_id: t_id
+        t_id: object.t_id
       }
     });
     var res = subtask[0].toJSON();
@@ -292,6 +295,7 @@ exports.update = async function update(object){
   }
   catch(error){
     await t.rollback();
+    console.log(error);
     return error;
   }
 }

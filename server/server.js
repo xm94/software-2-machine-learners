@@ -38,6 +38,8 @@ app.use(systemRoutes);
 app.use(eventRoutes);
 app.use(tlRoutes);
 app.use(findingRoutes);
+app.use(taskRoutes);
+app.use(subtaskRoutes);
 
 /** Start local host */
 app.listen(app.get("port"),async function(){
@@ -50,4 +52,5 @@ app.listen(app.get("port"),async function(){
     tasks.initdb();
     subtasks.initdb();
     findings.initdb();
+    console.log()
 });

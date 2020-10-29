@@ -169,6 +169,7 @@ exports.insert = async function insert(object){
   var associations = object.st_associations;
   try{
     var inserted = await SubTask.create({
+      st_id: object.st_id,
       st_name: object.st_name,
       st_description: object.st_description,
       st_priority: object.st_priority,
@@ -215,12 +216,12 @@ exports.insert = async function insert(object){
 }
 exports.update = async function update(object){
   const t = await sequelize.transaction();
-  var newAttach = object.new_attachments;
-  var delAttach = object.del_attachments;
-  var newCollab = object.new_collaborations;
-  var delCollab = object.del_collaborations;
-  var newAssoc = object.new_associations;
-  var delAssoc = object.del_associations;
+  var delAttach = object.del_attachments ? object.del_attachments : [];
+  var newAttach = object.new_attachments ? object.new_attachments : [];
+  var delCollab = object.del_collaborators ? object.del_collaborators : [];
+  var newCollab = object.new_collaborators ? object.new_collaborators : [];
+  var delAssoc = object.del_associations ? object.del_associations : [];
+  var newAssoc = object.new_associations ? object.new_associations : [];
   try{
     var updatedSubtask = await SubTask.update({
       st_name: object.st_name,
@@ -231,7 +232,7 @@ exports.update = async function update(object){
       s_id: object.s_id,
       t_id: object.t_id,
       a_id: object.a_id,
-      st_archived: st_archived
+      st_archived: object.st_archived
     },{
       where: {
         st_id: object.st_id
@@ -289,7 +290,7 @@ exports.update = async function update(object){
     }
     var subtask = await SubTask.findAll({
       where: {
-        st_id: st_id
+        st_id: object.st_id
       }
     });
     var res = subtask[0].toJSON();
@@ -301,6 +302,7 @@ exports.update = async function update(object){
   }
   catch(error){
     await t.rollback();
+    console.log(error);
     return error;
   }
 }
@@ -329,7 +331,7 @@ exports.archive = async function archive(st_id){
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
           (async () => {
-            await sequelize.sync();
+            await sequelize.sync({force:true});
           })();
       } catch (error) {
         console.error('Unable to connect to the database:', error);

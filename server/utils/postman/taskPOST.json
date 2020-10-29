@@ -1,0 +1,21 @@
+{
+	"task":{
+	    "t_id": "f925a3ed-48d6-45d7-b76d-b5a3395d563e",
+	    "t_name": "a",
+	    "t_description": "task description",
+	    "t_priority": "H",
+	    "t_progress": "Not Started",
+	    "t_due_date": "2020-10-13",
+	    "s_id": "9cc5d5d9-af5f-46d7-b7e8-08b9f9fb23cc",
+	    "a_id": "88f44655-39d3-4e54-a798-a8cc73d53a4e",
+	    "t_archived": false,
+	    "t_attachments": ["blah","bleach"],
+	    "t_collaborators": [],
+	    "t_associations": []
+},
+    "analyst":{
+    	"a_initials":"ZV",
+    	"a_id":"88f44655-39d3-4e54-a798-a8cc73d53a4e"
+    },
+    "f_id":"c4ec813b-c08b-4e65-9480-5d9b5660c790"
+}
