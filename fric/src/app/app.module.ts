@@ -34,6 +34,7 @@ import { MatTableModule } from '@angular/material/table';
 import { AddEventComponent } from './add-event/add-event.component';
 import { BackendServicesProxy } from './services/backend.service.proxy';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { FindingComponent } from './finding/finding.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
     EventdetailedComponent,
     AddEventComponent,
     AddTaskComponent,
+    FindingComponent,
   ],
   imports: [
     BrowserModule,
