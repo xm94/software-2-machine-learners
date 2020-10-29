@@ -21,7 +21,7 @@ router.get('/tasks/:id', async function(req, res, next){
 router.post("/tasks",jsonParser, async function(req, res){
     // req.body.event.e_archived = false;
     console.log(req.body);
-    console.log("Attempting to create finding ");
+    console.log("Attempting to insert a task ");
     // req.body.event.e_assessment_date = new Date();
     // req.body.event.e_declassification_date = new Date();
     // req.body.analyst.a_initials = "EM"
