@@ -180,8 +180,6 @@ exports.initdb = async function initdb(){
             // const users = await EventTeam.findAll();
             // console.log(users.every(user => user instanceof EventTeam)); // true
             // console.log("All users:", JSON.stringify(users, null, 2));
-            console.log("Synced EventTeams");
-            transactionLogs.insert({a_initials:"XM",tl_action_performed: "Initialized Table", a_id:"2d438a24-cde2-4488-bcec-f1d2e24c4403"})
           })();
       } catch (error) {
         console.error('Unable to connect to the database:', error);

@@ -1,0 +1,44 @@
+{
+	"finding":{ 
+		"f_id": "7dac4e78-8f1c-4ecb-b39e-1fbd54a13b6d",
+		"f_name":"a",
+		"f_host_name":"b",
+		"f_ip_port":"0.0.0.0",
+		"f_description":"finding description",
+		"f_long_description":"a longer finding description",
+		"f_status":"Open",
+		"f_type":"Lack of Authentication,",
+		"f_classification":"Vulnerability",
+		"f_confidentiality":"Y",
+		"f_integrity":"Y",
+		"f_availability":"Y",
+		"f_posture":"Nearsider",
+		"f_relevance":"Expected",
+		"f_countermeasure_effectiveness_rating":"High",
+		"f_countermeasure_effectiveness_score":"8",
+		"f_impact_desc":"here's an impact description",
+		"f_impact_level":"VH",
+		"f_cat_code":"CAT II",
+		"s_id":"9cc5d5d9-af5f-46d7-b7e8-08b9f9fb23cc",
+		"t_id":"9cc5d5d9-af5f-46d7-b7e8-08b9f9fb23cc",
+		"st_id":"9cc5d5d9-af5f-46d7-b7e8-08b9f9fb23cc",
+		"f_level":"system",
+		"f_archived":false,
+		"f_mitigations":[
+			{
+				"m_brief_description":"first",
+				"m_long_description":"first mitigation"
+			},
+			{
+				"m_brief_description":"second",
+				"m_long_description":"second mitigation"
+			}],
+		"f_evidence":["blah","bleh"],
+		"f_collaborators":[],
+		"f_associations":[]
+	},
+    "analyst":{
+    	"a_initials":"ZV",
+    	"a_id":"88f44655-39d3-4e54-a798-a8cc73d53a4e"
+    }
+}
