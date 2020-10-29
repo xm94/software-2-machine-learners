@@ -58,6 +58,10 @@ exports.insert = async function insert(obj){
   return inserted;
 }
 
+exports.update = async function update(obj){
+  
+}
+
 exports.getFromId = async function getFromId(id){
   var system = await System.findAll({
     where: {

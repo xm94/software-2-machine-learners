@@ -31,5 +31,38 @@ router.post("/findings",jsonParser, async function(req, res){
     res.status(200).send(finding);
 });
 
+router.put("/findings", jsonParser, async function(req,res){
+    console.log(req.body);
+    console.log("Attempting to create finding ");
+    // req.body.event.e_assessment_date = new Date();
+    // req.body.event.e_declassification_date = new Date();
+    // req.body.analyst.a_initials = "EM"
+    // var event = await events.insert(req.body.event);
+    var finding = await findings.update(req.body.finding);
+    
+    // if(event){
+    //     var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);
+    //     transactionLogs.insert({a_initials:req.body.analyst.a_initials,tl_action_performed: "Created New Event", a_id:req.body.analyst.a_id});
+    // }
+    // res.send(event);
+    res.status(200).send(finding);
+});
+
+router.post("/findings/archive", jsonParser, async function(req,res){
+    // req.body.event.e_archived = false;
+    console.log(req.body);
+    console.log("Attempting to archive finding ");
+    // req.body.event.e_assessment_date = new Date();
+    // req.body.event.e_declassification_date = new Date();
+    // req.body.analyst.a_initials = "EM"
+    // var event = await events.insert(req.body.event);
+    var finding = await findings.archive(req.body.f_id);
+    // if(event){
+    //     var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);
+    //     transactionLogs.insert({a_initials:req.body.analyst.a_initials,tl_action_performed: "Created New Event", a_id:req.body.analyst.a_id});
+    // }
+    // res.send(event);
+    res.status(200).send(finding);
+});
 
 module.exports = router;
