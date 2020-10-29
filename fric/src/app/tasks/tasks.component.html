@@ -17,12 +17,12 @@
     
             </div>
             <div class="form-inline">
-                <div class="form-column p-3">
+                <div class="form-column p-5">
                     <table mat-table [dataSource]="dataSource" class="center mat-elevation-z8">
                         <!--- Note that these columns can be defined in any order.
                             The actual rendered columns are set as a property on the row definition" -->
                         <!-- select Column -->
-                        <ng-container matColumnDef="checkbox">
+                        <ng-container class="form-column p-5"matColumnDef="checkbox">
                             <th mat-header-cell *matHeaderCellDef> Select</th>
                             <td mat-cell *matCellDef="let element"> <mat-checkbox></mat-checkbox></td>
                         </ng-container>
@@ -54,13 +54,13 @@
                         <!-- system Column -->
                         <ng-container matColumnDef="system">
                             <th mat-header-cell *matHeaderCellDef> System <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon> </th>
-                            <td mat-cell *matCellDef="let element"> {{element.system}}% </td>
+                            <td mat-cell *matCellDef="let element"> {{element.system}} </td>
                         </ng-container>
 
                         <!-- priority column -->
                         <ng-container matColumnDef="priority">
                             <th mat-header-cell *matHeaderCellDef> Priority <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon> </th>
-                            <td mat-cell *matCellDef="let element"> {{element.priority}}% </td>
+                            <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
                         </ng-container>
 
                         <!-- progress column -->

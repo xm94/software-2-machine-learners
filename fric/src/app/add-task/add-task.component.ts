@@ -48,7 +48,7 @@ export class AddTaskComponent implements OnInit {
       }
     }
     // FIXME this is wrong, but works for now
-    objToSend.task.a_id = "88f44655-39d3-4e54-a798-a8cc73d53a4e"
+    objToSend.task.a_id = "XM"
     objToSend.task.s_id = objToSend.task.a_id = "88f44655-39d3-4e54-a798-a8cc73d53a4e";
     objToSend.task.t_archived = false;
 
