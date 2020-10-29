@@ -33,6 +33,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { AddEventComponent } from './add-event/add-event.component';
 import { BackendServicesProxy } from './services/backend.service.proxy';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { BackendServicesProxy } from './services/backend.service.proxy';
     NotificationModalComponent,
     EventdetailedComponent,
     AddEventComponent,
+    AddTaskComponent,
   ],
   imports: [
     BrowserModule,
