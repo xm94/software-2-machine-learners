@@ -1,5 +1,5 @@
 var express = require("express");
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes, Model, col } = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
 
 class SubTask extends Model {}
@@ -117,6 +117,212 @@ SubTaskAssociation.init({
   tableName: 'subtask_association'
 });
 
+exports.getAll = async function getAll(){
+  var subtasks = await SubTask.findAll();
+  return subtasks;
+}
+
+async function getAttachments(st_id){
+  var attachments = await SubTaskAttachment.findAll({
+    where: {
+      st_id: st_id
+    }
+  });
+  return attachments;
+}
+
+async function getCollaborators(st_id){
+  var collaborators = await SubTaskCollaborator.findAll({
+    where: {
+      st_id: st_id
+    }
+  });
+  return collaborators;
+}
+
+async function getAssociations(st_id){
+  var associations = await SubTaskAssociation.findAll({
+    where: {
+      st_id: st_id
+    }
+  });
+  return associations;
+}
+
+exports.getFromId = async function getFromId(st_id){
+  var subtask = await SubTask.findAll({
+    where: {
+      st_id: st_id
+    }
+  });
+  var res = subtask[0].toJSON();
+  res["st_attachments"] = await getAttachments(st_id);
+  res["st_collaborators"] = await getCollaborators(st_id);
+  res["st_associations"] = await getAssociations(st_id);
+  return res;
+}
+
+exports.insert = async function insert(object){
+  const t = await sequelize.transaction();
+  var attachments = object.st_attachments;
+  var collaborators = object.st_collaborators;
+  var associations = object.st_associations;
+  try{
+    var inserted = await SubTask.create({
+      st_name: object.st_name,
+      st_description: object.st_description,
+      st_priority: object.st_priority,
+      st_progress: object.st_progress,
+      st_due_date: object.st_due_date,
+      s_id: object.s_id,
+      t_id: object.t_id,
+      a_id: object.a_id,
+      st_archived: object.st_archived
+    });
+    for(a of attachments){
+      var insertedAttachment = await SubTaskAttachment.create({
+        st_id: inserted.st_id,
+        st_attachment: a
+      });
+    }
+    for(c of collaborators){
+      var insertedCollaborator = await SubTaskCollaborator.create({
+        st_id: inserted.st_id,
+        a_id: c
+      });
+    }
+    for(a of associations){
+      var st1_to_st2 = await SubTaskAssociation.create({
+        st_id: inserted.st_id,
+        assoc_st_id: a
+      });
+      var st2_to_st1 = await SubTaskAssociation.create({
+        st_id: a,
+        assoc_st_id: inserted.st_id
+      });
+    }
+    var res = inserted.toJSON();
+    res["st_attachments"] = await getAttachments(res.st_id);
+    res["st_collaborators"] = await getCollaborators(res.st_id);
+    res["st_associations"] = await getAssociations(res.st_id);
+    await t.commit();
+    return res;
+  }
+  catch(error){
+    await t.rollback();
+    return error;
+  }
+}
+exports.update = async function update(object){
+  const t = await sequelize.transaction();
+  var newAttach = object.new_attachments;
+  var delAttach = object.del_attachments;
+  var newCollab = object.new_collaborations;
+  var delCollab = object.del_collaborations;
+  var newAssoc = object.new_associations;
+  var delAssoc = object.del_associations;
+  try{
+    var updatedSubtask = await SubTask.update({
+      st_name: object.st_name,
+      st_description: object.st_description,
+      st_priority: object.st_priority,
+      st_progress: object.st_progress,
+      st_due_date: object.st_due_date,
+      s_id: object.s_id,
+      t_id: object.t_id,
+      a_id: object.a_id,
+      st_archived: st_archived
+    },{
+      where: {
+        st_id: object.st_id
+      }
+    });
+    for(a of newAttach){
+      var newAttachment = await SubTaskAttachment.create({
+        st_id: object.st_id,
+        st_attachment: a
+      });
+    }
+    for(a of delAttach){
+      var delAttachments = await SubTaskAttachment.destroy({
+        where: {
+          sta_id: a.sta_id
+        }
+      });
+    }
+    for(c of newCollab){
+      var newCollaborator = await SubTaskCollaborator.create({
+        st_id: object.st_id,
+        a_id: c
+      });
+    }
+    for(c of delCollab){
+      var delColllabs = await SubTaskCollaborator.destroy({
+        where: {
+          a_id: c
+        }
+      })
+    }
+    for(a of newAssoc){
+      var new_st1_to_st2 = await SubTaskAssociation.create({
+        st_id: object.st_id,
+        assoc_st_id: a
+      });
+      var new_st2_to_st1 = await SubTaskAssociation.create({
+        st_id: a,
+        assoc_st_id: object.st_id
+      });
+    }
+    for(a of delAssoc){
+      var del_st1_st1 = await SubTaskAssociation.destroy({
+        where:{
+          st_id: object.st_id,
+          assoc_st_id: a
+        }
+      });
+      var del_st2_st1 = await SubTaskAssociation.destroy({
+        where: {
+          st_id: a,
+          assoc_st_id: object.st_id
+        }
+      });
+    }
+    var subtask = await SubTask.findAll({
+      where: {
+        st_id: st_id
+      }
+    });
+    var res = subtask[0].toJSON();
+    res["st_attachments"] = await getAttachments(res.st_id);
+    res["st_collaborators"] = await getCollaborators(res.st_id);
+    res["st_associations"] = await getAssociations(res.st_id);
+    await t.commit();
+    return res;
+  }
+  catch(error){
+    await t.rollback();
+    return error;
+  }
+}
+exports.archive = async function archive(st_id){
+  const t = await sequelize.transaction();
+  try{
+    var archivedSubtask = await SubTask.update({st_archived: true},{
+      where: {
+        st_id: st_id
+      },
+      returning: true,
+      plain: true
+    });
+    await t.commit();
+    return archivedSubtask[1].dataValues;
+  }
+  catch(error){
+    await t.rollback();
+    console.log(error);
+    return error;
+  }
+}
 
   exports.initdb = async function initdb(){
     try {
@@ -124,13 +330,6 @@ SubTaskAssociation.init({
         console.log('Connection has been established successfully.');
           (async () => {
             await sequelize.sync();
-            
-            //const xavier = await System.create({ u_initials: "xm", u_ip: "4354353" , u_is_lead:true});
-            //const erik = await System.create({ u_initials: "er", u_ip: "123213" , u_is_lead: false});
-            //const users = await System.findAll();
-            //console.log(users.every(user => user instanceof System)); // true
-            //console.log("All users:", JSON.stringify(users, null, 2));
-            //console.log("Synced Systems");
           })();
       } catch (error) {
         console.error('Unable to connect to the database:', error);

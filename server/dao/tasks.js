@@ -111,6 +111,211 @@ TaskAssociation.init({
   tableName: 'task_association'
 });
 
+exports.getAll = async function getAll(){
+  var tasks = await Task.findAll();
+  return tasks;
+}
+
+async function getAttachments(t_id){
+  var attachments = await SubTaskAttachment.findAll({
+    where: {
+      t_id: t_id
+    }
+  });
+  return attachments;
+}
+
+async function getCollaborators(t_id){
+  var collaborators = await TaskCollaborator.findAll({
+    where: {
+      t_id: t_id
+    }
+  });
+  return collaborators;
+}
+
+async function getAssociations(t_id){
+  var associations = await SubTaskAssociation.findAll({
+    where: {
+      t_id: t_id
+    }
+  });
+  return associations;
+}
+
+exports.getFromId = async function getFromId(t_id){
+  var task = await Task.findAll({
+    where: {
+      t_id: t_id
+    }
+  });
+  var res = task[0].toJSON();
+  res["t_attachments"] = await getAttachments(t_id);
+  res["t_collaborators"] = await getCollaborators(t_id);
+  res["t_associations"] = await getAssociations(t_id);
+  return res;
+}
+
+exports.insert = async function insert(object){
+  const t = await sequelize.transaction();
+  var attachments = object.t_attachments;
+  var collaborators = object.t_collaborators;
+  var associations = object.t_associations;
+  try{
+    var inserted = await Task.create({
+      t_name: object.st_name,
+      t_description: object.st_description,
+      t_priority: object.st_priority,
+      t_progress: object.st_progress,
+      t_due_date: object.st_due_date,
+      s_id: object.s_id,
+      a_id: object.a_id,
+      t_archived: object.t_archived
+    });
+    for(a of attachments){
+      var insertedAttachment = await TaskAttachment.create({
+        t_id: inserted.t_id,
+        t_attachment: a
+      });
+    }
+    for(c of collaborators){
+      var insertedCollaborator = await TaskCollaborator.create({
+        t_id: inserted.t_id,
+        a_id: c
+      });
+    }
+    for(a of associations){
+      var st1_to_st2 = await SubTaskAssociation.create({
+        t_id: inserted.t_id,
+        assoc_t_id: a
+      });
+      var st2_to_st1 = await SubTaskAssociation.create({
+        t_id: a,
+        assoc_t_id: inserted.t_id
+      });
+    }
+    var res = inserted.toJSON();
+    res["t_attachments"] = await getAttachments(res.t_id);
+    res["t_collaborators"] = await getCollaborators(res.t_id);
+    res["t_associations"] = await getAssociations(res.t_id);
+    await t.commit();
+    return res;
+  }
+  catch(error){
+    await t.rollback();
+    return error;
+  }
+}
+exports.update = async function update(object){
+  const t = await sequelize.transaction();
+  var newAttach = object.new_attachments;
+  var delAttach = object.del_attachments;
+  var newCollab = object.new_collaborations;
+  var delCollab = object.del_collaborations;
+  var newAssoc = object.new_associations;
+  var delAssoc = object.del_associations;
+  try{
+    var updatedtask = await Task.update({
+      t_name: object.t_name,
+      t_description: object.t_description,
+      t_priority: object.t_priority,
+      t_progress: object.t_progress,
+      t_due_date: object.t_due_date,
+      s_id: object.s_id,
+      a_id: object.a_id
+    },{
+      where: {
+        t_id: object.t_id
+      }
+    });
+    for(a of newAttach){
+      var newAttachment = await TaskAttachment.create({
+        t_id: object.t_id,
+        t_attachment: a
+      });
+    }
+    for(a of delAttach){
+      var delAttachments = await TaskAttachment.destroy({
+        where: {
+          ta_id: a.ta_id
+        }
+      });
+    }
+    for(c of newCollab){
+      var newCollaborator = await TaskCollaborator.create({
+        t_id: object.t_id,
+        a_id: c
+      });
+    }
+    for(c of delCollab){
+      var delColllabs = await TaskCollaborator.destroy({
+        where: {
+          a_id: c
+        }
+      })
+    }
+    for(a of newAssoc){
+      var new_st1_to_st2 = await TaskAssociation.create({
+        t_id: object.t_id,
+        assoc_t_id: a
+      });
+      var new_st2_to_st1 = await SubTaskAssociation.create({
+        t_id: a,
+        assoc_t_id: object.t_id
+      });
+    }
+    for(a of delAssoc){
+      var del_st1_st1 = await SubTaskAssociation.destroy({
+        where:{
+          t_id: object.t_id,
+          assoc_st_id: a
+        }
+      });
+      var del_st2_st1 = await SubTaskAssociation.destroy({
+        where: {
+          st_id: a,
+          assoc_t_id: object.t_id
+        }
+      });
+    }
+    var task = await Task.findAll({
+      where: {
+        t_id: t_id
+      }
+    });
+    var res = subtask[0].toJSON();
+    res["t_attachments"] = await getAttachments(res.t_id);
+    res["t_collaborators"] = await getCollaborators(res.t_id);
+    res["t_associations"] = await getAssociations(res.t_id);
+    await t.commit();
+    return res;
+  }
+  catch(error){
+    await t.rollback();
+    return error;
+  }
+}
+exports.archive = async function archive(t_id){
+  const t = await sequelize.transaction();
+  try{
+    var archivedTask = await Task.update({t_archived: true},{
+      where: {
+        t_id: t_id
+      },
+      returning: true,
+      plain: true
+    });
+    await t.commit();
+    return archivedTask[1].dataValues;
+  }
+  catch(error){
+    await t.rollback();
+    console.log(error);
+    return error;
+  }
+}
+
+
   exports.initdb = async function initdb(){
     try {
         await sequelize.authenticate();
