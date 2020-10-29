@@ -260,7 +260,12 @@ exports.getFromId = async function getFromId(f_id){
       f_id: f_id
     }
   });
-  return finding[0];
+  res = finding[0].toJSON();
+  res["f_mitigations"]= await getMitigations(f_id);
+  res["f_evidence"] = await getEvidence(f_id);
+  res["f_collaborators"] = await getCollaborators(f_id);
+  res["f_associations"] = await getAssociations(f_id);
+  return res;
 }
 
 async function getMitigations(f_id){

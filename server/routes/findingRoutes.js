@@ -10,6 +10,17 @@ var findings = require("../dao/findings");
 const router = express.Router();
 var jsonParser = bodyParser.json();
 
+router.get('/findings/', async function(req, res, next){
+    var findingList = await findings.getAll();
+    res.send(findingList);
+});
+
+router.get('/findings/:id', async function(req, res, next){
+    var finding = await findings.getFromId(req.params.id);
+    res.send(finding);
+});
+
+
 router.post("/findings",jsonParser, async function(req, res){
     // req.body.event.e_archived = false;
     console.log(req.body);
