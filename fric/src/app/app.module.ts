@@ -15,7 +15,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SystemComponent } from './system/system.component';
 import { TasksComponent } from './tasks/tasks.component';
@@ -41,7 +40,6 @@ import { BackendServicesProxy } from './services/backend.service.proxy';
     EventComponent,
     FindingsComponent,
     HomeComponent,
-    HeaderComponent,
     FooterComponent,
     EventComponent,
     SystemComponent,

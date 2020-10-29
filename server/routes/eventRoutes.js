@@ -15,7 +15,8 @@ router.post("/events",jsonParser, async function(req, res){
     req.body.event.e_declassification_date = new Date();
     req.body.analyst.a_initials = "EM"
     var event = await events.insert(req.body.event);
-    
+    console.log(event);
+    console.log("printing even");
     if(event){
         var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);
         transactionLogs.insert({a_initials:req.body.analyst.a_initials,tl_action_performed: "Created New Event", a_id:req.body.analyst.a_id});
