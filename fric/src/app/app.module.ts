@@ -15,7 +15,6 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
-import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { SystemComponent } from './system/system.component';
 import { TasksComponent } from './tasks/tasks.component';
@@ -34,6 +33,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { AddEventComponent } from './add-event/add-event.component';
 import { BackendServicesProxy } from './services/backend.service.proxy';
+import { AddTaskComponent } from './add-task/add-task.component';
+import { FindingComponent } from './finding/finding.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,6 @@ import { BackendServicesProxy } from './services/backend.service.proxy';
     EventComponent,
     FindingsComponent,
     HomeComponent,
-    HeaderComponent,
     FooterComponent,
     EventComponent,
     SystemComponent,
@@ -54,6 +54,8 @@ import { BackendServicesProxy } from './services/backend.service.proxy';
     NotificationModalComponent,
     EventdetailedComponent,
     AddEventComponent,
+    AddTaskComponent,
+    FindingComponent,
   ],
   imports: [
     BrowserModule,

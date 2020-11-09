@@ -24,6 +24,23 @@ System.init({
     allowNull: false
     // allowNull defaults to true
   },
+  s_confidentiality: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  s_integrity: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  s_availability: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  e_id: {
+    type: DataTypes.UUID,
+    allowNull: false
+    // allowNull defaults to true
+  },
   s_archived: {
     type: DataTypes.BOOLEAN,
     allowNull: false
@@ -41,19 +58,32 @@ exports.insert = async function insert(obj){
   return inserted;
 }
 
+exports.update = async function update(obj){
+  
+}
+
+exports.getFromId = async function getFromId(id){
+  var system = await System.findAll({
+    where: {
+      s_id: id
+    }
+  });
+  return system[0];
+}
+
 exports.initdb = async function initdb(){
     try {
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
           (async () => {
-            await sequelize.sync();
+            await sequelize.sync({force:true});
             
             //const xavier = await System.create({ u_initials: "xm", u_ip: "4354353" , u_is_lead:true});
             //const erik = await System.create({ u_initials: "er", u_ip: "123213" , u_is_lead: false});
             //const users = await System.findAll();
             //console.log(users.every(user => user instanceof System)); // true
             //console.log("All users:", JSON.stringify(users, null, 2));
-            console.log("Synced Systems");
+            //console.log("Synced Systems");
           })();
       } catch (error) {
         console.error('Unable to connect to the database:', error);
