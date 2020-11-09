@@ -26,6 +26,7 @@ export class AppComponent {
     public matDialog: MatDialog,
     private authService: AuthService
     ) {
+      this.initials= analystService.currentUser? analystService.currentUser.a_initials : 'GG';
       
      }
 
@@ -37,7 +38,7 @@ export class AppComponent {
     this.initials = (<HTMLInputElement> document.getElementById("ipInput")).value;
     var request = {initials:this.initials,lead:this.lead};
     console.log("Login button clicked");
-    var analyst = this.proxyService.post("/login/",request).subscribe(analyst => console.log(analyst.body));
+    //var analyst = this.proxyService.post("/login/",request).subscribe(analyst => console.log(analyst.body));
     this.analystService.login(this.initials,this.lead);
     console.log(this.analystService.currentUser);
   }

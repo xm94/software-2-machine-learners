@@ -19,8 +19,9 @@ export class AnalystService {
   private setCurrentUser(response: HttpResponse<Object>){
     this._currentUser = response.body;
     console.log(this._currentUser);
-
-
+    localStorage.setItem
+    localStorage.setItem("user",JSON.stringify(response.body))
+    console.log(localStorage.getItem("user"));
     return this.currentUser;
   }
 
@@ -32,24 +33,20 @@ export class AnalystService {
   ) {}
 
 
-  login(initials: string, lead: boolean): Observable<any> {
+  login(initials: string, lead: boolean): void {
     console.log("in login")
-    const response: Observable<
-      HttpResponse<Object>
-    > = this.backendServicesProxy.post('/login', {
-      initials: initials,
+    const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.post('/login', {
+      initials: initials.toUpperCase(),
       lead: lead
     });
-    response.subscribe(() => {
+    response.subscribe((r) => {
       console.log("in subscribr")
+      console.log(r);
       var redirectUrl = '/';
       // }
       this.router.navigateByUrl(redirectUrl);
+      return this.setCurrentUser(r)
     });
-    var test;
-    response.pipe(map(r => test=r));
-    console.log(test)
-    return response.pipe(map(r => this.setCurrentUser(r)));
   }
 
 }
