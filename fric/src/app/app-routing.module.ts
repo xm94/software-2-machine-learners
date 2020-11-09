@@ -11,7 +11,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { SubtasksComponent } from './subtasks/subtasks.component';
 import { EventdetailedComponent } from './eventdetailed/eventdetailed.component';
 import { AddEventComponent } from './add-event/add-event.component';
-
+import { AddTaskComponent } from './add-task/add-task.component';
 
 
 const routes: Routes = [
@@ -27,7 +27,8 @@ const routes: Routes = [
   {path: "setup", component: SetupComponent},
   {path: "help", component: HelpComponent},
   {path: "eventdetailed", component: EventdetailedComponent},
-  {path: "add-event", component: AddEventComponent}
+  {path: "add-event", component: AddEventComponent},
+  {path: "add-task", component: AddTaskComponent}
 ];
 
 @NgModule({

@@ -98,6 +98,8 @@ export class AddEventComponent implements OnInit {
         a_id: "88f44655-39d3-4e54-a798-a8cc73d53a4e"
       }
     }
+    // FIXME this is wrong, but works for now
+    objToSend.event.e_id = "88f44655-39d3-4e54-a798-a8cc73d53a4e"
     console.log(objToSend);
     var returnedItem = this.proxyService.post("/events", objToSend)
     console.log(returnedItem);
