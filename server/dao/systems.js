@@ -71,6 +71,15 @@ exports.getFromId = async function getFromId(id){
   return system[0];
 }
 
+exports.getFromEventId = async function getFromEventId(e_id){
+  var systems = await System.findAll({
+    where: {
+      e_id: e_id
+    }
+  });
+  return systems;
+}
+
 exports.initdb = async function initdb(){
     try {
         await sequelize.authenticate();

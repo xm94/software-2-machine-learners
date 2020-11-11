@@ -81,6 +81,15 @@ exports.getFromInitials = async function getFromInitials(initials){
   return analyst[0];
 }
 
+exports.getFromId = async function getFromId(id){
+  var analyst = await Analyst.findAll({
+    where: {
+      a_id: id
+    }
+  });
+  return analyst[0];
+}
+
 exports.updateLeadStatus = async function updateLeadStatus(id,leadStatus){
   var analystUpdate = await Analyst.update({
     a_role: leadStatus ? "Lead Analyst" : "Analyst",

@@ -1,7 +1,8 @@
 var express = require("express");
 var systems = require("../dao/systems")
 var tasks = require("../dao/tasks")
-var substasks = require("../dao/subtasks")
+var subtasks = require("../dao/subtasks")
+var analysts = require("../dao/analysts")
 var fUtils = require("../utils/findingUtils")
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
@@ -127,6 +128,10 @@ Finding.init({
     type: DataTypes.UUID,
     allowNull: false
     // allowNull defaults to true
+  },
+  a_initials: {
+    type: DataTypes.STRING,
+    allowNull: false
   },
   s_id: {
     type: DataTypes.UUID,
@@ -268,6 +273,25 @@ exports.getFromId = async function getFromId(f_id){
   return res;
 }
 
+exports.getFromSystemId = async function getFromSystemId(s_id){
+  console.log("select");
+  var findings = await Finding.findAll({
+    where: {
+      s_id: s_id
+    }
+  });
+  resList=[]
+  for(f of findings){
+    res = f.toJSON();
+    res["f_mitigations"]= await getMitigations(f.f_id);
+    res["f_evidence"] = await getEvidence(f.f_id);
+    res["f_collaborators"] = await getCollaborators(f.f_id);
+    res["f_associations"] = await getAssociations(f.f_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
 async function getMitigations(f_id){
   var findingMitigations = await FindingMitigation.findAll({
     where: {
@@ -317,6 +341,7 @@ exports.insert = async function insert(object,a_id){
     var collaborators = object.f_collaborators;
     var associations = object.f_associations;
     var system = await systems.getFromId(object.s_id);
+    var analyst = await analysts.getFromId(a_id);
     var c_impact = object.f_confidentiality? (system.s_confidentiality=="Informational"? "X" : system.s_confidentiality) : "X";
     var i_impact = object.f_integrity? (system.s_integrity=="Informational"? "X" : system.s_integrity) : "X";
     var a_impact = object.f_availability? (system.s_availability=="Informational"? "X" : system.s_availability) : "X";
@@ -358,6 +383,7 @@ exports.insert = async function insert(object,a_id){
             f_availability_impact:a_impact,
             f_impact_score:impact_score,//derived
             a_id:a_id,
+            a_initials:analyst.a_initials,
             s_id:object.s_id,
             t_id:object.t_id,
             st_id:object.st_id,

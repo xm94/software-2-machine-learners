@@ -33,6 +33,7 @@ var tlRoutes = require("./routes/transactionLogRoutes");
 var taskRoutes = require("./routes/taskRoutes");
 var subtaskRoutes = require("./routes/subtaskRoutes");
 var findingRoutes = require("./routes/findingRoutes");
+var reportRoutes = require("./routes/reportRoutes")
 app.use(routes);
 app.use(systemRoutes);
 app.use(eventRoutes);
@@ -40,6 +41,7 @@ app.use(tlRoutes);
 app.use(findingRoutes);
 app.use(taskRoutes);
 app.use(subtaskRoutes);
+app.use(reportRoutes);
 
 /** Start local host */
 app.listen(app.get("port"),async function(){
