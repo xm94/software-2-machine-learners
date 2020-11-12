@@ -1,5 +1,5 @@
 var express = require("express");
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes, Model, Op} = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
 var transactionLogs = require("./transactionLogs");
 
@@ -52,7 +52,8 @@ AnalystTitle.init({
   },
   a_title: {
     type: DataTypes.STRING,
-    allowNull: false
+    allowNull: false,
+    primaryKey: true
   }
 }, {
   // Other model options go here
@@ -89,6 +90,27 @@ exports.getFromId = async function getFromId(id){
   });
   return analyst[0];
 }
+
+exports.getMultipleFromIds = async function getMultipleFromIds(idList){
+  var analysts = await Analyst.findAll({
+    where: {
+      a_id: {
+        [Op.or]: idList
+      }
+    }
+  });
+  return analysts;
+}
+
+exports.getTitlesFromId = async function getTitlesFromId(id){
+  var titles = await AnalystTitle.findAll({
+    where: {
+      a_id: id
+    }
+  });
+  return titles;
+}
+
 
 exports.updateLeadStatus = async function updateLeadStatus(id,leadStatus){
   var analystUpdate = await Analyst.update({
@@ -146,6 +168,8 @@ exports.initdb = async function initdb(){
             const zabdi = await Analyst.create({ a_id:"88f44655-39d3-4e54-a798-a8cc73d53a4e", a_initials: "ZV", a_fname: "Zabdi" , a_lname:"Valenciana",a_role:"Analyst", a_ip: ""});
             const luis = await Analyst.create({ a_id:"8a494000-874f-442e-90f6-60f21b9ab66d", a_initials: "LG", a_fname: "Luis" , a_lname:"Garcia",a_role:"Analyst", a_ip: ""});
             const ricardo = await Analyst.create({ a_id:"73875702-230a-4981-a898-d6d1f60b9814", a_initials: "RG", a_fname: "Ricardo" , a_lname:"Godoy",a_role:"Analyst", a_ip: ""});
+            const title1 = await AnalystTitle.create({ a_id:"88f44655-39d3-4e54-a798-a8cc73d53a4e", a_title: "Software Developer"});
+            const title2 = await AnalystTitle.create({ a_id:"88f44655-39d3-4e54-a798-a8cc73d53a4e", a_title: "Verification & Validation"});
             // const users = await Analyst.findAll();
             // console.log(users.every(user => user instanceof Analyst)); // true
             // console.log("All users:", JSON.stringify(users, null, 2));
