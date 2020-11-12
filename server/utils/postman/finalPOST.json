@@ -1,0 +1,21 @@
+{
+	"template":{
+	    "introduction":"Hello Everyone, this is a test introduction",
+	    "acked_individuals":["Dr. Salamah","Elsa Tai Ramirez","Ben Robertson"],
+	    "excutive_summary":"sample summary",
+	    "arch_desc":"simple description based off of diagram",
+	    "ts_np":"I'm not quite sure what goes here",
+	    "limitations":"might just put lorem ipsum in here",
+	    "conclusion":"a nice wrap up to this tech doc",
+	    "acronyms":[
+	        {"acronym":"CCDC","def":"Combat Capabilities Development Command"},
+	        {"acronym":"DAC","def":"Data & Analysis Center"}
+	    ],
+	    "dist_list":["Value 1","Value 2"],
+	    "e_id":"4896b5e9-8c76-4652-8e58-68b32f43c4ea"
+	},
+    "analyst":{
+    	"a_initials":"ZV",
+    	"a_id":"88f44655-39d3-4e54-a798-a8cc73d53a4e"
+    }
+}

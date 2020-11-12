@@ -1,4 +1,5 @@
 var express = require("express");
+var analysts = require("../dao/analysts");
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
 var transactionLogs = require("./transactionLogs");
@@ -112,6 +113,21 @@ exports.getFromId = async function getFromId(id){
     }
   });
   return event[0];
+}
+
+exports.getAnalystsFromID = async function getAnalystsFromID(id){
+  var a_ids = await EventTeam.findAll({
+    attributes: ['a_id'],
+    where: {
+      e_id: id
+    }
+  });
+  var ids =[]
+  for( a_id of a_ids){
+    ids.push(a_id.a_id);
+  }
+  var analystList = await analysts.getMultipleFromIds(ids);
+  return analystList;
 }
 
 exports.updateEvent = async function updateEvent(id,object){
