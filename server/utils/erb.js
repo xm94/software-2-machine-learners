@@ -34,7 +34,7 @@ exports.generateFromEvent = async function generateFromEvent(e_id,e_name,e_type,
     out.on('error', function(err) {
         console.log(err)
     });
-    var pptxPath = process.cwd() + filename + '.pptx';
+    var pptxPath = process.cwd() + "/" + filename + '.pptx';
     //Title Slide Generation
     var slide = pptx.makeNewSlide()
     slide.addImage(path.resolve(titlePath), {
@@ -407,7 +407,7 @@ exports.generateFromEvent = async function generateFromEvent(e_id,e_name,e_type,
             cx: 158,
             cy: 20,
         });
-        slide.addText(f.f_classification,{
+        slide.addText(f.f_type,{
             font_face:"Times New Roman",
             font_size:10,
             color: "000000",
