@@ -9,6 +9,9 @@
   "author": "Team 6 Machine Learners",
   "license": "ISC",
   "dependencies": {
+    "canvas": "^2.6.1",
+    "chart.js": "^2.9.4",
+    "chartjs-node-canvas": "^3.0.6",
     "express": "^4.17.1",
     "officegen": "^0.6.4",
     "pg": "^8.4.2",
