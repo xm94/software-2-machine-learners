@@ -286,7 +286,48 @@ exports.generate=async function generate(template,event,team,s_names,findingList
 
 
     pObj = docx.createP()
-    pObj.addText('Table Page');
+    pObj.addText('REPORT DOCUMENTATION PAGE',{bold:true,font_size:14});
+    
+    //report date
+    pObj = docx.createP()
+    pObj.addText('REPORT DATE ',{bold:true});
+    pObj.addText('November 2020');
+    //event type
+    pObj = docx.createP()
+    pObj.addText('REPORT TYPE ',{bold:true});
+    pObj.addText(event.e_type);
+    //dates
+    pObj = docx.createP()
+    pObj.addText('DATES COVERED ',{bold:true});
+    pObj.addText(event.e_assessment_date + "-" + event.e_declassification_date);
+    //title from the begging
+    pObj = docx.createP()
+    pObj.addText('TITLE AND SUBTITLE ',{bold:true});
+    pObj.addText(titlePrefix + systemTitleText + " " + event.e_type + " Report");
+    //authors
+    pObj = docx.createP()
+    pObj.addText('AUTHORS ',{bold:true});
+    if(team.length==1){
+        pObj.addText(team[0].a_name+".")
+    }
+    else{
+        for(var i=0;i<team.length;i++){
+            if(i<team.length-1){
+                pObj.addText(team[i].a_name + ", ")
+            }
+            else{
+                pObj.addText("and " + team[i].a_name + ".")
+            }
+        }
+    }
+    //performing organization name and address
+    pObj = docx.createP()
+    pObj.addText('PERFORMING ORGANIZATON NAME(S) AND ADDRESS(ES) ',{bold:true});
+    pObj.addText(event.e_customer);
+    //subject terms - event type report
+    pObj = docx.createP()
+    pObj.addText('SUBJECT TERMS ',{bold:true});
+    pObj.addText(event.e_type + ' Report');
 
     docx.putPageBreak()
     pObj = docx.createP({align: 'center'})

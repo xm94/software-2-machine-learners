@@ -65,7 +65,6 @@ router.post('/final/', jsonParser,async function(req, res, next){
     try{
         console.log("making docx");
         path = await finalTechnicalReport.generate(req.body.template,event,teamNames,systemNames,allFindings)
-        console.log("after await")
         res.send(path);
     } catch(err){
         res.status(500).send(err);
