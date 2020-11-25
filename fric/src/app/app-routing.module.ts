@@ -28,7 +28,7 @@ const routes: Routes = [
   {path: "help", component: HelpComponent},
   {path: "eventdetailed", component: EventdetailedComponent},
   {path: "add-event", component: AddEventComponent},
-  {path: "add-task", component: AddTaskComponent}
+  {path: "add-task", component: AddTaskComponent},
 ];
 
 @NgModule({
