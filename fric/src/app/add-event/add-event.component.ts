@@ -72,7 +72,7 @@ export class AddEventComponent implements OnInit {
   constructor(private readonly proxyService: BackendServicesProxy) {
     this.addEventForm = new FormGroup({
     e_id: new FormControl(),
-    e_name: new FormControl({}),
+    e_name: new FormControl(),
     e_description: new FormControl(),
     e_type: new FormControl(),
     e_version: new FormControl(),
@@ -99,7 +99,6 @@ export class AddEventComponent implements OnInit {
       }
     }
     // FIXME this is wrong, but works for now
-    objToSend.event.e_id = "88f44655-39d3-4e54-a798-a8cc73d53a4e"
     console.log(objToSend);
     var returnedItem = this.proxyService.post("/events", objToSend)
     console.log(returnedItem);
