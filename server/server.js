@@ -8,6 +8,9 @@ var systems = require("./dao/systems");
 var tasks = require("./dao/tasks");
 var subtasks = require("./dao/subtasks");
 var findings = require("./dao/findings");
+var notifications = require('./dao/notifications');
+var configuration = require('./dao/configuration')
+const find = require('local-devices');
 var app = express();
 
 require('dns').lookup(require('os').hostname(), function (err, add, fam) {
@@ -44,6 +47,19 @@ app.use(taskRoutes);
 app.use(subtaskRoutes);
 app.use(reportRoutes);
 app.use(notificationRoutes);
+var syncPartners
+find().then(devices => {
+    console.log("devices")
+    console.log(devices) /*
+    [
+      { name: '?', ip: '192.168.0.10', mac: '...' },
+      { name: '...', ip: '192.168.0.17', mac: '...' },
+      { name: '...', ip: '192.168.0.21', mac: '...' },
+      { name: '...', ip: '192.168.0.22', mac: '...' }
+    ]
+    */
+  })
+
 
 /** Start local host */
 app.listen(app.get("port"),async function(){
@@ -56,5 +72,7 @@ app.listen(app.get("port"),async function(){
     tasks.initdb();
     subtasks.initdb();
     findings.initdb();
+    configuration.initdb();
+    notifications.initdb();
     console.log()
 });

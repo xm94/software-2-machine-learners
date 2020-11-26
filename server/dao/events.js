@@ -61,6 +61,16 @@ Event.init({
     allowNull: false
     // allowNull defaults to true
   },
+  e_customer_address: {
+    type: DataTypes.STRING,
+    allowNull: false
+    // allowNull defaults to true
+  },
+  e_lead: {
+    type: DataTypes.UUID,
+    allowNull: false
+    // allowNull defaults to true
+  },
   e_archived: {
     type: DataTypes.BOOLEAN,
     allowNull: false
@@ -142,6 +152,8 @@ exports.updateEvent = async function updateEvent(id,object){
     e_classification: object.e_classification,
     e_declassification_date: object.e_declassification_date,
     e_customer: object.e_customer,
+    e_customer: object.e_customer,
+    e_lead: object.e_lead,
     e_archived: object.e_archived
   }, {
     where: {

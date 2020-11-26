@@ -11,6 +11,7 @@
               "e_classification": "Top Secret",
               "e_declassification_date": "2020-10-14T04:38:23.897Z",
               "e_customer": "CEAD",
+              "e_customer_address": "123 Fake Street",
               "e_archived": false},
     "analyst":{
     	"a_initials":"ZV",
