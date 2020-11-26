@@ -12,6 +12,7 @@ import { SubtasksComponent } from './subtasks/subtasks.component';
 import { EventdetailedComponent } from './eventdetailed/eventdetailed.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { ArchiveComponent } from './archive/archive.component';
 
 
 const routes: Routes = [
@@ -22,7 +23,7 @@ const routes: Routes = [
   {path: "tasks", component: TasksComponent},
   {path: "subtasks", component: SubtasksComponent},
   {path: "findings", component: FindingsComponent},
-  {path: "archive", component: EventComponent},
+  {path: "archive", component: ArchiveComponent},
   {path: "configuration", component: ConfigurationComponent},
   {path: "setup", component: SetupComponent},
   {path: "help", component: HelpComponent},

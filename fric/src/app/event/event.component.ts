@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
+import { BackendServicesProxy } from '../services/backend.service.proxy'
+import { AnalystService } from "../services/analyst.service"
+import { EventService } from '../services/event.service';
 
 export interface PeriodicElement {
   name: string;
@@ -23,7 +27,8 @@ const ELEMENT_DATA: PeriodicElement[] = [
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss']
+  styleUrls: ['./event.component.scss'],
+  providers: [BackendServicesProxy,AnalystService,EventService]
 })
 
 
@@ -34,8 +39,17 @@ export class EventComponent implements OnInit {
   disableSelect = new FormControl(false);
   toppings = new FormControl();
   toppingList: string[] = ['type1', 'type2', 'type3'];
-  
-  constructor() { }
+  event: any;
+  eventList: any[];
+  constructor(
+    private readonly proxyService: BackendServicesProxy,
+    private readonly analystService: AnalystService,
+    private readonly eventService: EventService,) { 
+      this.eventService.fetchEvents();
+      this.eventService.allEvents.subscribe((events) => {this.eventList=events});
+      console.log(this.eventList);
+      this.event=this.eventService.event;
+    }
 
   ngOnInit() {
   }

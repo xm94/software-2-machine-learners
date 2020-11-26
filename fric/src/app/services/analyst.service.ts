@@ -11,7 +11,9 @@ import { BackendServicesProxy } from './backend.service.proxy'
 })
 export class AnalystService {
   get currentUser() {
-    return this._currentUser;
+    console.log(localStorage.getItem("user"))
+    let user = localStorage.getItem("user");
+    return user ? JSON.parse(user) : this._currentUser;
   }
 
   private _currentUser;
