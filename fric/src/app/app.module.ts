@@ -34,6 +34,11 @@ import { MatTableModule } from '@angular/material/table';
 import { AddEventComponent } from './add-event/add-event.component';
 import { BackendServicesProxy } from './services/backend.service.proxy';
 import { AddTaskComponent } from './add-task/add-task.component';
+import { CreateEventModal } from './modals/create-event/create-event.component';
+import { ModalModule } from "ngx-bootstrap/modal";
+import { MatDatepickerModule } from '@angular/material';
+import { MatNativeDateModule } from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -54,6 +59,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
     EventdetailedComponent,
     AddEventComponent,
     AddTaskComponent,
+    CreateEventModal,
   ],
   imports: [
     BrowserModule,
@@ -76,11 +82,18 @@ import { AddTaskComponent } from './add-task/add-task.component';
     MatDialogModule,
     MatTableModule,
     HttpClientModule,
+    ModalModule.forRoot(),
+    MatDatepickerModule, 
+    MatNativeDateModule
   ],entryComponents: [
     NotificationModalComponent,
   
  ],
   providers: [BackendServicesProxy],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [
+      MatDatepickerModule, 
+      MatNativeDateModule 
+  ]
 })
 export class AppModule { }

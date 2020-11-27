@@ -2,7 +2,7 @@
 <div *ngIf="event==null;else eventDetailedView"><mat-card>
   <div>There is no current event</div>
   <br>
-  <button mat-raised-button color="primary">Create Event</button> 
+  <button mat-raised-button color="primary" (click)="openModal()">Create Event</button> 
   <br>
     "e_id": "4896b5e9-8c76-4652-8e58-68b32f43c4ea",
     <br>
@@ -32,8 +32,7 @@
     <br>
 </mat-card>
 
-
-  
+<create-event></create-event>
   
 </div>
 
@@ -44,10 +43,6 @@
         <mat-card><div>{{e.e_id}}</div><button>ReOpen?</button></mat-card>
     </div>
 </div>
-
-
-
-
 
 
 

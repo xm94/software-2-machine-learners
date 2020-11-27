@@ -1,0 +1,84 @@
+<div
+  bsModal
+  #lgModal="bs-modal"
+  class="modal fade modal-open"
+  tabindex="-1"
+  size="lg"
+  aria-hidden="true"
+  (onHidden)="onHide()"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form class="example-form" [formGroup]="form">
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Event Name</mat-label>
+                        <input matInput formControlName="e_name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" style=" width: 500px;" class="example-full-width">
+                        <mat-label>Event Type</mat-label>
+                        <mat-select  formControlName="e_type">
+                            <mat-option  *ngFor="let t of eventTypes" value="{{t}}">
+                                {{t}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Customer Name</mat-label>
+                        <input matInput formControlName="e_customer">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Customer Address</mat-label>
+                        <input matInput formControlName="e_customer_address">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Organization</mat-label>
+                        <input matInput formControlName="e_org_name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Assessment Date</mat-label>
+                        <input matInput [matDatepicker]="apicker" formControlName="e_assessment_date">
+                        <mat-datepicker-toggle matSuffix [for]="apicker"></mat-datepicker-toggle>
+                        <mat-datepicker #apicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Classification</mat-label>
+                        <mat-select  formControlName="e_classification">
+                            <mat-option  *ngFor="let c of classifications" value="{{c}}">
+                                {{c}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Declassification Date</mat-label>
+                        <input matInput [matDatepicker]="dpicker" formControlName="e_declassification_date">
+                        <mat-datepicker-toggle matSuffix [for]="dpicker"></mat-datepicker-toggle>
+                        <mat-datepicker #dpicker></mat-datepicker>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Title Guide</mat-label>
+                        <input matInput formControlName="e_sec_class_title_guide">
+                    </mat-form-field>
+                    <br>
+
+                    <mat-form-field appearance="outline" style=" width: 600px;" class="example-full-width">
+                        <mat-label>Event Description</mat-label>
+                        <textarea matInput formControlName="e_description"></textarea>
+                    </mat-form-field>
+                    
+                </form>
+
+                <button mat-raised-button color="primary" (click)="submit()">submit</button> 
+            </div>
+        </div>
+    </div>
+</div>
+

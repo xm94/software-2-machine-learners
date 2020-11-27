@@ -85,4 +85,25 @@ export class EventService {
     return this.event;
   }
 
+  createEvent(data: any): Observable<any> {
+    this.backendServicesProxy
+      .post("/events",data)
+      .pipe(map(response => response.body as any))
+      .subscribe(
+        event => {
+          console.log("event posted");
+          console.log(event);
+          if(event!=null){
+            localStorage.setItem("event",JSON.stringify(event));
+            console.log("setting");
+          }
+        },
+        error => {
+          this._event.error(error);
+        }
+      );
+
+    return this.event;
+  }
+
 }
