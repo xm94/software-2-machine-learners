@@ -24,7 +24,18 @@ export class EventService {
 
   get event(){
     console.log(localStorage.getItem("event"))
-    return JSON.parse(localStorage.getItem("event"));
+    let curEvent = localStorage.getItem("event");
+    console.log(localStorage.getItem("event"));
+    console.log(localStorage.getItem("event")==null)
+    console.log(localStorage.getItem("event")===null)
+    if(curEvent!=null){
+        console.log("there is an event");
+        return JSON.parse(localStorage.getItem("event"));
+    }
+    else{
+        console.log("no event");
+        return null;
+    }
   }
 
   private setAllEvents(response: HttpResponse<Object>){
@@ -61,8 +72,10 @@ export class EventService {
         events => {
           console.log("events");
           this._event.next(events[0]);
-          localStorage.setItem("event",JSON.stringify(events[0]));
-          console.log(localStorage.getItem("event"));
+          if(events[0]!=null){
+            localStorage.setItem("event",JSON.stringify(events[0]));
+            console.log("setting");
+          }
         },
         error => {
           this._event.error(error);

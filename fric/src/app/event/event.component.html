@@ -1,13 +1,90 @@
+<h1>Event View</h1>
 <div *ngIf="event==null;else eventDetailedView"><mat-card>
-  <div>test</div>
+  <div>There is no current event</div>
   <br>
-  <div *ngIf="eventList!=null">
-      <div *ngFor="let e of eventList; index as i">
-          <mat-card><div>{{e.e_id}}</div></mat-card>
-      </div>
-  </div>
+  <button mat-raised-button color="primary">Create Event</button> 
+  <br>
+    "e_id": "4896b5e9-8c76-4652-8e58-68b32f43c4ea",
+    <br>
+    "e_name": "Test Event",
+    <br>
+    "e_description": "A test event",
+    <br>
+    "e_type": "Cooperative Vulnerability Penetration Assessment (CVPA)",
+    <br>
+    "e_version": 1,
+    <br>
+    "e_assessment_date": "2020-11-27",
+    <br>
+    "e_org_name": "Test Org",
+    <br>
+    "e_org_address": "Test Org",
+    <br>
+    "e_sec_class_title_guide": "Test Guide",
+    <br>
+    "e_classification": "Top Secret",
+    <br>
+    "e_declassification_date": "2020-11-27",
+    <br>
+    "e_customer": "CEAD",
+    <br>
+    "e_archived": false,
+    <br>
+</mat-card>
+
+
   
-</mat-card></div>
+  
+</div>
 
 
-<ng-template #eventDetailedView>{{event.e_id}}</ng-template>
+<div *ngIf="eventList!=null">
+    <span>Archived Events</span>
+    <div *ngFor="let e of eventList; index as i">
+        <mat-card><div>{{e.e_id}}</div><button>ReOpen?</button></mat-card>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ng-template #eventDetailedView><span>event detailed view</span>
+
+    <mat-card>
+        ID: {{event.e_id}}
+    </mat-card>
+    <br>
+    <mat-card>
+        Name: {{event.e_name}}
+    </mat-card>
+    <br>
+    <mat-card>
+        Org Name: {{event.e_org_name}}
+    </mat-card>
+    <br>
+    <mat-card>
+        Type: {{event.e_type}}
+    </mat-card>
+    <br>
+    <mat-card>
+        Version: {{event.e_version}}
+    </mat-card>
+    <br>
+    <mat-card>
+        Assessment Date: {{event.e_assessment_date}}
+    </mat-card>
+    <br>
+    <mat-card>
+        Classification: {{event.e_classification}}
+    </mat-card>
+</ng-template>

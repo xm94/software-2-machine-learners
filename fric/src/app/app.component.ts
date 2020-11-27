@@ -31,6 +31,7 @@ export class AppComponent {
     ) {
       this.initials= analystService.currentUser? analystService.currentUser.a_initials : 'GG';
       this.eventService.reloadEvent();
+      this.eventService.fetchEvents();
       this.eventService.event;
      }
 
