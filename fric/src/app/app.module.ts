@@ -39,6 +39,7 @@ import { ModalModule } from "ngx-bootstrap/modal";
 import { MatDatepickerModule } from '@angular/material';
 import { MatNativeDateModule } from '@angular/material';
 import { EventCreatedComponent } from './event-created/event-created.component';
+import { CreateSystemComponent } from './modals/create-system/create-system.component';
 
 
 @NgModule({
@@ -62,6 +63,7 @@ import { EventCreatedComponent } from './event-created/event-created.component';
     AddTaskComponent,
     CreateEventModal,
     EventCreatedComponent,
+    CreateSystemComponent,
   ],
   imports: [
     BrowserModule,
