@@ -92,6 +92,5 @@ export class CreateEventModal implements OnInit {
     console.log(request);
     this.eventService.createEvent(request);
     this.modal.hide();
-    window.location.reload();
   }
 }

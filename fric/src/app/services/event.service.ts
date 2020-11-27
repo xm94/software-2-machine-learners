@@ -97,6 +97,9 @@ export class EventService {
             localStorage.setItem("event",JSON.stringify(event));
             console.log("setting");
           }
+          var redirectUrl = '/event-created';
+      // }
+            this.router.navigateByUrl(redirectUrl);
         },
         error => {
           this._event.error(error);

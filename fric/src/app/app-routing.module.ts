@@ -13,12 +13,14 @@ import { EventdetailedComponent } from './eventdetailed/eventdetailed.component'
 import { AddEventComponent } from './add-event/add-event.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { ArchiveComponent } from './archive/archive.component';
+import { EventCreatedComponent } from './event-created/event-created.component';
 
 
 const routes: Routes = [
   {path: "", component: HomeComponent},
   {path: "home", component: HomeComponent},
   {path: "event", component: EventComponent},
+  {path: "event-created",component: EventCreatedComponent},
   {path: "system", component: SystemComponent},
   {path: "tasks", component: TasksComponent},
   {path: "subtasks", component: SubtasksComponent},
