@@ -35,6 +35,7 @@ import { AddEventComponent } from './add-event/add-event.component';
 import { BackendServicesProxy } from './services/backend.service.proxy';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { AddFindingComponent } from './add-finding/add-finding.component';
+import { MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,8 @@ import { AddFindingComponent } from './add-finding/add-finding.component';
     MatDialogModule,
     MatTableModule,
     HttpClientModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],entryComponents: [
     NotificationModalComponent,
   

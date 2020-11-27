@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { BackendServicesProxy } from '../services/backend.service.proxy'
+import { Router } from '@angular/router'
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -69,7 +70,7 @@ export class AddEventComponent implements OnInit {
   dataSource = ELEMENT_DATA;
   toppings = new FormControl();
   toppingList: string[] = ['type1', 'type2', 'type3'];
-  constructor(private readonly proxyService: BackendServicesProxy) {
+  constructor(private readonly proxyService: BackendServicesProxy, private router: Router) {
     this.addEventForm = new FormGroup({
     e_id: new FormControl(),
     e_name: new FormControl(),
@@ -88,20 +89,67 @@ export class AddEventComponent implements OnInit {
   ngOnInit() {
   }
 
+  /** From stack overflow */
+  generateUUID() { // Public Domain/MIT
+    var d = new Date().getTime();//Timestamp
+    var d2 = (performance && performance.now && (performance.now()*1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = Math.random() * 16;//random number between 0 and 16
+        if(d > 0){//Use timestamp until depleted
+            r = (d + r)%16 | 0;
+            d = Math.floor(d/16);
+        } else {//Use microseconds since page-load if supported
+            r = (d2 + r)%16 | 0;
+            d2 = Math.floor(d2/16);
+        }
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+  }
+
+  isValidEvent(event){
+    // check that there are no null objects
+    for (const [key, value] of Object.entries(event)){
+      if (event[key] == null){
+        console.log("key",key,"is",value);
+        return false;
+      }
+
+      if(key == "e_version"){
+        if(isNaN(event[key])){
+          console.log("key",key,"is",value,"Not a number!");
+          return false;
+        }
+      }
+      
+    }
+    return true;
+  }
   submitEventClicked(){
     console.log("Submmitting event");
-    
+    var eventToSend = this.addEventForm.value;
+    eventToSend.e_archived = false;
+    // Generate uuid
+    eventToSend.e_id = this.generateUUID();
 
-    var objToSend = {
-      event:this.addEventForm.value,
-      analyst: {
-        a_id: "88f44655-39d3-4e54-a798-a8cc73d53a4e"
+    console.log(eventToSend);
+    
+    if(this.isValidEvent(eventToSend)){
+      var objToSend = {
+        event: eventToSend,
+        analyst: {
+          a_id: "88f44655-39d3-4e54-a798-a8cc73d53a4e"
+        }
       }
+      console.log(objToSend);
+      var returnedItem = this.proxyService.post("/events", objToSend)
+      console.log(returnedItem);
+      alert("added event!");
+      this.router.navigate(['home']);
+    } else {
+      console.log("Found null attributes!");
+      alert("Please fill out all fields!");
     }
-    // FIXME this is wrong, but works for now
-    console.log(objToSend);
-    var returnedItem = this.proxyService.post("/events", objToSend)
-    console.log(returnedItem);
+    
   }
 
 }

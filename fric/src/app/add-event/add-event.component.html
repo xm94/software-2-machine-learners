@@ -5,67 +5,75 @@
             <mat-card class="m-3">
                 <div class="form-column">
                     <mat-card-title class="form-row p-5">Event Basic Information</mat-card-title>
-                    <mat-form-field class="p-3 form-group ">
+                    <!-- <mat-form-field class="p-3 form-group ">
                         <mat-label>Event ID</mat-label>
                         <input matInput type="text" id="eventID" [value]="" formControlName="e_id">
-                    </mat-form-field>
+                    </mat-form-field> -->
                     <mat-form-field class="p-3 form-group ">
                         <mat-label>Event Name</mat-label>
-                        <input matInput type="text" value="" id="eventName" [value]="" formControlName="e_name">
+                        <input matInput type="text" value="" id="eventName" [value]="" formControlName="e_name" required>
                     </mat-form-field>
 
                     <mat-form-field class="p-3 form-group  w-100 h-25">
                         <mat-label>Event Description</mat-label>
-                        <input matInput type="text" value="" id="eventDescription" [value]="" formControlName="e_description">
+                        <input matInput type="text" value="" id="eventDescription" [value]="" formControlName="e_description" required>
                     </mat-form-field>
 
         
                     <mat-form-field class="p-3 form-group" appearance="fill">
                         <mat-label>Event Type</mat-label>
-                        <mat-select [disabled]="disableSelect.value" id="eventType" [value]="" formControlName="e_type">
-                            <mat-option value="Type 1">Type 1</mat-option>
-                            <mat-option value="Type 2">Type 2</mat-option>
-                            <mat-option value="Type 3">Type 3</mat-option>
+                        <mat-select [disabled]="disableSelect.value" id="eventType" [value]="" formControlName="e_type" required>
+                            <mat-option value="Type 1">Cooperative Vulnerability Penetration (CVP)</mat-option>
+                            <mat-option value="Type 2">Cooperative Vulnerability Investigation (CVI)</mat-option>
+                            <mat-option value="Type 3">Verification of Fixes (VOF)</mat-option>
                         </mat-select>
                     </mat-form-field>
         
                     <mat-form-field class="p-3 form-group ">
                         <mat-label>Event Version</mat-label>
-                        <input matInput type="text" value="" id="eventVersion"[value]=""  formControlName="e_version">
+                        <input matInput type="text" value="" id="eventVersion"[value]=""  formControlName="e_version" required>
                     </mat-form-field>
         
                     <mat-form-field class="p-3 ">
                         <mat-label>Assessment Date</mat-label>
-                        <input matInput type="text" value="" id="eventAssesmentDate" [value]="" formControlName="e_assessment_date">
+                        <!-- <input matInput type="text" value="" id="eventAssesmentDate" [value]="" formControlName="e_assessment_date"> -->
+                        <input matInput [matDatepicker]="picker" formControlName="e_assessment_date" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
         
                     <mat-form-field class="p-3 ">
                         <mat-label>Security Classification Title Guide</mat-label>
-                        <input matInput type="text" value="" id="eventSecClassTitleGuide" [value]="" formControlName="e_sec_class_title_guide">
+                        <input matInput type="text" value="" id="eventSecClassTitleGuide" [value]="" formControlName="e_sec_class_title_guide" required>
                     </mat-form-field>
 
                     <mat-form-field class="p-3 ">
                         <mat-label>Organization Name</mat-label>
-                        <input matInput type="text" value="" id="eventOrganizationName" [value]="" formControlName="e_org_name">
+                        <input matInput type="text" value="" id="eventOrganizationName" [value]="" formControlName="e_org_name" required>
                     </mat-form-field>
         
                     <mat-form-field class="p-3 form-group" appearance="fill">
                         <mat-label>Event Classification</mat-label>
-                        <mat-select [disabled]="disableSelect.value" id="eventClassification" [value]="" formControlName="e_classification">
-                            <mat-option value="option1">Classification 1</mat-option>
-                            <mat-option value="option2">Classification 2</mat-option>
-                            <mat-option value="option3">Classification 3</mat-option>
+                        <mat-select [disabled]="disableSelect.value" id="eventClassification" [value]="" formControlName="e_classification" required>
+                            <mat-option value="option1">Top Secret</mat-option>
+                            <mat-option value="option2">Secret</mat-option>
+                            <mat-option value="option3">Classified</mat-option>
+                            <mat-option value="option4">Unclassified</mat-option>
                         </mat-select>
                     </mat-form-field>
         
                     <mat-form-field class="p-3 ">
                         <mat-label>Declassification Date</mat-label>
-                        <input matInput type="text" value="" id="eventDeclassificationDate" [value]="" formControlName="e_declassification_date">
+                        <!-- <input matInput type="text" value="" id="eventDeclassificationDate" [value]="" formControlName="e_declassification_date"> -->
+                        <input matInput [matDatepicker]="picker1" formControlName="e_declassification_date" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                        
                     </mat-form-field>
         
                     <mat-form-field class="p-3 ">
                         <mat-label> Customer Name </mat-label>
-                        <input matInput type="text" value="" id="eventCustomer" [value]="" formControlName="e_customer">
+                        <input matInput type="text" value="" id="eventCustomer" [value]="" formControlName="e_customer" required>
                     </mat-form-field>
                 </div>
                 
