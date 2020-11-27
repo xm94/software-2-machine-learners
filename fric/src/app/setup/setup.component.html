@@ -1,1 +1,4 @@
 <p>setup works!</p>
+<div *ngIf="event!=null;else elseBlock">{{event}}</div>
+
+<ng-template #elseBlock>Content to render when value is null.</ng-template>

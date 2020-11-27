@@ -1,44 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: string;
-  symbol: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: "event1", symbol: 23},
-  {position: 2, name: 'Helium', weight: "testevent", symbol: 3},
-  {position: 3, name: 'Lithium', weight: "myevent3", symbol: 1},
-  {position: 4, name: 'Beryllium', weight: "tankexploded", symbol: 21},
-  {position: 5, name: 'Boron', weight: "parachutfailure", symbol: 12},
-  {position: 6, name: 'Carbon', weight: "hello", symbol: 14},
-  {position: 7, name: 'Nitrogen', weight: "attacktest", symbol: 2},
-  {position: 8, name: 'Oxygen', weight: "dictionarytest", symbol: 1},
-  {position: 10, name: 'Neon', weight: "dictionarytest", symbol: 2},
-];
+import { AuthService } from '../auth/auth.service';
+import { BackendServicesProxy } from '../services/backend.service.proxy'
+import { AnalystService } from "../services/analyst.service"
+import { EventService } from '../services/event.service';
+import { CreateEventModal } from '../modals/create-event/create-event.component'
 
 @Component({
   selector: 'app-event',
   templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss']
+  styleUrls: ['./event.component.scss'],
+  providers: [BackendServicesProxy,AnalystService]
 })
 
 
 export class EventComponent implements OnInit {
-  displayedColumns: string[] = ['checkbox', 'position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
-  value = 'Clear me';
-  disableSelect = new FormControl(false);
-  toppings = new FormControl();
-  toppingList: string[] = ['type1', 'type2', 'type3'];
-  
-  constructor() { }
+  event: any;
+  eventList: any[];
+  @ViewChild(CreateEventModal, { static: false })
+  modal: CreateEventModal;
+  analyst;
+  constructor(
+    private readonly proxyService: BackendServicesProxy,
+    private readonly analystService: AnalystService,
+    private readonly eventService: EventService,) { 
+      this.eventService.allEvents.subscribe((events) => {this.eventList=events});
+      this.event=this.eventService.event;
+      console.log(this.modal);
+      this.analyst = this.analystService.currentUser;
+    }
 
   ngOnInit() {
   }
 
+  openModal() {
+    this.modal.showModal(this.analyst);
+  }
   
 }

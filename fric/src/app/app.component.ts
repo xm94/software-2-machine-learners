@@ -6,28 +6,33 @@ import { NotificationModalComponent } from './notification-modal/notification-mo
 import { AuthService } from './auth/auth.service';
 import { BackendServicesProxy } from './services/backend.service.proxy'
 import { AnalystService } from "./services/analyst.service"
+import { EventService } from "./services/event.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  providers: [BackendServicesProxy,AnalystService]
+  providers: [BackendServicesProxy,AnalystService,EventService]
 })
 export class AppComponent {
   // This is just to get rid of the red underline given by vscode
   myForm:FormGroup;
   otherForm : FormGroup;
   lead:boolean = false;
+  event_list:any;
   initials:string = "";
   title = 'Findings and Reportings Information Console';
   constructor( 
     private readonly proxyService: BackendServicesProxy,
     private readonly analystService: AnalystService,
+    private readonly eventService: EventService,
     public matDialog: MatDialog,
     private authService: AuthService
     ) {
       this.initials= analystService.currentUser? analystService.currentUser.a_initials : 'GG';
-      
+      this.eventService.reloadEvent();
+      this.eventService.fetchEvents();
+      this.eventService.event;
      }
 
   checkBoxClicked() {

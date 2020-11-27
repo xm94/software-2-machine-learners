@@ -8,3 +8,6 @@ mat-dialog-container{
     background-color: #1a1a1a;
 }
 
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+    z-index: 10000 !important;
+    }
