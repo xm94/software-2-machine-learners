@@ -10,7 +10,6 @@ var jsonParser = bodyParser.json();
 router.post("/events",jsonParser, async function(req, res){
     console.log(req.body);
     console.log("Attempting to create event ");
-    req.body.analyst.a_initials = "EM"
     var event = await events.insert(req.body.event);
     console.log(event);
     console.log("printing even");

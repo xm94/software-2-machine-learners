@@ -133,11 +133,13 @@ export class AddEventComponent implements OnInit {
 
     console.log(eventToSend);
     
+    // The only thing left to take care of is the initials
     if(this.isValidEvent(eventToSend)){
       var objToSend = {
         event: eventToSend,
         analyst: {
-          a_id: "88f44655-39d3-4e54-a798-a8cc73d53a4e"
+          a_id: "88f44655-39d3-4e54-a798-a8cc73d53a4e",
+          a_initials: "EM"
         }
       }
       console.log(objToSend);
