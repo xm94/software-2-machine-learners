@@ -1,0 +1,78 @@
+<div><button mat-raised-button color="primary" (click)="return()"> <- Back to Finding View</button></div>
+
+<br>
+<mat-card>
+    Name: {{finding.f_name}}
+</mat-card>
+<br>
+<mat-card>
+    Associated System Name: {{system.s_name}}
+</mat-card>
+<br>
+<mat-card>
+    Host Name and IP/Port: {{finding.f_host_name}} - {{finding.f_ip_port}}
+</mat-card>
+<br>
+<mat-card>
+    Classification/Type: {{finding.f_classification}} {{finding.f_classification=="Informational" ? "" : " - " + finding.f_type}}
+</mat-card>
+<br>
+<mat-card>
+    Status: {{finding.f_status}}
+</mat-card>
+<br>
+<mat-card>
+    Short Description: {{finding.f_description}}
+</mat-card>
+<br>
+<mat-card>
+    Long Description {{finding.f_long_description}}
+</mat-card>
+<br>
+<mat-card>
+    Confidentiality: {{finding.f_confidentiality_impact}}
+</mat-card>
+<br>
+<mat-card>
+    Availability: {{finding.f_availability_impact}}
+</mat-card>
+<br>
+<mat-card>
+    Integrity: {{finding.f_integrity_impact}}
+</mat-card>
+<br>
+<mat-card>
+    Severity Category Code: {{finding.f_cat_code}}
+</mat-card>
+
+<br>
+<mat-card>
+    Countermesure Effectiveness Rating/Score: {{finding.f_countermeasure_effectiveness_rating}} - {{finding.f_countermeasure_effectiveness_score}}
+</mat-card>
+<br>
+
+<mat-card>
+    Impact Level/Description: {{finding.f_impact_level}} - {{finding.f_impact_score}}
+</mat-card>
+
+<br>
+<mat-card>
+    Posture: {{finding.f_posture}}
+</mat-card>
+
+<br>
+<mat-card>
+    Relevance: {{finding.f_relevance}}
+</mat-card>
+<br>
+
+<div *ngFor="let m of finding.f_mitigations;index as i;">
+    <mat-card>
+        <h5>Mitigation {{i+1}}</h5>
+        Mitigation 1-Liner : {{m.m_brief_description}}
+        <br>
+        Mitigation Description: {{m.m_long_description}}
+    </mat-card>
+    <br>
+</div>
+

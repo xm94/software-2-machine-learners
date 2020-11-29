@@ -33,4 +33,8 @@ export class SystemDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+  return(){
+    this.router.navigate([".."],{relativeTo: this.activatedRoute});
+  }
+
 }

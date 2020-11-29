@@ -101,6 +101,4 @@ export class CreateSystemComponent implements OnInit {
     this.modal.hide();
   }
 
- 
-
 }
