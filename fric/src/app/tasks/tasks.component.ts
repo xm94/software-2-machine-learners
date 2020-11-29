@@ -1,43 +1,63 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CreateSystemComponent } from '../modals/create-system/create-system.component';
+import { CreateTaskComponent } from '../modals/create-task/create-task.component';
+import { AnalystService } from '../services/analyst.service';
+import { BackendServicesProxy } from '../services/backend.service.proxy';
+import { EventService } from '../services/event.service';
+import { SystemService } from '../services/system.service';
+import { TaskService } from '../services/task.service';
 
-export interface Task {
-  title: string;
-  system: string;
-  analyst: string;
-  priority: string;
-  progress: string;
-  subtaskCount: number;
-  findingsCount: number;
-  dueDate: string;
-}
-
-const TASK_DATA: Task[] = [
-  {subtaskCount: 1, title: 'title 1', analyst: "ER", findingsCount: 23, system:"system", priority:"low", progress:"50", dueDate:"Jan 1"},
-  {subtaskCount: 2, title: 'title', analyst: "EF", findingsCount: 3, system:"system", priority:"low", progress:"40", dueDate:"Jan 1"},
-  {subtaskCount: 43, title: 'title', analyst: "AD", findingsCount: 1, system:"system", priority:"low", progress:"41", dueDate:"Jan 1"},
-  {subtaskCount: 4, title: 'title', analyst: "AF", findingsCount: 21, system:"system", priority:"low", progress:"45", dueDate:"Jan 1"},
-  {subtaskCount: 25, title: 'title', analyst: "DF", findingsCount: 12, system:"system", priority:"low", progress:"45", dueDate:"Jan 1"},
-  {subtaskCount: 6, title: 'title', analyst: "DF", findingsCount: 14, system:"system", priority:"low", progress:"14", dueDate:"Jan 1"},
-  {subtaskCount: 7, title: 'title', analyst: "DF", findingsCount: 2, system:"system", priority:"low", progress:"24", dueDate:"Jan 1"},
-  {subtaskCount: 8, title: 'title', analyst: "AD", findingsCount: 1, system:"system", priority:"low", progress:"0", dueDate:"Jan 1"},
-  {subtaskCount: 10, title: 'title', analyst: "WE", findingsCount: 2, system:"system", priority:"low", progress:"45", dueDate:"Jan 1"},
-];
 @Component({
   selector: 'app-tasks',
   templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss']
+  styleUrls: ['./tasks.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class TasksComponent implements OnInit {
-  displayedColumns: string[] = ['checkbox', 'subtaskCount', 'title', 'analyst', 'findingsCount', 'system', 'priority', 'progress', 'duedate'];
-  dataSource = TASK_DATA;
-  value = 'Clear me';
-  disableSelect = new FormControl(false);
-  toppings = new FormControl();
-  toppingList: string[] = ['type1', 'type2', 'type3'];
-  constructor() { }
+  displayedColumns: string[] = ['name', 'priority', 'progress','due_date','analyst','button'];  event: any;
+  taskList: any[]=[];
+
+  @ViewChild(CreateTaskComponent, { static: false })
+  modal: CreateTaskComponent;
+  analyst;
+  constructor(
+    private readonly analystService: AnalystService,
+    private readonly eventService: EventService,
+    private readonly systemService: SystemService,
+    private readonly taskService: TaskService,
+    private router: Router,
+    private readonly activatedRoute: ActivatedRoute,) {
+      this.event = this.eventService.event;
+      this.taskService.fetchTasks();
+      this.taskService.allTasks.subscribe((tasks) => {
+        for(var t of tasks){
+          var exists: boolean = false;
+          for(var task of this.taskList){
+            if(task.t_id == t.t_id){
+              exists=true;
+              break;
+            }
+          }
+          if(!exists){
+            this.taskList.push(t);
+          }
+        }
+        this.taskList = [...this.taskList];
+        console.log(this.taskList);
+      });
+      this.analyst = this.analystService.currentUser;
+    }
 
   ngOnInit() {
+  }
+
+  openModal() {
+    this.modal.showModal(this.analyst,this.event.e_id);
+  }
+
+  buttonPress(t_id){
+    this.router.navigate([t_id],{relativeTo: this.activatedRoute});
   }
 
 }

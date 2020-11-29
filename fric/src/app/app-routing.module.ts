@@ -16,6 +16,7 @@ import { ArchiveComponent } from './archive/archive.component';
 import { EventCreatedComponent } from './event-created/event-created.component';
 import { SystemDetailComponent } from './system-detail/system-detail.component';
 import { FindingDetailComponent } from './finding-detail/finding-detail.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,12 @@ const routes: Routes = [
       { path: ":id",component: SystemDetailComponent},
       { path: "", component: SystemComponent}
     ],},
-  {path: "tasks", component: TasksComponent},
+  {
+    path: "tasks",
+    children: [
+      {path: "", component: TasksComponent},
+      {path: ":id", component: TaskDetailComponent},
+    ]},
   {path: "subtasks", component: SubtasksComponent},
   {
     path: "findings",

@@ -1,0 +1,69 @@
+<div
+  bsModal
+  #lgModal="bs-modal"
+  class="modal fade modal-open"
+  tabindex="-1"
+  size="lg"
+  aria-hidden="true"
+  (onHidden)="onHide()"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Create System</h4>
+            </div>
+            <div class="modal-body">
+                <form class="example-form" [formGroup]="form">
+                    <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]=true>
+                        <mat-label>Task Name</mat-label>
+                        <input matInput formControlName="t_name" required>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]=true>
+                        <mat-label>Task Priority</mat-label>
+                        <mat-select  formControlName=t_priority required>
+                            <mat-option  *ngFor="let p of priority" value="{{p}}">
+                                {{p}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]=true>
+                        <mat-label>Task Progress</mat-label>
+                        <mat-select  formControlName=t_progress required>
+                            <mat-option  *ngFor="let prog of progress" value="{{prog}}">
+                                {{prog}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>System</mat-label>
+                        <mat-select  formControlName=s_id>
+                            <mat-option  *ngFor="let s of systems" value="{{s.s_id}}">
+                                {{s.s_name}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Task Due Date</mat-label>
+                        <input matInput [matDatepicker]="apicker" formControlName="t_due_date">
+                        <mat-datepicker-toggle matSuffix [for]="apicker"></mat-datepicker-toggle>
+                        <mat-datepicker #apicker></mat-datepicker>
+                    </mat-form-field>
+                    
+                    <br>
+
+                    <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width" [hideRequiredMarker]=true>
+                        <mat-label>Task Description</mat-label>
+                        <textarea matInput formControlName="t_description" required></textarea>
+                    </mat-form-field>
+                    
+                </form>
+
+                <button mat-raised-button color="primary" (click)="submit()">Submit</button> 
+            </div>
+        </div>
+    </div>
+</div>
