@@ -9,9 +9,6 @@ import { HelpComponent } from './help/help.component';
 import { SystemComponent } from './system/system.component';
 import { TasksComponent } from './tasks/tasks.component';
 import { SubtasksComponent } from './subtasks/subtasks.component';
-import { EventdetailedComponent } from './eventdetailed/eventdetailed.component';
-import { AddEventComponent } from './add-event/add-event.component';
-import { AddTaskComponent } from './add-task/add-task.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { EventCreatedComponent } from './event-created/event-created.component';
 import { SystemDetailComponent } from './system-detail/system-detail.component';
@@ -48,9 +45,6 @@ const routes: Routes = [
   {path: "configuration", component: ConfigurationComponent},
   {path: "setup", component: SetupComponent},
   {path: "help", component: HelpComponent},
-  {path: "eventdetailed", component: EventdetailedComponent},
-  {path: "add-event", component: AddEventComponent},
-  {path: "add-task", component: AddTaskComponent}
 ];
 
 @NgModule({
