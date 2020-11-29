@@ -1,26 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CreateSystemComponent } from '../modals/create-system/create-system.component';
+import { CreateTaskComponent } from '../modals/create-task/create-task.component';
+import { AnalystService } from '../services/analyst.service';
+import { BackendServicesProxy } from '../services/backend.service.proxy';
+import { EventService } from '../services/event.service';
+import { SubtaskService } from '../services/subtask.service';
+import { SystemService } from '../services/system.service';
+import { TaskService } from '../services/task.service';
 
-export interface Sub_Task {
-  title: string;
-  task: string;
-  analyst: string;
-  progress: string;
-  subtaskCount: number;
-  findingsCount: number;
-  dueDate: string;
-}
-const TASK_DATA: Sub_Task[] = [
-  {subtaskCount: 1, title: 'title 1', analyst: "XM", findingsCount: 23, task:"task", progress:"52", dueDate:"Jan 1"},
-  {subtaskCount: 2, title: 'cancel request', analyst: "XM", findingsCount: 3, task:"task", progress:"23", dueDate:"Jan 1"},
-  {subtaskCount: 3, title: 'perform test', analyst: "EM", findingsCount: 1, task:"task", progress:"42", dueDate:"Jan 1"},
-  {subtaskCount: 4, title: 'do this', analyst: "RC", findingsCount: 21, task:"task", progress:"43", dueDate:"Jan 1"},
-  {subtaskCount: 5, title: 'do that', analyst: "DF", findingsCount: 12, task:"task", progress:"2", dueDate:"Jan 1"},
-  {subtaskCount: 6, title: 'temp title', analyst: "DF", findingsCount: 14, task:"task", progress:"42", dueDate:"Jan 1"},
-  {subtaskCount: 7, title: 'testing', analyst: "ER", findingsCount: 2, task:"task", progress:"76", dueDate:"Jan 1"},
-  {subtaskCount: 80, title: 'update', analyst: "ER", findingsCount: 1, task:"task", progress:"45", dueDate:"Jan 1"},
-  {subtaskCount: 10, title: 'element update', analyst: "ER", findingsCount: 2, task:"task", progress:"88", dueDate:"Jan 1"},
-];
 
 @Component({
   selector: 'app-subtasks',
@@ -28,15 +16,68 @@ const TASK_DATA: Sub_Task[] = [
   styleUrls: ['./subtasks.component.scss']
 })
 export class SubtasksComponent implements OnInit {
-  displayedColumns: string[] = ['checkbox', 'subtaskCount', 'title', 'analyst', 'findingsCount', 'task', 'progress', 'duedate'];
-  dataSource = TASK_DATA;
-  value = 'Clear me';
-  disableSelect = new FormControl(false);
-  toppings = new FormControl();
-  toppingList: string[] = ['type1', 'type2', 'type3'];
-  constructor() { }
+  displayedColumns: string[] = ['name', 'priority', 'progress','due_date','analyst','button'];  event: any;
+  taskList: any[]=[];
+  subtaskList: any[]=[];
+
+  @ViewChild(CreateTaskComponent, { static: false })
+  modal: CreateTaskComponent;
+  analyst;
+
+  constructor(private readonly analystService: AnalystService,
+    private readonly eventService: EventService,
+    private readonly systemService: SystemService,
+    private readonly taskService: TaskService,
+    private readonly subtaskService: SubtaskService,
+    private router: Router,
+    private readonly activatedRoute: ActivatedRoute,) {
+      this.event = this.eventService.event;
+      this.taskService.fetchTasks();
+      this.taskService.allTasks.subscribe((tasks) => {
+        for(var t of tasks){
+          var exists: boolean = false;
+          for(var task of this.taskList){
+            if(task.t_id == t.t_id){
+              exists=true;
+              break;
+            }
+          }
+          if(!exists){
+            this.taskList.push(t);
+          }
+        }
+        this.taskList = [...this.taskList];
+        
+      });
+      this.subtaskService.fetchSubtasks();
+      this.subtaskService.allSubtasks.subscribe((subtasks) => {
+        for(var st of subtasks){
+          var exists: boolean = false;
+          for(var s_task of this.subtaskList){
+            if(s_task.st_id == st.st_id){
+              exists=true;
+              break;
+            }
+          }
+          if(!exists){
+            this.subtaskList.push(st);
+          }
+        }
+        this.subtaskList = [...this.subtaskList];
+        console.log(this.subtaskList);
+      });
+      this.analyst = this.analystService.currentUser;
+  }
 
   ngOnInit() {
+  }
+
+  openModal() {
+    this.modal.showModal(this.analyst,this.event.e_id);
+  }
+
+  buttonPress(st_id){
+    this.router.navigate([st_id],{relativeTo: this.activatedRoute});
   }
 
 }
