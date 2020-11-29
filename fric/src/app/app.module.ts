@@ -43,6 +43,7 @@ import { FindingDetailComponent } from './finding-detail/finding-detail.componen
 import { CreateTaskComponent } from './modals/create-task/create-task.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { CreateSubtaskComponent } from './modals/create-subtask/create-subtask.component';
+import { SubtaskDetailComponent } from './subtask-detail/subtask-detail.component';
 
 
 @NgModule({
@@ -70,6 +71,7 @@ import { CreateSubtaskComponent } from './modals/create-subtask/create-subtask.c
     CreateTaskComponent,
     TaskDetailComponent,
     CreateSubtaskComponent,
+    SubtaskDetailComponent,
   ],
   imports: [
     BrowserModule,
