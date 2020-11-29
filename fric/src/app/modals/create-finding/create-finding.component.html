@@ -1,0 +1,192 @@
+<div
+  bsModal
+  #lgModal="bs-modal"
+  class="modal fade modal-open"
+  tabindex="-1"
+  size="lg"
+  aria-hidden="true"
+  (onHidden)="onHide()"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Create System</h4>
+            </div>
+            <div class="modal-body">
+                <form class="example-form" [formGroup]="form">
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Finding Name</mat-label>
+                        <input matInput formControlName="f_name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Finding Host Name</mat-label>
+                        <input matInput formControlName="f_host_name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>Finding IP:Port</mat-label>
+                        <input matInput formControlName="f_ip_port">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Finding Status</mat-label>
+                        <mat-select  formControlName=f_status>
+                            <mat-option  *ngFor="let s of statuses" value="{{s}}">
+                                {{s}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Finding Type</mat-label>
+                        <mat-select  formControlName=f_confidentiality>
+                            <mat-option  *ngFor="let t of types" value="{{t}}">
+                                {{t}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Finding Classification</mat-label>
+                        <mat-select  formControlName=f_confidentiality>
+                            <mat-option  *ngFor="let cl of classifications" value="{{cl}}">
+                                {{cl}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Affects Confidentiality?</mat-label>
+                        <mat-select  formControlName=f_confidentiality>
+                            <mat-option  *ngFor="let c of cia" value="{{c}}">
+                                {{c}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Affects Integrity?</mat-label>
+                        <mat-select  formControlName=f_integrity>
+                            <mat-option  *ngFor="let c of cia" value="{{c}}">
+                                {{c}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Affects Availability?</mat-label>
+                        <mat-select  formControlName=f_availability>
+                            <mat-option  *ngFor="let c of cia" value="{{c}}">
+                                {{c}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Finding Posture</mat-label>
+                        <mat-select  formControlName=f_posture>
+                            <mat-option  *ngFor="let p of posture" value="{{p}}">
+                                {{p}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Finding Relevance</mat-label>
+                        <mat-select  formControlName=f_relevance>
+                            <mat-option  *ngFor="let r of relevance" value="{{r}}">
+                                {{r}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Severity Category Code</mat-label>
+                        <mat-select  formControlName=f_cat_code>
+                            <mat-option  *ngFor="let cat of catcodes" value="{{cat}}">
+                                {{cat}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>System</mat-label>
+                        <mat-select  formControlName=f_relevance>
+                            <mat-option  *ngFor="let s of systems" value="{{s.s_id}}">
+                                {{s.s_name}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Task</mat-label>
+                        <mat-select  formControlName=f_posture>
+                            <mat-option  *ngFor="let t of tasks" value="{{t.t_id}}">
+                                {{t.t_name}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Subtask</mat-label>
+                        <mat-select  formControlName=f_cat_code>
+                            <mat-option  *ngFor="let st of subtasks" value="{{st.st_id}}">
+                                {{st.st_name}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" style=" width: 44%;"class="example-full-width">
+                        <mat-label>Countermeasure Effectiveness Rating</mat-label>
+                        <mat-select  formControlName=f_countermeasure_effectiveness_rating>
+                            <mat-option  *ngFor="let e of effectivenessRating" value="{{e}}">
+                                {{e}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="outline" style=" width: 44%;" class="example-full-width">
+                        <mat-label>Countermeasure Effectiveness Score</mat-label>
+                        <mat-select  formControlName=f_cat_code>
+                            <mat-option  *ngFor="let sc of ratingScores[form.get('f_countermeasure_effectiveness_rating').value]" value="{{sc}}">
+                                {{sc}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" style=" width: 44%;"class="example-full-width">
+                        <mat-label>Impact Level</mat-label>
+                        <mat-select  formControlName=f_impact_level>
+                            <mat-option  *ngFor="let il of impactLevel" value="{{il}}">
+                                {{il}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="outline" style=" width: 44%;" class="example-full-width">
+                        <mat-label>Impact Description</mat-label>
+                        <input matInput formControlName="f_impact_desc">
+                    </mat-form-field>
+
+
+                    <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width">
+                        <mat-label>Finding 1-Line Description</mat-label>
+                        <input matInput formControlName="f_description">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width">
+                        <mat-label>Finding Long Description</mat-label>
+                        <textarea matInput formControlName="f_long_description"></textarea>
+                    </mat-form-field>
+                    
+                </form>
+
+                <button mat-raised-button color="primary" (click)="submit()">submit</button> 
+            </div>
+        </div>
+    </div>
+</div>

@@ -41,6 +41,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { EventCreatedComponent } from './event-created/event-created.component';
 import { CreateSystemComponent } from './modals/create-system/create-system.component';
 import { SystemDetailComponent } from './system-detail/system-detail.component';
+import { CreateFindingComponent } from './modals/create-finding/create-finding.component';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { SystemDetailComponent } from './system-detail/system-detail.component';
     EventCreatedComponent,
     CreateSystemComponent,
     SystemDetailComponent,
+    CreateFindingComponent,
   ],
   imports: [
     BrowserModule,

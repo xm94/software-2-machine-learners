@@ -33,7 +33,16 @@ export class SystemComponent implements OnInit {
     this.systemService.fetchSystems();
     this.systemService.allSystems.subscribe((systems) => {
       for(var sys of systems){
-        this.systemList.push(sys);
+        var exists: boolean = false;
+        for(var s of this.systemList){
+          if(s.s_id == sys.s_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.systemList.push(sys);
+        }
       }
       this.systemList = [...this.systemList];
     });
@@ -49,8 +58,6 @@ export class SystemComponent implements OnInit {
   buttonPress(s_id){
     this.router.navigate([s_id],{relativeTo: this.activatedRoute});
     this.activatedRoute.params.subscribe((params)=>{console.log(params)});
-    this.systemList.push({s_id:"adfasdfaf",s_name:"two",s_confidentiality:"H",s_integrity:"H",s_availability:"H"});
-    this.systemList = [...this.systemList];
   }
 
 }
