@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { EventComponent } from './event/event.component';
-import { EventdetailedComponent } from './eventdetailed/eventdetailed.component';
 import { FindingsComponent } from './findings/findings.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
@@ -26,14 +25,12 @@ import { HelpComponent } from './help/help.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon'
-import {MatBadgeModule} from '@angular/material/badge';
-import {MatMenuModule} from '@angular/material/menu';
+import { MatBadgeModule} from '@angular/material/badge';
+import { MatMenuModule} from '@angular/material/menu';
 import { NotificationModalComponent } from './notification-modal/notification-modal.component'
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
-import { AddEventComponent } from './add-event/add-event.component';
 import { BackendServicesProxy } from './services/backend.service.proxy';
-import { AddTaskComponent } from './add-task/add-task.component';
 import { CreateEventModal } from './modals/create-event/create-event.component';
 import { ModalModule } from "ngx-bootstrap/modal";
 import { MatDatepickerModule } from '@angular/material';
@@ -63,9 +60,6 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
     SetupComponent,
     HelpComponent,
     NotificationModalComponent,
-    EventdetailedComponent,
-    AddEventComponent,
-    AddTaskComponent,
     CreateEventModal,
     EventCreatedComponent,
     CreateSystemComponent,
