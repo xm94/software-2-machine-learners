@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CreateSubtaskComponent } from '../modals/create-subtask/create-subtask.component';
 import { CreateSystemComponent } from '../modals/create-system/create-system.component';
 import { CreateTaskComponent } from '../modals/create-task/create-task.component';
 import { AnalystService } from '../services/analyst.service';
@@ -20,8 +21,8 @@ export class SubtasksComponent implements OnInit {
   taskList: any[]=[];
   subtaskList: any[]=[];
 
-  @ViewChild(CreateTaskComponent, { static: false })
-  modal: CreateTaskComponent;
+  @ViewChild(CreateSubtaskComponent, { static: false })
+  modal: CreateSubtaskComponent;
   analyst;
 
   constructor(private readonly analystService: AnalystService,
