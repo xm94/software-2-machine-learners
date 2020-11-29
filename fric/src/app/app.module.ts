@@ -43,6 +43,8 @@ import { CreateSystemComponent } from './modals/create-system/create-system.comp
 import { SystemDetailComponent } from './system-detail/system-detail.component';
 import { CreateFindingComponent } from './modals/create-finding/create-finding.component';
 import { FindingDetailComponent } from './finding-detail/finding-detail.component';
+import { CreateTaskComponent } from './modals/create-task/create-task.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
 
 
 @NgModule({
@@ -70,6 +72,8 @@ import { FindingDetailComponent } from './finding-detail/finding-detail.componen
     SystemDetailComponent,
     CreateFindingComponent,
     FindingDetailComponent,
+    CreateTaskComponent,
+    TaskDetailComponent,
   ],
   imports: [
     BrowserModule,

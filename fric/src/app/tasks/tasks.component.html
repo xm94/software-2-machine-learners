@@ -1,86 +1,58 @@
-<mat-card>
-    <mat-card-title class="m-3">Tasks</mat-card-title>
-    
+<h1>Task View</h1>
+<div *ngIf="event!=null;else elseBlock">
     <mat-card>
-        <button mat-button> <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">help</mat-icon></button>
-        <button mat-button>Archive</button>
-        <button mat-button>Demote</button>
-        <button mat-button>Save</button>
-        <button mat-button>Cancel</button>
+        Tasks for {{event.e_name}}
 
-        <mat-card class="m-3">
-            <div class="form-column">
-                <mat-card-title class="form-row p-5">Tasks Overview</mat-card-title>
-                <a class="nav-link" routerLink="/add-task">
-                    <button mat-button class="bg-primary text-light"> Add Task</button>
-                </a>
-    
-            </div>
-            <div class="form-inline">
-                <div class="form-column p-5">
-                    <table mat-table [dataSource]="dataSource" class="center mat-elevation-z8">
-                        <!--- Note that these columns can be defined in any order.
-                            The actual rendered columns are set as a property on the row definition" -->
-                        <!-- select Column -->
-                        <ng-container class="form-column p-5"matColumnDef="checkbox">
-                            <th mat-header-cell *matHeaderCellDef> Select</th>
-                            <td mat-cell *matCellDef="let element"> <mat-checkbox></mat-checkbox></td>
-                        </ng-container>
+        <table mat-table async [dataSource]="this.taskList" class="mat-elevation-z8">
 
-                        <!-- subTask Column -->
-                        <ng-container matColumnDef="subtaskCount">
-                            <th mat-header-cell *matHeaderCellDef> No. ST <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon> </th>
-                            <td mat-cell *matCellDef="let element"> {{element.subtaskCount}} </td> 
-                        </ng-container>
-            
-                        <!-- title Column -->
-                        <ng-container matColumnDef="title">
-                            <th mat-header-cell *matHeaderCellDef> Title <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon> </th>
-                            <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-                        </ng-container>
-                    
-                        <!-- analyst Column -->
-                        <ng-container matColumnDef="analyst">
-                            <th mat-header-cell *matHeaderCellDef> Analyst <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon> </th>
-                            <td mat-cell *matCellDef="let element"> {{element.analyst}} </td>
-                        </ng-container>
-                    
-                        <!-- findingsCount Column -->
-                        <ng-container matColumnDef="findingsCount">
-                            <th mat-header-cell *matHeaderCellDef> No. F <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon></th>
-                            <td mat-cell *matCellDef="let element"> {{element.findingsCount}} </td>
-                        </ng-container>
-                    
-                        <!-- system Column -->
-                        <ng-container matColumnDef="system">
-                            <th mat-header-cell *matHeaderCellDef> System <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon> </th>
-                            <td mat-cell *matCellDef="let element"> {{element.system}} </td>
-                        </ng-container>
+            <!--- Note that these columns can be defined in any order.
+                  The actual rendered columns are set as a property on the row definition" -->
+          
+          
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef> Name </th>
+              <td mat-cell *matCellDef="let element"> {{element.t_name}} </td>
+            </ng-container>
+          
+            <!-- Weight Column -->
+            <ng-container matColumnDef="priority">
+              <th mat-header-cell *matHeaderCellDef> Priority </th>
+              <td mat-cell *matCellDef="let element"> {{element.t_priority}} </td>
+            </ng-container>
 
-                        <!-- priority column -->
-                        <ng-container matColumnDef="priority">
-                            <th mat-header-cell *matHeaderCellDef> Priority <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon> </th>
-                            <td mat-cell *matCellDef="let element"> {{element.priority}} </td>
-                        </ng-container>
+            <!-- Weight Column -->
+            <ng-container matColumnDef="progress">
+                <th mat-header-cell *matHeaderCellDef> Progress </th>
+                <td mat-cell *matCellDef="let element"> {{element.t_progress}} </td>
+            </ng-container>
 
-                        <!-- progress column -->
-                        <ng-container matColumnDef="progress">
-                            <th mat-header-cell *matHeaderCellDef> Progress <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon> </th>
-                            <td mat-cell *matCellDef="let element"> {{element.progress}}% </td>
-                        </ng-container>
-                        <!-- duedate column -->
-                        <ng-container matColumnDef="duedate">
-                            <th mat-header-cell *matHeaderCellDef> Due Date <mat-icon class="align-middle" aria-hidden="false" aria-label="Example home icon">unfold_more</mat-icon> </th>
-                            <td mat-cell *matCellDef="let element"> {{element.dueDate}} </td>
-                        </ng-container>
-                    
-                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              <!-- Weight Column -->
+            <ng-container matColumnDef="due_date">
+                <th mat-header-cell *matHeaderCellDef> Due Date </th>
+                <td mat-cell *matCellDef="let element"> {{element.t_due_date}} </td>
+            </ng-container>
 
-                    </table>
-                </div>
-            </div>
-        </mat-card>
+              <!-- Weight Column -->
+            <ng-container matColumnDef="analyst">
+                <th mat-header-cell *matHeaderCellDef> Assigned Analyst </th>
+                <td mat-cell *matCellDef="let element"> {{element.a_id}} </td>
+            </ng-container>
+          
+            <!-- Symbol Column -->
+            <ng-container matColumnDef="button">
+              <th mat-header-cell *matHeaderCellDef>  </th>
+              <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" (click)="buttonPress(element.t_id)">Detailed View</button></td>
+            </ng-container>
+          
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <br>
 
-  
-  
+          <button mat-raised-button color="primary" (click)="openModal()">Create Task</button>
+    </mat-card>
+
+</div>
+<create-task></create-task>
+<ng-template #elseBlock>There is no active event</ng-template>
