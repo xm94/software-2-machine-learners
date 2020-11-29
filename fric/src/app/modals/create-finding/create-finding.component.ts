@@ -170,7 +170,7 @@ export class CreateFindingComponent implements OnInit {
     findingJson["f_level"]="system";
     findingJson["f_evidence"]=[];
     findingJson["f_associations"]=[];
-    findingJson["f_collaborations"]=[];
+    findingJson["f_collaborators"]=[];
     findingJson["f_mitigations"]=[
       {
 				"m_brief_description":"first",

@@ -39,8 +39,8 @@
 
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Task</mat-label>
-                        <mat-select  formControlName=t_id>
-                            <mat-option  *ngFor="let t of taskList" value="{{t}}">
+                        <mat-select  formControlName=taskInd>
+                            <mat-option  *ngFor="let t of taskList;index as i" value="{{i}}">
                                 {{t.t_name}}
                               </mat-option>
                         </mat-select>
