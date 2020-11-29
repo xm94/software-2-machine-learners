@@ -1,0 +1,88 @@
+<div
+  bsModal
+  #lgModal="bs-modal"
+  class="modal fade modal-open"
+  tabindex="-1"
+  size="lg"
+  aria-hidden="true"
+  (onHidden)="onHide()"
+>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Create System</h4>
+            </div>
+            <div class="modal-body">
+                <form class="example-form" [formGroup]="form">
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>System Name</mat-label>
+                        <input matInput formControlName="s_name">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>System Test Plan</mat-label>
+                        <input matInput formControlName="s_test_plan">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>System Location</mat-label>
+                        <input matInput formControlName="s_location">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>System Router(s)</mat-label>
+                        <input matInput formControlName="s_router">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>System Switch(es)</mat-label>
+                        <input matInput formControlName="s_switch">
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width" >
+                        <mat-label>System Room(s)</mat-label>
+                        <input matInput formControlName="s_room">
+                    </mat-form-field>
+
+                    
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Confidentiality</mat-label>
+                        <mat-select  formControlName=s_confidentiality>
+                            <mat-option  *ngFor="let c of cia" value="{{c}}">
+                                {{c}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Integrity</mat-label>
+                        <mat-select  formControlName=s_integrity>
+                            <mat-option  *ngFor="let c of cia" value="{{c}}">
+                                {{c}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Availability</mat-label>
+                        <mat-select  formControlName=s_availability>
+                            <mat-option  *ngFor="let c of cia" value="{{c}}">
+                                {{c}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <br>
+
+                    <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width">
+                        <mat-label>System Description</mat-label>
+                        <textarea matInput formControlName="s_description"></textarea>
+                    </mat-form-field>
+                    
+                </form>
+
+                <button mat-raised-button color="primary" (click)="submit()">submit</button> 
+            </div>
+        </div>
+    </div>
+</div>

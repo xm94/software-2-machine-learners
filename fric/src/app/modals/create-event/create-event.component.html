@@ -9,6 +9,9 @@
 >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Create Event</h4>
+            </div>
             <div class="modal-body">
                 <form class="example-form" [formGroup]="form">
                     <mat-form-field appearance="outline" class="example-full-width" >
@@ -16,7 +19,7 @@
                         <input matInput formControlName="e_name">
                     </mat-form-field>
 
-                    <mat-form-field appearance="outline" style=" width: 500px;" class="example-full-width">
+                    <mat-form-field appearance="outline" style=" width: 58%;" class="example-full-width">
                         <mat-label>Event Type</mat-label>
                         <mat-select  formControlName="e_type">
                             <mat-option  *ngFor="let t of eventTypes" value="{{t}}">
@@ -47,6 +50,7 @@
                         <mat-datepicker #apicker></mat-datepicker>
                     </mat-form-field>
 
+                    
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Classification</mat-label>
                         <mat-select  formControlName="e_classification">
@@ -69,7 +73,7 @@
                     </mat-form-field>
                     <br>
 
-                    <mat-form-field appearance="outline" style=" width: 600px;" class="example-full-width">
+                    <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width">
                         <mat-label>Event Description</mat-label>
                         <textarea matInput formControlName="e_description"></textarea>
                     </mat-form-field>
