@@ -40,7 +40,7 @@
 
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Finding Type</mat-label>
-                        <mat-select  formControlName=f_confidentiality>
+                        <mat-select  formControlName=f_type>
                             <mat-option  *ngFor="let t of types" value="{{t}}">
                                 {{t}}
                               </mat-option>
@@ -49,7 +49,7 @@
 
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Finding Classification</mat-label>
-                        <mat-select  formControlName=f_confidentiality>
+                        <mat-select  formControlName=f_classification>
                             <mat-option  *ngFor="let cl of classifications" value="{{cl}}">
                                 {{cl}}
                               </mat-option>
@@ -112,7 +112,7 @@
 
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>System</mat-label>
-                        <mat-select  formControlName=f_relevance>
+                        <mat-select  formControlName=s_id>
                             <mat-option  *ngFor="let s of systems" value="{{s.s_id}}">
                                 {{s.s_name}}
                               </mat-option>
@@ -121,7 +121,7 @@
 
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Task</mat-label>
-                        <mat-select  formControlName=f_posture>
+                        <mat-select  formControlName=t_id>
                             <mat-option  *ngFor="let t of tasks" value="{{t.t_id}}">
                                 {{t.t_name}}
                               </mat-option>
@@ -131,7 +131,7 @@
 
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Subtask</mat-label>
-                        <mat-select  formControlName=f_cat_code>
+                        <mat-select  formControlName=st_id>
                             <mat-option  *ngFor="let st of subtasks" value="{{st.st_id}}">
                                 {{st.st_name}}
                               </mat-option>
@@ -150,7 +150,7 @@
 
                     <mat-form-field appearance="outline" style=" width: 44%;" class="example-full-width">
                         <mat-label>Countermeasure Effectiveness Score</mat-label>
-                        <mat-select  formControlName=f_cat_code>
+                        <mat-select  formControlName=f_countermeasure_effectiveness_score>
                             <mat-option  *ngFor="let sc of ratingScores[form.get('f_countermeasure_effectiveness_rating').value]" value="{{sc}}">
                                 {{sc}}
                               </mat-option>

@@ -42,6 +42,7 @@ import { EventCreatedComponent } from './event-created/event-created.component';
 import { CreateSystemComponent } from './modals/create-system/create-system.component';
 import { SystemDetailComponent } from './system-detail/system-detail.component';
 import { CreateFindingComponent } from './modals/create-finding/create-finding.component';
+import { FindingDetailComponent } from './finding-detail/finding-detail.component';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { CreateFindingComponent } from './modals/create-finding/create-finding.c
     CreateSystemComponent,
     SystemDetailComponent,
     CreateFindingComponent,
+    FindingDetailComponent,
   ],
   imports: [
     BrowserModule,

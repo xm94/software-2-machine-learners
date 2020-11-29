@@ -41,8 +41,8 @@ export class FindingService {
     return []
   }
 
-  createFinding(data: any): Observable<any> {
-    this.backendServicesProxy
+  async createFinding(data: any): Promise<Observable<any>> {
+    await this.backendServicesProxy
       .post("/findings",data)
       .pipe(map(response => response.body as any))
       .subscribe(

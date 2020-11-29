@@ -15,6 +15,7 @@ import { AddTaskComponent } from './add-task/add-task.component';
 import { ArchiveComponent } from './archive/archive.component';
 import { EventCreatedComponent } from './event-created/event-created.component';
 import { SystemDetailComponent } from './system-detail/system-detail.component';
+import { FindingDetailComponent } from './finding-detail/finding-detail.component';
 
 
 const routes: Routes = [
@@ -24,13 +25,19 @@ const routes: Routes = [
   {path: "event-created",component: EventCreatedComponent},
   {
     path: "system", 
-    children:[
+    children: [
       { path: ":id",component: SystemDetailComponent},
       { path: "", component: SystemComponent}
     ],},
   {path: "tasks", component: TasksComponent},
   {path: "subtasks", component: SubtasksComponent},
-  {path: "findings", component: FindingsComponent},
+  {
+    path: "findings",
+    children: [
+      {path: "", component: FindingsComponent},
+      {path: ":id", component: FindingDetailComponent}
+    ]
+  },
   {path: "archive", component: ArchiveComponent},
   {path: "configuration", component: ConfigurationComponent},
   {path: "setup", component: SetupComponent},

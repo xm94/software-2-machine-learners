@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CreateFindingComponent } from '../modals/create-finding/create-finding.component';
 import { AnalystService } from '../services/analyst.service';
 import { EventService } from '../services/event.service';
@@ -23,16 +24,18 @@ export class FindingsComponent implements OnInit {
     private readonly eventService: EventService,
     private readonly findingService: FindingService,
     private readonly analystService: AnalystService,
+    private router: Router,
+    private readonly activatedRoute: ActivatedRoute,
   ) {
     this.findingList=[]
     this.event = this.eventService.event;
     this.findingList = [{f_name:"test name"}];
     this.findingService.fetchSystems();
     console.log("constructor")
-    this.findingService.allFindings.subscribe((systems) => {
+    this.findingService.allFindings.subscribe((findings) => {
       console.log("subscriber")
       var i = 1;
-      for(var finding of systems){
+      for(var finding of findings){
         var exists: boolean = false;
         for(var f of this.findingList){
           if(f.f_id == finding.f_id){
@@ -52,8 +55,10 @@ export class FindingsComponent implements OnInit {
   ngOnInit() {
   }
 
-  buttonPress(){
+  buttonPress(f){
     console.log("pressed");
+    console.log(f);
+    this.router.navigate([f.f_id],{relativeTo: this.activatedRoute});
   }
 
   openModal(){

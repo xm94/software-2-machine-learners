@@ -57,7 +57,6 @@ export class SystemComponent implements OnInit {
 
   buttonPress(s_id){
     this.router.navigate([s_id],{relativeTo: this.activatedRoute});
-    this.activatedRoute.params.subscribe((params)=>{console.log(params)});
   }
 
 }

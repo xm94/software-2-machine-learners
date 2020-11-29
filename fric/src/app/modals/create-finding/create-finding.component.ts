@@ -26,6 +26,7 @@ import {
 import { MatDatepickerModule } from '@angular/material/datepicker/typings/datepicker-module';
 import { MatNativeDateModule } from '@angular/material';
 import { SystemService } from 'src/app/services/system.service';
+import { FindingService } from 'src/app/services/finding.service';
 @Component({
   selector: 'create-finding',
   templateUrl: './create-finding.component.html',
@@ -97,7 +98,7 @@ export class CreateFindingComponent implements OnInit {
     'Predicted',
     'Possible'
   ];
-  catcodes = ["I","II","III"];
+  catcodes = ["CAT I","CAT II","CAT III"];
   systems = [];
   tasks = [];
   subtasks = [];
@@ -120,7 +121,7 @@ export class CreateFindingComponent implements OnInit {
 
   
 
-  constructor(private readonly systemService:SystemService) {
+  constructor(private readonly systemService:SystemService,private readonly findingService:FindingService) {
     this.systemService.fetchSystems();
     this.systemService.allSystems.subscribe((systems) => {
       for(var sys of systems){
@@ -136,6 +137,7 @@ export class CreateFindingComponent implements OnInit {
         }
       }
       this.systems = [...this.systems];
+      console.log(this.systems);
     });
   }
 
@@ -160,11 +162,27 @@ export class CreateFindingComponent implements OnInit {
   submit(){
     console.log(this.form.value);
     console.log(this.eventId);
-    let systemJson = this.form.value;
-    systemJson["f_archived"]=false;
-    systemJson["e_id"]=this.eventId;
+    let findingJson = this.form.value;
+    findingJson["f_archived"]=false;
+    findingJson["t_id"]=this.eventId;
+    findingJson["st_id"]=this.eventId;
+    findingJson["e_id"]=this.eventId;
+    findingJson["f_level"]="system";
+    findingJson["f_evidence"]=[];
+    findingJson["f_associations"]=[];
+    findingJson["f_collaborations"]=[];
+    findingJson["f_mitigations"]=[
+      {
+				"m_brief_description":"first",
+				"m_long_description":"first mitigation"
+			},
+			{
+				"m_brief_description":"second",
+				"m_long_description":"second mitigation"
+			}
+    ];
     let request = {
-      system:systemJson,
+      finding:findingJson,
       analyst:{
         a_id: this.analystId,
         a_initials: this.analsytInitials
@@ -172,7 +190,7 @@ export class CreateFindingComponent implements OnInit {
     }
 
     console.log(request);
-    this.systemService.createSystem(request);
+    this.findingService.createFinding(request);
     this.modal.hide();
   }
 
