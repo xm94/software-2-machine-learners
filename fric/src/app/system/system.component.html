@@ -3,7 +3,7 @@
     <mat-card>
         Systems for {{event.e_name}}
 
-        <table mat-table [dataSource]="systemList" class="mat-elevation-z8">
+        <table mat-table async [dataSource]="this.systemList" class="mat-elevation-z8">
 
             <!--- Note that these columns can be defined in any order.
                   The actual rendered columns are set as a property on the row definition" -->
@@ -36,7 +36,7 @@
             <!-- Symbol Column -->
             <ng-container matColumnDef="button">
               <th mat-header-cell *matHeaderCellDef>  </th>
-              <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary">Detailed View</button></td>
+              <td mat-cell *matCellDef="let element"> <button mat-raised-button color="primary" (click)="buttonPress(element.s_id)">Detailed View</button></td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

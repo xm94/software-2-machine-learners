@@ -9,6 +9,9 @@
 >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Create System</h4>
+            </div>
             <div class="modal-body">
                 <form class="example-form" [formGroup]="form">
                     <mat-form-field appearance="outline" class="example-full-width" >
@@ -41,6 +44,7 @@
                         <input matInput formControlName="s_room">
                     </mat-form-field>
 
+                    
                     <mat-form-field appearance="outline" class="example-full-width">
                         <mat-label>Confidentiality</mat-label>
                         <mat-select  formControlName=s_confidentiality>
@@ -70,7 +74,7 @@
 
                     <br>
 
-                    <mat-form-field appearance="outline" style=" width: 600px;" class="example-full-width">
+                    <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width">
                         <mat-label>System Description</mat-label>
                         <textarea matInput formControlName="s_description"></textarea>
                     </mat-form-field>

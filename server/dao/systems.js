@@ -60,6 +60,12 @@ exports.insert = async function insert(obj){
 
 exports.update = async function update(obj){
   
+
+}
+
+exports.getAll = async function getFromId(id){
+  var system = await System.findAll();
+  return system;
 }
 
 exports.getFromId = async function getFromId(id){

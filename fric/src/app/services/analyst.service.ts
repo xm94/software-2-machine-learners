@@ -11,7 +11,7 @@ import { BackendServicesProxy } from './backend.service.proxy'
 })
 export class AnalystService {
   get currentUser() {
-    console.log(localStorage.getItem("user"))
+    //console.log(localStorage.getItem("user"))
     let user = localStorage.getItem("user");
     return user ? JSON.parse(user) : this._currentUser;
   }
@@ -20,10 +20,10 @@ export class AnalystService {
 
   private setCurrentUser(response: HttpResponse<Object>){
     this._currentUser = response.body;
-    console.log(this._currentUser);
+    //console.log(this._currentUser);
     localStorage.setItem
     localStorage.setItem("user",JSON.stringify(response.body))
-    console.log(localStorage.getItem("user"));
+    //console.log(localStorage.getItem("user"));
     return this.currentUser;
   }
 
@@ -36,14 +36,14 @@ export class AnalystService {
 
 
   login(initials: string, lead: boolean): void {
-    console.log("in login")
+    //console.log("in login")
     const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.post('/login', {
       initials: initials.toUpperCase(),
       lead: lead
     });
     response.subscribe((r) => {
-      console.log("in subscribr")
-      console.log(r);
+      //console.log("in subscribr")
+      //console.log(r);
       var redirectUrl = '/';
       // }
       this.router.navigateByUrl(redirectUrl);

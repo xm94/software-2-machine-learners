@@ -40,6 +40,7 @@ import { MatDatepickerModule } from '@angular/material';
 import { MatNativeDateModule } from '@angular/material';
 import { EventCreatedComponent } from './event-created/event-created.component';
 import { CreateSystemComponent } from './modals/create-system/create-system.component';
+import { SystemDetailComponent } from './system-detail/system-detail.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { CreateSystemComponent } from './modals/create-system/create-system.comp
     CreateEventModal,
     EventCreatedComponent,
     CreateSystemComponent,
+    SystemDetailComponent,
   ],
   imports: [
     BrowserModule,

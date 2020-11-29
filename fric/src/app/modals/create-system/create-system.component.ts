@@ -23,9 +23,9 @@ import {
   concatMap,
   mapTo
 } from 'rxjs/operators';
-import { EventService } from 'src/app/services/event.service';
 import { MatDatepickerModule } from '@angular/material/datepicker/typings/datepicker-module';
 import { MatNativeDateModule } from '@angular/material';
+import { SystemService } from 'src/app/services/system.service';
 
 @Component({
   selector: 'create-system',
@@ -45,9 +45,13 @@ export class CreateSystemComponent implements OnInit {
     s_integrity: new FormControl(''),//done
     s_availability: new FormControl(''),//done
   });
+  s_c = new FormControl(false);
+  s_i = new FormControl(false);
+  s_a = new FormControl(false);
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   analystId: string;
   analsytInitials: string;
+  eventId: string;
   eventTypes = ["Cooperative Vulnerability Penetration Assessment (CVPA)",
                 "Cooperative Vulnerability Investigation (CVI)",
                 "Verification of Fixes (VOF)"];
@@ -55,10 +59,10 @@ export class CreateSystemComponent implements OnInit {
   classifications = ["Top Secret",
     "Secret", "Confidential",
     "Classified", "Unclassified"]
-  cia = ["L","M","H"]
+  cia = ["Informational","Low","Medium","High"]
 
 
-  constructor() { }
+  constructor(private readonly systemService:SystemService) { }
 
   ngOnInit() {
   }
@@ -70,27 +74,33 @@ export class CreateSystemComponent implements OnInit {
     this.modal.hide();
   }
 
-  showModal(user: any): void {
+  showModal(user: any,e_id: string): void {
     console.log(user);
     this.analsytInitials = user.a_initials;
     this.analystId = user.a_id;
+    this.eventId = e_id;
     this.modal.show();
   }
 
   submit(){
     console.log(this.form.value);
-    let testJson = this.form.value;
-    testJson["s_archived"]=false;
+    console.log(this.eventId);
+    let systemJson = this.form.value;
+    systemJson["s_archived"]=false;
+    systemJson["e_id"]=this.eventId;
     let request = {
-      event:testJson,
+      system:systemJson,
       analyst:{
         a_id: this.analystId,
         a_initials: this.analsytInitials
       }
     }
+
     console.log(request);
-    //this.eventService.createEvent(request);
-    //this.modal.hide();
+    this.systemService.createSystem(request);
+    this.modal.hide();
   }
+
+ 
 
 }

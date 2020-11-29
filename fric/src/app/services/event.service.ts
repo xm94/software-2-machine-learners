@@ -17,30 +17,26 @@ export class EventService {
   private readonly _event: BehaviorSubject<any> = new BehaviorSubject([]);
 
   get allEvents() {
-    console.log('getting');
-    console.log(this._allEvents)
+    //console.log('getting');
+    //console.log(this._allEvents)
     return this._allEvents.asObservable();
   }
 
   get event(){
-    console.log(localStorage.getItem("event"))
     let curEvent = localStorage.getItem("event");
-    console.log(localStorage.getItem("event"));
-    console.log(localStorage.getItem("event")==null)
-    console.log(localStorage.getItem("event")===null)
     if(curEvent!=null){
-        console.log("there is an event");
+        //console.log("there is an event");
         return JSON.parse(localStorage.getItem("event"));
     }
     else{
-        console.log("no event");
+        //console.log("no event");
         return null;
     }
   }
 
   private setAllEvents(response: HttpResponse<Object>){
     this._allEvents.next(response.body);
-    console.log(this._allEvents);
+    //console.log(this._allEvents);
     return this._allEvents;
   }
 
@@ -53,11 +49,11 @@ export class EventService {
 
 
   fetchEvents(): any[] {
-    console.log("getting event");
+    //console.log("getting event");
     const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/events');
     response.subscribe((r) => {
-        console.log("in subscription");
-        console.log(r);
+        //console.log("in subscription");
+        //console.log(r);
         this.setAllEvents(r);
         return r.body;
     })
@@ -70,11 +66,11 @@ export class EventService {
       .pipe(map(response => response.body as Array<any>))
       .subscribe(
         events => {
-          console.log("events");
+          //console.log("events");
           this._event.next(events[0]);
           if(events[0]!=null){
             localStorage.setItem("event",JSON.stringify(events[0]));
-            console.log("setting");
+            //console.log("setting");
           }
         },
         error => {
@@ -91,11 +87,11 @@ export class EventService {
       .pipe(map(response => response.body as any))
       .subscribe(
         event => {
-          console.log("event posted");
-          console.log(event);
+          //console.log("event posted");
+          //console.log(event);
           if(event!=null){
             localStorage.setItem("event",JSON.stringify(event));
-            console.log("setting");
+            //console.log("setting");
           }
           var redirectUrl = '/event-created';
       // }
