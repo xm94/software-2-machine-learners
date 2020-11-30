@@ -30,7 +30,7 @@ router.get('/subtasks/system/:id', async function(req, res, next){
 });
 
 router.get('/subtasks/task/:id', async function(req, res, next){
-    var subtask = await subtasks.getFromSystemId(req.params.id);
+    var subtask = await subtasks.getFromTaskId(req.params.id);
     res.send(subtask);
 });
 

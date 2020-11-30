@@ -9,7 +9,6 @@ var jsonParser = bodyParser.json();
 
 router.post("/events",jsonParser, async function(req, res){
     console.log(req.body);
-    req.body.event.e_archived = false;
     console.log("Attempting to create event ");
     req.body.event.e_assessment_date = new Date();
     req.body.event.e_declassification_date = new Date();
@@ -30,15 +29,18 @@ router.get('/events/', async function(req, res, next){
     res.send(eventList);
 });
 
+router.get('/events/archive/', async function(req, res, next){
+    console.log("archive endpoint")
+    var eventList = await events.getAllArchived();
+    res.send(eventList);
+});
+
 router.get('/events/:id', async function(req, res, next){
     var event = await events.getFromId(req.params.id);
     res.send(event);
 });
 
-router.get('/events/archive/', async function(req, res, next){
-    var eventList = await events.getAllArchived();
-    res.send(eventList);
-});
+
 
 router.put("/events/", jsonParser, async function(req, res, next){
     console.log(req.body);

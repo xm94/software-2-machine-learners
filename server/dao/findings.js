@@ -302,7 +302,7 @@ exports.getFromEventIdArchived = async function getFromEventIdArchived(e_id){
   var findings = await Finding.findAll({
     where: {
       e_id: e_id,
-      archived: true,
+      f_archived: true,
     }
   });
   resList=[]
@@ -466,6 +466,7 @@ exports.insert = async function insert(object,a_id){
             f_impact_score:impact_score,//derived
             a_id:a_id,
             a_initials:analyst.a_initials,
+            e_id: object.e_id,
             s_id:object.s_id,
             t_id:object.t_id,
             st_id:object.st_id,

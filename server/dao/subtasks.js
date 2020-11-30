@@ -175,7 +175,7 @@ exports.getFromSystemId = async function getFromSystemId(s_id){
   });
   let resList = [];
   for(st of subtasks){
-    var res = t.toJSON();
+    var res = st.toJSON();
     res["st_attachments"] = await getAttachments(st.st_id);
     res["st_collaborators"] = await getCollaborators(st.st_id);
     res["st_associations"] = await getAssociations(st.st_id);
@@ -192,7 +192,7 @@ exports.getFromTaskId = async function getFromTaskId(t_id){
   });
   let resList = [];
   for(st of subtasks){
-    var res = t.toJSON();
+    var res = st.toJSON();
     res["st_attachments"] = await getAttachments(st.st_id);
     res["st_collaborators"] = await getCollaborators(st.st_id);
     res["st_associations"] = await getAssociations(st.st_id);
@@ -209,7 +209,7 @@ exports.getFromEventId = async function getFromEventId(e_id){
   });
   let resList = [];
   for(st of subtasks){
-    var res = t.toJSON();
+    var res = st.toJSON();
     res["st_attachments"] = await getAttachments(st.st_id);
     res["st_collaborators"] = await getCollaborators(st.st_id);
     res["st_associations"] = await getAssociations(st.st_id);
@@ -227,7 +227,7 @@ exports.getFromEventIdArchived = async function getFromEventIdArchived(e_id){
   });
   let resList = [];
   for(st of subtasks){
-    var res = t.toJSON();
+    var res = st.toJSON();
     res["st_attachments"] = await getAttachments(st.st_id);
     res["st_collaborators"] = await getCollaborators(st.st_id);
     res["st_associations"] = await getAssociations(st.st_id);
@@ -249,6 +249,7 @@ exports.insert = async function insert(object){
       st_priority: object.st_priority,
       st_progress: object.st_progress,
       st_due_date: object.st_due_date,
+      e_id: object.e_id,
       s_id: object.s_id,
       t_id: object.t_id,
       a_id: object.a_id,

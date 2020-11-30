@@ -92,7 +92,22 @@ EventTeam.init({
 
 
 exports.insert = async function insert(object){
-  var inserted = await Event.create(object);
+  console.log(object);
+  console.log(object.e_archived);
+  var inserted = await Event.create({
+    e_id:object.e_id,
+    e_archived:object.e_archived ? true: false,
+    e_name:object.e_name,
+    e_assessment_date:object.e_assessment_date,
+    e_classification:object.e_classification,
+    e_customer:object.e_customer,
+    e_declassification_date:object.e_declassification_date,
+    e_description:object.e_description,
+    e_org_name:object.e_org_name,
+    e_sec_class_title_guide:object.e_sec_class_title_guide,
+    e_type:object.e_type,
+    e_version:object.e_version,
+  });
   return inserted;
 }
 
@@ -107,11 +122,13 @@ exports.getAll = async function getAll(){
 }
 
 exports.getAllArchived = async function getAllArchived(){
+  console.log("get archived")
   const events = await Event.findAll({
     where: {
-      e_archived: true,
+      "e_archived": true,
     }
   });
+  console.log(events);
   return events;
 }
 

@@ -226,6 +226,7 @@ exports.insert = async function insert(object){
       t_priority: object.t_priority,
       t_progress: object.t_progress,
       t_due_date: object.t_due_date,
+      e_id: object.e_id,
       s_id: object.s_id,
       a_id: object.a_id,
       t_archived: object.t_archived
