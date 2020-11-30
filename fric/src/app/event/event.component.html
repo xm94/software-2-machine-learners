@@ -17,31 +17,20 @@
     </div>
 </div>
 
-
 <ng-template #eventDetailedView>
     <h5>Event Detailed View</h5>
     <mat-grid-list cols="3" rowHeight="120px">
-        <mat-grid-tile>
-            ID: {{event.e_id}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-            Name: {{event.e_name}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-            Org Name: {{event.e_org_name}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-            Type: {{event.e_type}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-            Version: {{event.e_version}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-            Assessment Date: {{event.e_assessment_date}}
-        </mat-grid-tile>
-        <mat-grid-tile>
-            Classification: {{event.e_classification}}
-        </mat-grid-tile>
+        
+        <div *ngFor="let curr of event | keyvalue">
+            <div *ngIf="eventAttributeToDisplayText.get(curr.key)!=null">
+                <mat-grid-tile>
+                    <mat-card class='display-card'>
+                        <mat-card-title>{{eventAttributeToDisplayText.get(curr.key)}}</mat-card-title>
+                        {{curr.value}}
+                    </mat-card>
+                </mat-grid-tile>
+            </div>
+        </div>
     </mat-grid-list>
 
 </ng-template>
