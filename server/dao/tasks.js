@@ -195,6 +195,24 @@ exports.getFromEventId = async function getFromEventId(e_id){
   return resList;
 }
 
+exports.getFromEventIdArchived = async function getFromEventIdArchived(e_id){
+  var tasks = await Task.findAll({
+    where: {
+      e_id: e_id,
+      t_archived: true,
+    }
+  });
+  let resList = [];
+  for(t of tasks){
+    var res = t.toJSON();
+    res["t_attachments"] = await getAttachments(t.t_id);
+    res["t_collaborators"] = await getCollaborators(t.t_id);
+    res["t_associations"] = await getAssociations(t.t_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
 exports.insert = async function insert(object){
   const t = await sequelize.transaction();
   var attachments = object.t_attachments;

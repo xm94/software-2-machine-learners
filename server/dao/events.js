@@ -106,6 +106,15 @@ exports.getAll = async function getAll(){
   return events;
 }
 
+exports.getAllArchived = async function getAllArchived(){
+  const events = await Event.findAll({
+    where: {
+      e_archived: true,
+    }
+  });
+  return events;
+}
+
 exports.getFromId = async function getFromId(id){
   var event = await Event.findAll({
     where: {

@@ -218,6 +218,24 @@ exports.getFromEventId = async function getFromEventId(e_id){
   return resList;
 }
 
+exports.getFromEventIdArchived = async function getFromEventIdArchived(e_id){
+  var subtasks = await SubTask.findAll({
+    where: {
+      e_id: e_id,
+      st_archived: true,
+    }
+  });
+  let resList = [];
+  for(st of subtasks){
+    var res = t.toJSON();
+    res["st_attachments"] = await getAttachments(st.st_id);
+    res["st_collaborators"] = await getCollaborators(st.st_id);
+    res["st_associations"] = await getAssociations(st.st_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
 exports.insert = async function insert(object){
   const t = await sequelize.transaction();
   var attachments = object.st_attachments;

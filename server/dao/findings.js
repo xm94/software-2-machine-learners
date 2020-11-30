@@ -297,6 +297,26 @@ exports.getFromEventId = async function getFromEventId(e_id){
   return resList;
 }
 
+exports.getFromEventIdArchived = async function getFromEventIdArchived(e_id){
+  console.log("select");
+  var findings = await Finding.findAll({
+    where: {
+      e_id: e_id,
+      archived: true,
+    }
+  });
+  resList=[]
+  for(f of findings){
+    res = f.toJSON();
+    res["f_mitigations"]= await getMitigations(f.f_id);
+    res["f_evidence"] = await getEvidence(f.f_id);
+    res["f_collaborators"] = await getCollaborators(f.f_id);
+    res["f_associations"] = await getAssociations(f.f_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
 exports.getFromSystemId = async function getFromSystemId(s_id){
   console.log("select");
   var findings = await Finding.findAll({
