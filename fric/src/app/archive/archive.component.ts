@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EventService } from '../services/event.service';
 import { FindingService } from '../services/finding.service';
@@ -10,7 +10,7 @@ import { TaskService } from '../services/task.service';
   selector: 'app-archive',
   templateUrl: './archive.component.html',
   styleUrls: ['./archive.component.scss'],
-  providers: [EventService]
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class ArchiveComponent implements OnInit {
   event: any;
@@ -32,9 +32,11 @@ export class ArchiveComponent implements OnInit {
     private router: Router,
     private readonly activatedRoute: ActivatedRoute,
   ) {
+    console.log("in archve")
     this.event = this.eventService.event;
     this.systemService.getArchivedSystems(this.event.e_id).subscribe(
       (systems) =>{
+        console.log(systems);
         this.systemList=systems;
       }
     );
