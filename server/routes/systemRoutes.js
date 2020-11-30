@@ -41,6 +41,19 @@ router.get('/systems/event/:id', async function(req, res, next){
     }
 });
 
+router.get('/systems/archive/:id', async function(req, res, next){
+    try{
+        var system = await systems.getFromEventIdArchived(req.params.id);
+        if(!system){
+            console.log("no system");
+            return res.status(404).send("404 Not Found");
+        }
+        res.send(system);
+    } catch(err){
+        res.status(500).send(err);
+    }
+});
+
 router.post("/systems",jsonParser, async function(req, res){
     try{
         console.log(req.body);

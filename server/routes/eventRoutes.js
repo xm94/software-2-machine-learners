@@ -35,6 +35,11 @@ router.get('/events/:id', async function(req, res, next){
     res.send(event);
 });
 
+router.get('/events/archive/', async function(req, res, next){
+    var eventList = await events.getAllArchived();
+    res.send(eventList);
+});
+
 router.put("/events/", jsonParser, async function(req, res, next){
     console.log(req.body);
     var updatedEvent = await events.updateEvent(req.body.event.e_id,req.body.event);

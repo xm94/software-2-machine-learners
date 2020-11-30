@@ -18,6 +18,21 @@ router.get('/tasks/:id', async function(req, res, next){
     res.send(task);
 });
 
+router.get('/tasks/event/:id', async function(req, res, next){
+    var task = await tasks.getFromEventId(req.params.id);
+    res.send(task);
+});
+
+router.get('/tasks/system/:id', async function(req, res, next){
+    var task = await tasks.getFromSystemId(req.params.id);
+    res.send(task);
+});
+
+router.get('/tasks/archive/:id', async function(req, res, next){
+    var task = await tasks.getFromEventIdArchived(req.params.id);
+    res.send(task);
+});
+
 router.post("/tasks",jsonParser, async function(req, res){
     // req.body.event.e_archived = false;
     console.log(req.body);
