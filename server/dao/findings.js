@@ -133,6 +133,11 @@ Finding.init({
     type: DataTypes.STRING,
     allowNull: false
   },
+  e_id: {
+    type: DataTypes.UUID,
+    allowNull: false
+    // allowNull defaults to true
+  },
   s_id: {
     type: DataTypes.UUID,
     allowNull: false

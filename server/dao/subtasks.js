@@ -40,6 +40,11 @@ SubTask.init({
         type: DataTypes.UUID,
         allowNull: false
     },
+    e_id: {
+      type: DataTypes.UUID,
+      allowNull: false
+      // allowNull defaults to true
+    },
     a_id: {
         type: DataTypes.UUID,
         allowNull: true

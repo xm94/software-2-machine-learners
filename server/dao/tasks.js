@@ -36,6 +36,11 @@ Task.init({
         type: DataTypes.UUID,
         allowNull: false
     },
+    e_id: {
+      type: DataTypes.UUID,
+      allowNull: false
+      // allowNull defaults to true
+    },
     a_id: {
         type: DataTypes.UUID,
         allowNull: true
@@ -325,7 +330,7 @@ exports.archive = async function archive(t_id){
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
           (async () => {
-            await sequelize.sync();
+            await sequelize.sync({force: true});
             
             //const xavier = await System.create({ u_initials: "xm", u_ip: "4354353" , u_is_lead:true});
             //const erik = await System.create({ u_initials: "er", u_ip: "123213" , u_is_lead: false});
