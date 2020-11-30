@@ -111,6 +111,9 @@ export class CreateTaskComponent implements OnInit {
     taskJson["t_archived"]=false;
     taskJson["e_id"]=this.eventId;
     taskJson["a_id"]=this.analystId;
+    taskJson["t_attachments"]=[];
+    taskJson["t_associations"]=[];
+    taskJson["t_collaborators"]=[];
     let request = {
       task:taskJson,
       analyst:{
