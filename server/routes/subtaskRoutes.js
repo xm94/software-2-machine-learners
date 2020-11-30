@@ -19,6 +19,26 @@ router.get('/subtasks/:id', async function(req, res, next){
     res.send(subtask);
 });
 
+router.get('/subtasks/event/:id', async function(req, res, next){
+    var subtask = await subtasks.getFromEventId(req.params.id);
+    res.send(subtask);
+});
+
+router.get('/subtasks/system/:id', async function(req, res, next){
+    var subtask = await subtasks.getFromSystemId(req.params.id);
+    res.send(subtask);
+});
+
+router.get('/subtasks/task/:id', async function(req, res, next){
+    var subtask = await subtasks.getFromTaskId(req.params.id);
+    res.send(subtask);
+});
+
+router.get('/subtasks/archive/:id', async function(req, res, next){
+    var subtask = await subtasks.getFromEventIdArchived(req.params.id);
+    res.send(subtask);
+});
+
 router.post("/subtasks",jsonParser, async function(req, res){
     // req.body.event.e_archived = false;
     console.log(req.body);

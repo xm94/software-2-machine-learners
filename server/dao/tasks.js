@@ -36,6 +36,11 @@ Task.init({
         type: DataTypes.UUID,
         allowNull: false
     },
+    e_id: {
+      type: DataTypes.UUID,
+      allowNull: false
+      // allowNull defaults to true
+    },
     a_id: {
         type: DataTypes.UUID,
         allowNull: true
@@ -156,6 +161,58 @@ exports.getFromId = async function getFromId(t_id){
   return res;
 }
 
+exports.getFromSystemId = async function getFromSystemId(s_id){
+  var tasks = await Task.findAll({
+    where: {
+      s_id: s_id
+    }
+  });
+  let resList = [];
+  for(t of tasks){
+    var res = t.toJSON();
+    res["t_attachments"] = await getAttachments(t.t_id);
+    res["t_collaborators"] = await getCollaborators(t.t_id);
+    res["t_associations"] = await getAssociations(t.t_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromEventId = async function getFromEventId(e_id){
+  var tasks = await Task.findAll({
+    where: {
+      e_id: e_id
+    }
+  });
+  let resList = [];
+  for(t of tasks){
+    var res = t.toJSON();
+    res["t_attachments"] = await getAttachments(t.t_id);
+    res["t_collaborators"] = await getCollaborators(t.t_id);
+    res["t_associations"] = await getAssociations(t.t_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromEventIdArchived = async function getFromEventIdArchived(e_id){
+  var tasks = await Task.findAll({
+    where: {
+      e_id: e_id,
+      t_archived: true,
+    }
+  });
+  let resList = [];
+  for(t of tasks){
+    var res = t.toJSON();
+    res["t_attachments"] = await getAttachments(t.t_id);
+    res["t_collaborators"] = await getCollaborators(t.t_id);
+    res["t_associations"] = await getAssociations(t.t_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
 exports.insert = async function insert(object){
   const t = await sequelize.transaction();
   var attachments = object.t_attachments;
@@ -169,6 +226,7 @@ exports.insert = async function insert(object){
       t_priority: object.t_priority,
       t_progress: object.t_progress,
       t_due_date: object.t_due_date,
+      e_id: object.e_id,
       s_id: object.s_id,
       a_id: object.a_id,
       t_archived: object.t_archived
@@ -325,7 +383,7 @@ exports.archive = async function archive(t_id){
         await sequelize.authenticate();
         console.log('Connection has been established successfully.');
           (async () => {
-            await sequelize.sync();
+            await sequelize.sync({force: true});
             
             //const xavier = await System.create({ u_initials: "xm", u_ip: "4354353" , u_is_lead:true});
             //const erik = await System.create({ u_initials: "er", u_ip: "123213" , u_is_lead: false});

@@ -20,6 +20,30 @@ router.get('/findings/:id', async function(req, res, next){
     res.send(finding);
 });
 
+router.get('/findings/event/:id', async function(req, res, next){
+    var finding = await findings.getFromEventId(req.params.id);
+    res.send(finding);
+});
+
+router.get('/findings/system/:id', async function(req, res, next){
+    var finding = await findings.getFromSystemId(req.params.id);
+    res.send(finding);
+});
+
+router.get('/findings/task/:id', async function(req, res, next){
+    var finding = await findings.getFromTaskId(req.params.id);
+    res.send(finding);
+});
+
+router.get('/findings/subtask/:id', async function(req, res, next){
+    var finding = await findings.getFromSubtaskId(req.params.id);
+    res.send(finding);
+});
+
+router.get('/findings/archive/:id', async function(req, res, next){
+    var finding = await findings.getFromEventIdArchived(req.params.id);
+    res.send(finding);
+});
 
 router.post("/findings",jsonParser, async function(req, res){
     // req.body.event.e_archived = false;
