@@ -10,18 +10,18 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="modal-basic-title">Create Task</h4>
+                <h4 class="modal-title" id="modal-basic-title">Create SubTask</h4>
             </div>
             <div class="modal-body">
                 <form class="example-form" [formGroup]="form">
                     <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]=true>
-                        <mat-label>Task Name</mat-label>
-                        <input matInput formControlName="t_name" required>
+                        <mat-label>SubTask Name</mat-label>
+                        <input matInput formControlName="st_name" required>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]=true>
-                        <mat-label>Task Priority</mat-label>
-                        <mat-select  formControlName=t_priority required>
+                        <mat-label>SubTask Priority</mat-label>
+                        <mat-select  formControlName=st_priority required>
                             <mat-option  *ngFor="let p of priority" value="{{p}}">
                                 {{p}}
                               </mat-option>
@@ -29,8 +29,8 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="example-full-width" [hideRequiredMarker]=true>
-                        <mat-label>Task Progress</mat-label>
-                        <mat-select  formControlName=t_progress required>
+                        <mat-label>SubTask Progress</mat-label>
+                        <mat-select  formControlName=st_progress required>
                             <mat-option  *ngFor="let prog of progress" value="{{prog}}">
                                 {{prog}}
                               </mat-option>
@@ -38,17 +38,17 @@
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="example-full-width">
-                        <mat-label>System</mat-label>
-                        <mat-select  formControlName=s_id>
-                            <mat-option  *ngFor="let s of systems" value="{{s.s_id}}">
-                                {{s.s_name}}
+                        <mat-label>Task</mat-label>
+                        <mat-select  formControlName=taskInd>
+                            <mat-option  *ngFor="let t of taskList;index as i" value="{{i}}">
+                                {{t.t_name}}
                               </mat-option>
                         </mat-select>
                     </mat-form-field>
 
                     <mat-form-field appearance="outline" class="example-full-width" >
-                        <mat-label>Task Due Date</mat-label>
-                        <input matInput [matDatepicker]="apicker" formControlName="t_due_date">
+                        <mat-label>SubTask Due Date</mat-label>
+                        <input matInput [matDatepicker]="apicker" formControlName="st_due_date">
                         <mat-datepicker-toggle matSuffix [for]="apicker"></mat-datepicker-toggle>
                         <mat-datepicker #apicker></mat-datepicker>
                     </mat-form-field>
@@ -56,8 +56,8 @@
                     <br>
 
                     <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width" [hideRequiredMarker]=true>
-                        <mat-label>Task Description</mat-label>
-                        <textarea matInput formControlName="t_description" required></textarea>
+                        <mat-label>SubTask Description</mat-label>
+                        <textarea matInput formControlName="st_description" required></textarea>
                     </mat-form-field>
                     
                 </form>
