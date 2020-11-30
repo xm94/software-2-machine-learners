@@ -105,4 +105,9 @@ export class EventService {
     return this.event;
   }
 
+  getArchivedEvents(): Observable<any> {
+    return this.backendServicesProxy.get('/events/archive/')
+    .pipe(map(response => response.body));
+  }
+
 }

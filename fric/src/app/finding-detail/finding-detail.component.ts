@@ -43,4 +43,8 @@ export class FindingDetailComponent implements OnInit {
   return(){
     this.router.navigate([".."],{relativeTo: this.activatedRoute});
   }
+
+  gotoArchive(){
+    this.router.navigate(["../..","archive"])
+  }
 }

@@ -17,7 +17,8 @@ import { TaskService } from '../services/task.service';
   styleUrls: ['./subtasks.component.scss']
 })
 export class SubtasksComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'priority', 'progress','due_date','analyst','button'];  event: any;
+  displayedColumns: string[] = ['name', 'priority', 'progress','due_date','analyst','button'];  
+  event: any;
   taskList: any[]=[];
   subtaskList: any[]=[];
 

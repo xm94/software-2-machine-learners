@@ -15,7 +15,8 @@ import { TaskService } from '../services/task.service';
   changeDetection: ChangeDetectionStrategy.Default
 })
 export class TasksComponent implements OnInit {
-  displayedColumns: string[] = ['name', 'priority', 'progress','due_date','analyst','button'];  event: any;
+  displayedColumns: string[] = ['name', 'priority', 'progress','due_date','analyst','button'];  
+  event: any;
   taskList: any[]=[];
 
   @ViewChild(CreateTaskComponent, { static: false })

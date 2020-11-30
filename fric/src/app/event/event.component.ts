@@ -17,6 +17,7 @@ import { CreateEventModal } from '../modals/create-event/create-event.component'
 export class EventComponent implements OnInit {
   event: any;
   eventList: any[];
+  archivedEvents: any[];
   @ViewChild(CreateEventModal, { static: false })
   modal: CreateEventModal;
   analyst;
@@ -28,6 +29,7 @@ export class EventComponent implements OnInit {
       this.event=this.eventService.event;
       console.log(this.modal);
       this.analyst = this.analystService.currentUser;
+      this.eventService.getArchivedEvents().subscribe((events) => {this.archivedEvents=events;console.log(events)})
     }
 
   ngOnInit() {

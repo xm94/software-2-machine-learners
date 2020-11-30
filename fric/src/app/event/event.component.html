@@ -10,9 +10,9 @@
 </div>
 
 
-<div *ngIf="eventList!=null">
+<div *ngIf="archivedEvents!=null">
     <span>Archived Events</span>
-    <div *ngFor="let e of eventList; index as i">
+    <div *ngFor="let e of archivedEvents; index as i">
         <mat-card><div>{{e.e_id}}</div><button>ReOpen?</button></mat-card>
     </div>
 </div>
