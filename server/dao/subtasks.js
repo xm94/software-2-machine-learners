@@ -167,6 +167,57 @@ exports.getFromId = async function getFromId(st_id){
   return res;
 }
 
+exports.getFromSystemId = async function getFromSystemId(s_id){
+  var subtasks = await SubTask.findAll({
+    where: {
+      s_id: s_id
+    }
+  });
+  let resList = [];
+  for(st of subtasks){
+    var res = t.toJSON();
+    res["st_attachments"] = await getAttachments(st.st_id);
+    res["st_collaborators"] = await getCollaborators(st.st_id);
+    res["st_associations"] = await getAssociations(st.st_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromTaskId = async function getFromTaskId(t_id){
+  var subtasks = await SubTask.findAll({
+    where: {
+      t_id: t_id
+    }
+  });
+  let resList = [];
+  for(st of subtasks){
+    var res = t.toJSON();
+    res["st_attachments"] = await getAttachments(st.st_id);
+    res["st_collaborators"] = await getCollaborators(st.st_id);
+    res["st_associations"] = await getAssociations(st.st_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromEventId = async function getFromEventId(e_id){
+  var subtasks = await SubTask.findAll({
+    where: {
+      e_id: e_id
+    }
+  });
+  let resList = [];
+  for(st of subtasks){
+    var res = t.toJSON();
+    res["st_attachments"] = await getAttachments(st.st_id);
+    res["st_collaborators"] = await getCollaborators(st.st_id);
+    res["st_associations"] = await getAssociations(st.st_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
 exports.insert = async function insert(object){
   const t = await sequelize.transaction();
   var attachments = object.st_attachments;

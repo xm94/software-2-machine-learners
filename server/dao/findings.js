@@ -278,11 +278,68 @@ exports.getFromId = async function getFromId(f_id){
   return res;
 }
 
+exports.getFromEventId = async function getFromEventId(e_id){
+  console.log("select");
+  var findings = await Finding.findAll({
+    where: {
+      e_id: e_id
+    }
+  });
+  resList=[]
+  for(f of findings){
+    res = f.toJSON();
+    res["f_mitigations"]= await getMitigations(f.f_id);
+    res["f_evidence"] = await getEvidence(f.f_id);
+    res["f_collaborators"] = await getCollaborators(f.f_id);
+    res["f_associations"] = await getAssociations(f.f_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
 exports.getFromSystemId = async function getFromSystemId(s_id){
   console.log("select");
   var findings = await Finding.findAll({
     where: {
       s_id: s_id
+    }
+  });
+  resList=[]
+  for(f of findings){
+    res = f.toJSON();
+    res["f_mitigations"]= await getMitigations(f.f_id);
+    res["f_evidence"] = await getEvidence(f.f_id);
+    res["f_collaborators"] = await getCollaborators(f.f_id);
+    res["f_associations"] = await getAssociations(f.f_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromTaskId = async function getFromTaskId(t_id){
+  console.log("select");
+  var findings = await Finding.findAll({
+    where: {
+      t_id: t_id
+    }
+  });
+  resList=[]
+  for(f of findings){
+    res = f.toJSON();
+    res["f_mitigations"]= await getMitigations(f.f_id);
+    res["f_evidence"] = await getEvidence(f.f_id);
+    res["f_collaborators"] = await getCollaborators(f.f_id);
+    res["f_associations"] = await getAssociations(f.f_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromSubtaskId = async function getFromSubtaskId(st_id){
+  console.log("select");
+  var findings = await Finding.findAll({
+    where: {
+      st_id: st_id
     }
   });
   resList=[]
