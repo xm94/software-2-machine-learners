@@ -1,4 +1,4 @@
-<div><button mat-raised-button color="primary" (click)="return()"> <- Back to Task View</button></div>
+<div *ngIf="!task.t_archived;else archiveButton"><button mat-raised-button color="primary" (click)="return()"> <- Back to Task View</button></div>
 
 <br>
 <mat-card>
@@ -24,3 +24,8 @@
 <mat-card>
     Associated System: {{system.s_name}}
 </mat-card>
+
+<ng-template #archiveButton>
+    <button mat-raised-button color="primary" (click)="gotoArchive()"> <- Back to Archive View</button>
+    <br>
+</ng-template>

@@ -66,8 +66,13 @@ export class FindingService {
     return this._allFindings.asObservable();
   }
 
-  getFinding(s_id: string): Observable<any> {
-    return this.backendServicesProxy.get('/findings/'+s_id)
+  getFinding(f_id: string): Observable<any> {
+    return this.backendServicesProxy.get('/findings/'+f_id)
+    .pipe(map(response => response.body));
+  }
+
+  getArchivedFindings(e_id: string): Observable<any> {
+    return this.backendServicesProxy.get('/findings/archive/'+e_id)
     .pipe(map(response => response.body));
   }
 }

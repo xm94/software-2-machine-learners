@@ -46,4 +46,8 @@ export class SubtaskDetailComponent implements OnInit {
     this.router.navigate([".."],{relativeTo: this.activatedRoute});
   }
 
+  gotoArchive(){
+    this.router.navigate(["../..","archive"])
+  }
+
 }

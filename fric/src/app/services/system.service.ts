@@ -71,4 +71,9 @@ export class SystemService {
     return this.backendServicesProxy.get('/systems/'+s_id)
     .pipe(map(response => response.body));
   }
+
+  getArchivedSystems(e_id: string): Observable<any> {
+    return this.backendServicesProxy.get('/systems/archive/'+e_id)
+    .pipe(map(response => response.body));
+  }
 }

@@ -1,5 +1,5 @@
 
-<div><button mat-raised-button color="primary" (click)="return()"> <- Back to System View</button></div>
+<div *ngIf="system.s_archived!=true;else archiveButton"><button mat-raised-button color="primary" (click)="return()"> <- Back to System View</button></div>
 
 <br>
 <mat-card>
@@ -25,3 +25,8 @@
 <mat-card>
     Test Plan: {{system.s_test_plan}}
 </mat-card>
+
+<ng-template #archiveButton>
+    <button mat-raised-button color="primary" (click)="gotoArchive()"> <- Back to Archive View</button>
+    <br>
+</ng-template>

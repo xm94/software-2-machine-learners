@@ -71,4 +71,8 @@ export class TaskService {
     return this.backendServicesProxy.get('/tasks/'+t_id)
     .pipe(map(response => response.body));
   }
+  getArchivedTasks(e_id: string): Observable<any> {
+    return this.backendServicesProxy.get('/tasks/archive/'+e_id)
+    .pipe(map(response => response.body));
+  }
 }
