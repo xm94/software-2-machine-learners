@@ -27,6 +27,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker/typings/datepi
 import { MatNativeDateModule } from '@angular/material';
 import { SystemService } from 'src/app/services/system.service';
 import { FindingService } from 'src/app/services/finding.service';
+import { FileUploadComponent } from 'src/app/file-upload/file-upload.component'
+import { AnalystService } from 'src/app/services/analyst.service';
 @Component({
   selector: 'create-finding',
   templateUrl: './create-finding.component.html',
@@ -51,10 +53,13 @@ export class CreateFindingComponent implements OnInit {
     f_countermeasure_effectiveness_score: new FormControl(''),
     f_impact_desc: new FormControl(''),
     f_impact_level: new FormControl(''),
+    f_evidence: new FormControl(),
     f_cat_code: new FormControl(''),//done
     s_id: new FormControl(''),//done
     t_id: new FormControl(''),//on form
     st_id: new FormControl(''),//on form
+    a_id: new FormControl(''),
+    f_collaborators: new FormControl(''),
   });
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   analystId: string;
@@ -102,6 +107,7 @@ export class CreateFindingComponent implements OnInit {
   systems = [];
   tasks = [];
   subtasks = [];
+  analysts = [];
   effectivenessRating = [
     "Very High",
     "High",
@@ -121,7 +127,10 @@ export class CreateFindingComponent implements OnInit {
 
   
 
-  constructor(private readonly systemService:SystemService,private readonly findingService:FindingService) {
+  constructor(
+    private readonly systemService: SystemService,
+    private readonly findingService: FindingService,
+    private readonly analystService: AnalystService) {
     this.systemService.fetchSystems();
     this.systemService.allSystems.subscribe((systems) => {
       for(var sys of systems){
@@ -138,6 +147,22 @@ export class CreateFindingComponent implements OnInit {
       }
       this.systems = [...this.systems];
       console.log(this.systems);
+    });
+    this.analystService.fetchAnalysts();
+    this.analystService.allAnalysts.subscribe((analysts) => {
+      for(var analyst of analysts){
+        var exists: boolean = false;
+        for(var a of this.analysts){
+          if(a.a_id==analyst.a_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.analysts.push(analyst);
+        }
+      }
+      this.analysts = [...this.analysts];
     });
   }
 
@@ -163,14 +188,40 @@ export class CreateFindingComponent implements OnInit {
     console.log(this.form.value);
     console.log(this.eventId);
     let findingJson = this.form.value;
-    findingJson["f_archived"]=false;
-    findingJson["t_id"]=this.eventId;
-    findingJson["st_id"]=this.eventId;
-    findingJson["e_id"]=this.eventId;
-    findingJson["f_level"]="system";
-    findingJson["f_evidence"]=[];
-    findingJson["f_associations"]=[];
-    findingJson["f_collaborators"]=[];
+
+    let formData = new FormData();
+
+    for(var key in this.form.value){
+      if(key!="f_evidence"&&key!="f_collaborators"&&key!="f_associations"){
+        console.log(key)
+        console.log(this.form.get(key).value);
+        formData.append(key,this.form.get(key).value)
+      }
+      else{
+        console.log("multivalue");
+        var multiValue = this.form.get(key).value;
+        console.log(key);
+        if(multiValue){
+          for(var m of multiValue){
+            console.log(m);
+            formData.append(key,m)
+          }
+        }
+      }
+    }
+
+    formData.append("f_archived","false")
+
+    formData.set("t_id",this.eventId);
+
+    formData.set("st_id",this.eventId);
+
+    formData.append("e_id",this.eventId);
+
+    formData.append("f_level","system");
+
+    
+    
     findingJson["f_mitigations"]=[
       {
 				"m_brief_description":"first",
@@ -181,16 +232,19 @@ export class CreateFindingComponent implements OnInit {
 				"m_long_description":"second mitigation"
 			}
     ];
-    let request = {
-      finding:findingJson,
-      analyst:{
-        a_id: this.analystId,
-        a_initials: this.analsytInitials
-      }
-    }
+    formData.append("f_mitigations",JSON.stringify({
+      "m_brief_description":"first",
+      "m_long_description":"first mitigation"
+    }))
+    formData.append("f_mitigations",JSON.stringify({
+      "m_brief_description":"second",
+      "m_long_description":"second mitigation"
+    }));
 
-    console.log(request);
-    this.findingService.createFinding(request);
+    formData.append("analyst_id",this.analystId);
+    formData.append("analyst_initials",this.analsytInitials);
+
+    this.findingService.createFinding(formData);
     this.modal.hide();
   }
 

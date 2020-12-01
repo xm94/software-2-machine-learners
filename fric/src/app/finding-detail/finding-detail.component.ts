@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import {
   ActivatedRoute,
   NavigationEnd,
@@ -18,17 +19,27 @@ import { SystemService } from '../services/system.service';
 export class FindingDetailComponent implements OnInit {
   finding:any;
   system:any;
+  evidenceList: any []=[];
 
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
     private readonly findingService: FindingService,
     private readonly systemService: SystemService,
+    private readonly domSanitizer: DomSanitizer,
   ) {
     this.activatedRoute.params.subscribe((params)=>{
       this.findingService.getFinding(params.id).subscribe((finding)=>{
         this.finding = finding;
         console.log(finding);
+        for(var e of finding.f_evidence){
+          let base64String = btoa(new Uint8Array(e.f_evidence.data).reduce(function (data, byte) {
+            return data + String.fromCharCode(byte);
+          }, ''));
+          this.evidenceList.push("data:image/jpg;base64,"+base64String)
+          
+        }
+        this.evidenceList = [...this.evidenceList];
         this.systemService.getSystem(finding.s_id).subscribe((system)=>{
           this.system = system;
           console.log(system);

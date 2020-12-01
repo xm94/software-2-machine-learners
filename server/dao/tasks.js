@@ -232,9 +232,11 @@ exports.insert = async function insert(object){
       t_archived: object.t_archived
     });
     for(a of attachments){
-      var insertedAttachment = await TaskAttachment.create({
-        t_id: inserted.t_id,
-        t_attachment: a
+      fs.readFile(a.path, async function (err,filedata){
+        var insertedAttachment = await TaskAttachment.create({
+          t_id: inserted.t_id,
+          t_attachment: filedata
+        });
       });
     }
     for(c of collaborators){

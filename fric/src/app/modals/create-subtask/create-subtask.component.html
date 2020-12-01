@@ -46,12 +46,35 @@
                         </mat-select>
                     </mat-form-field>
 
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Assigned Analyst</mat-label>
+                        <mat-select  formControlName=a_id>
+                            <mat-option  *ngFor="let a of analysts" value="{{a.a_id}}">
+                                {{a.a_fname}} {{a.a_lname}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Collaborators</mat-label>
+                        <mat-select  formControlName=st_collaborators multiple>
+                            <mat-option  *ngFor="let a of analysts" value="{{a.a_id}}">
+                                {{a.a_fname}} {{a.a_lname}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
                     <mat-form-field appearance="outline" class="example-full-width" >
                         <mat-label>SubTask Due Date</mat-label>
                         <input matInput [matDatepicker]="apicker" formControlName="st_due_date">
                         <mat-datepicker-toggle matSuffix [for]="apicker"></mat-datepicker-toggle>
                         <mat-datepicker #apicker></mat-datepicker>
                     </mat-form-field>
+
+                    <mat-card>
+                        <h5>Upload Attachments</h5>
+                        <app-file-upload formControlName="st_attachments"></app-file-upload>
+                    </mat-card>
                     
                     <br>
 

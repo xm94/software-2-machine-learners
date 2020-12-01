@@ -77,6 +77,14 @@
     <br>
 </div>
 
+<div *ngFor="let e of evidenceList;index as i;">
+    <mat-card>
+        <h5>Evidence #{{i+1}}</h5>
+        <img src={{e}}>
+
+    </mat-card>
+    <br>
+</div>
 <ng-template #archiveButton>
     <button mat-raised-button color="primary" (click)="gotoArchive()"> <- Back to Archive View</button>
     <br>

@@ -4,9 +4,10 @@ var tasks = require("../dao/tasks")
 var subtasks = require("../dao/subtasks")
 var analysts = require("../dao/analysts")
 var fUtils = require("../utils/findingUtils")
+
 const { Sequelize, DataTypes, Model } = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
-
+const fs = require('fs');
 
 class Finding extends Model {}
 Finding.init({
@@ -208,7 +209,7 @@ FindingEvidence.init({
     primaryKey: true
   },
   f_evidence: {
-    type: DataTypes.BLOB,
+    type: DataTypes.BLOB("long"),
     allowNull: false
   }
 }, {
@@ -419,6 +420,8 @@ exports.insert = async function insert(object,a_id){
     const t = await sequelize.transaction();
     //calculating derived fields
     var mitigations = object.f_mitigations;
+    console.log(mitigations);
+    console.log(object);
     var evidence = object.f_evidence;
     var collaborators = object.f_collaborators;
     var associations = object.f_associations;
@@ -482,9 +485,13 @@ exports.insert = async function insert(object,a_id){
             });
         }
         for(e of evidence){
-            var inserted_e = await FindingEvidence.create({
+            console.log("loading evidence");
+            console.log(e);
+            fs.readFile(e.path, async function (err,filedata){
+              var inserted_e = await FindingEvidence.create({
                 f_id: inserted.f_id,
-                f_evidence: e
+                f_evidence: filedata
+              });
             });
         }
         for(c of collaborators){

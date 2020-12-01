@@ -6,7 +6,8 @@ var systems = require("../dao/systems");
 var tasks = require("../dao/tasks");
 var subtasks = require("../dao/subtasks");
 var findings = require("../dao/findings");
-
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 const router = express.Router();
 var jsonParser = bodyParser.json();
 
@@ -45,18 +46,29 @@ router.get('/findings/archive/:id', async function(req, res, next){
     res.send(finding);
 });
 
-router.post("/findings",jsonParser, async function(req, res){
+router.post("/findings",upload.any(), async function(req, res){
     // req.body.event.e_archived = false;
+    console.log(req.headers)
+    console.log(req.files);
     console.log(req.body);
-    for( m of req.body.finding.f_mitigations){
+    console.log(req.body);
+    console.log(req.body.f_mitigations)
+    var mitigations=[];
+    for( m of req.body.f_mitigations){
         console.log(m);
+        mitigations.push(JSON.parse(m));
+    }
+    req.body.f_mitigations=mitigations;
+    req.body.f_evidence=[]
+    for( f of req.files){
+        req.body.f_evidence.push(f);
     }
     console.log("Attempting to create finding ");
     // req.body.event.e_assessment_date = new Date();
     // req.body.event.e_declassification_date = new Date();
     // req.body.analyst.a_initials = "EM"
     // var event = await events.insert(req.body.event);
-    var finding = await findings.insert(req.body.finding,req.body.analyst.a_id);
+    var finding = await findings.insert(req.body,req.body.a_id);
     
     // if(event){
     //     var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);
@@ -85,6 +97,7 @@ router.put("/findings", jsonParser, async function(req,res){
 
 router.post("/findings/archive", jsonParser, async function(req,res){
     // req.body.event.e_archived = false;
+    console.log(req.body.header)
     console.log(req.body);
     console.log("Attempting to archive finding ");
     // req.body.event.e_assessment_date = new Date();
