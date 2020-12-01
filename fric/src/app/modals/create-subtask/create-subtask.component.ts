@@ -46,6 +46,7 @@ export class CreateSubtaskComponent implements OnInit {
     a_id: new FormControl(''),
     st_collaborators: new FormControl(''),
     st_attachments: new FormControl(),
+    st_associations: new FormControl(),
     taskInd: new FormControl(''),//done
   });
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
@@ -71,6 +72,7 @@ export class CreateSubtaskComponent implements OnInit {
   ];
   taskList = [];
   analysts = [];
+  subtasks = [];
 
   constructor(
     private readonly systemService: SystemService,
@@ -110,6 +112,22 @@ export class CreateSubtaskComponent implements OnInit {
           }
         }
         this.analysts = [...this.analysts];
+      });
+      this.subtaskService.fetchSubtasks();
+      this.subtaskService.allSubtasks.subscribe((subtasks) => {
+        for(var subtask of subtasks){
+          var exists: boolean = false;
+          for(var st of this.subtasks){
+            if(st.st_id==subtask.st_id){
+              exists=true;
+              break;
+            }
+          }
+          if(!exists){
+            this.subtasks.push(subtask);
+          }
+        }
+        this.subtasks = [...this.subtasks];
       });
    }
 

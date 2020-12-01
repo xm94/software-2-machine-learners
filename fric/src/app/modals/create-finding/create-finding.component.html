@@ -189,6 +189,15 @@
                         </mat-select>
                     </mat-form-field>
 
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Associated Findings</mat-label>
+                        <mat-select  formControlName=f_associations multiple>
+                            <mat-option  *ngFor="let f of findings" value="{{f.f_id}}">
+                                {{f.f_name}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
                     <mat-card>
                         <h5>Upload Evidence</h5>
                         <app-file-upload formControlName="f_evidence"></app-file-upload>

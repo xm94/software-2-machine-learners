@@ -64,6 +64,15 @@
                         </mat-select>
                     </mat-form-field>
 
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Associated SubTasks</mat-label>
+                        <mat-select  formControlName=st_associations multiple>
+                            <mat-option  *ngFor="let st of subtasks" value="{{st.st_id}}">
+                                {{st.st_name}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
                     <mat-form-field appearance="outline" class="example-full-width" >
                         <mat-label>SubTask Due Date</mat-label>
                         <input matInput [matDatepicker]="apicker" formControlName="st_due_date">
