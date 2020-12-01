@@ -55,6 +55,13 @@ export class FindingDetailComponent implements OnInit {
     this.router.navigate([".."],{relativeTo: this.activatedRoute});
   }
 
+  archive(){
+    this.findingService.archiveFinding(this.finding.f_id).subscribe((finding)=>{
+      console.log(finding);
+      this.router.navigate(["../..","archive"]);
+    })
+  }
+
   gotoArchive(){
     this.router.navigate(["../..","archive"])
   }

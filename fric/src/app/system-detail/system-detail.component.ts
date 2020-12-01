@@ -41,8 +41,15 @@ export class SystemDetailComponent implements OnInit {
     this.router.navigate([".."],{relativeTo: this.activatedRoute});
   }
 
+  archive(){
+    this.systemService.archiveSystem(this.system.s_id).subscribe((system)=>{
+      console.log(system);
+      this.router.navigate(["../..","archive"]);
+    })
+  }
+
   gotoArchive(){
-    this.router.navigate(["../..","archive"])
+    this.router.navigate(["../..","archive"]);
   }
 
 }

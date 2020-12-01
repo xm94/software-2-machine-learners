@@ -43,6 +43,13 @@ export class TaskDetailComponent implements OnInit {
     this.router.navigate([".."],{relativeTo: this.activatedRoute});
   }
 
+  archive(){
+    this.taskService.archiveTask(this.task.t_id).subscribe((task)=>{
+      console.log(task);
+      this.router.navigate(["../..","archive"]);
+    })
+  }
+
   gotoArchive(){
     this.router.navigate(["../..","archive"])
   }

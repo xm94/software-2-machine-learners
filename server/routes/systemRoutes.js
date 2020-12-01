@@ -90,29 +90,31 @@ router.put("/systems/", jsonParser, async function(req, res, next){
     }
 });
 
-router.put('/systems/archive', jsonParser, async function(req, res, next){
+router.put('/systems/archive/:s_id', jsonParser, async function(req, res, next){
     try{
         console.log("inside try");
-        if(console.body.analyst.a_role!="Lead Analyst"){
-            transactionLogs.insert({a_initials:req.body.analyst.initials,tl_action_performed: "Attempted to archive system with insufficient permissions", a_id:req.body.analyst.a_id});
-            return res.status(403).send("You must be a Lead Analyst to perform this task");
-        }
-        console.log(req.body);
-        var system = await systems.getFromId(req.body.system.e_id);
+        console.log(req.params.s_id);
+        // if(req.body.analyst.a_role!="Lead Analyst"){
+        //     transactionLogs.insert({a_initials:req.body.analyst.initials,tl_action_performed: "Attempted to archive system with insufficient permissions", a_id:req.body.analyst.a_id});
+        //     return res.status(403).send("You must be a Lead Analyst to perform this task");
+        // }
+        // console.log(req.body);
+        var system = await systems.getFromId(req.params.s_id);
         if(!system){
             console.log("no system");
             return res.status(404).send();
         }
-        var archivedsystem = await systems.archivesystem(req.body.system.e_id);
+        var archivedsystem = await systems.archive(req.params.s_id);
         console.log("system response " + archivedsystem);
-        if(archivedsystem){
-            transactionLogs.insert({a_initials:req.body.analyst.initials,tl_action_performed: "Archived system", a_id:req.body.analyst.a_id});
-        }
-        else{
-            console.log("error ");
-        }
-        res.status(200).send("archivedsystem");}
+        // if(archivedsystem){
+        //     transactionLogs.insert({a_initials:req.body.analyst.a_initials,tl_action_performed: "Archived system", a_id:req.body.analyst.a_id});
+        // }
+        // else{
+        //     console.log("error ");
+        // }
+        res.status(200).send(archivedsystem);}
     catch(err){
+        console.log(err)
         res.status(500).send(err);
     }
 });

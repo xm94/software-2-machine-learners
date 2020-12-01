@@ -76,4 +76,8 @@ export class SubtaskService {
     return this.backendServicesProxy.get('/subtasks/archive/'+e_id)
     .pipe(map(response => response.body));
   }
+  archiveSubtask(st_id: string): Observable<any> {
+    return this.backendServicesProxy.put('/subtasks/archive/'+st_id)
+    .pipe(map(response => response.body));
+  }
 }

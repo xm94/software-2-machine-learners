@@ -77,4 +77,9 @@ export class FindingService {
     return this.backendServicesProxy.get('/findings/archive/'+e_id)
     .pipe(map(response => response.body));
   }
+
+  archiveFinding(f_id: string): Observable<any> {
+    return this.backendServicesProxy.put('/findings/archive/'+f_id)
+    .pipe(map(response => response.body));
+  }
 }
