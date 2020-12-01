@@ -58,7 +58,15 @@ router.post("/findings",upload.any(), async function(req, res){
     }
     else if(typeof req.body.f_mitigations === 'string'){
         console.log("is string");
-        var mitigations=[req.body.f_mitigations];
+        var mitigations=[JSON.parse(req.body.f_mitigations)];
+        req.body.f_mitigations=mitigations;
+    }
+    else{
+        var mitigations=[];
+        for( m of req.body.f_mitigations){
+            console.log(m);
+            mitigations.push(JSON.parse(m));
+        }
         req.body.f_mitigations=mitigations;
     }
     req.body.f_evidence=[]

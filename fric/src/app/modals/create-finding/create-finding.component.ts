@@ -288,11 +288,6 @@ export class CreateFindingComponent implements OnInit {
       "m_long_description":this.form.get("long_mitigation").value
     }));
 
-    formData.append("f_mitigations",JSON.stringify({
-      "m_brief_description":this.form.get("brief_mitigation").value,
-      "m_long_description":this.form.get("long_mitigation").value
-    }));
-
     formData.append("analyst_id",this.analystId);
     formData.append("analyst_initials",this.analsytInitials);
 
