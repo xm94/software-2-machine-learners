@@ -51,8 +51,19 @@ router.post("/tasks",upload.any(), async function(req, res){
     if(!req.body.t_collaborators){
         req.body.t_collaborators=[];
     }
-    req.body.t_associations=[];
-
+    else if(typeof req.body.t_collaborators === 'string'){
+        console.log("is string");
+        var collaborators=[req.body.t_collaborators];
+        req.body.t_collaborators=collaborators;
+    }
+    if(!req.body.t_associations){
+        req.body.t_associations=[];
+    }
+    else if(typeof req.body.t_associations === 'string'){
+        console.log("is string");
+        var associations=[req.body.t_associations];
+        req.body.t_associations=associations;
+    }
     var task = await tasks.insert(req.body);
     
     // if(event){
