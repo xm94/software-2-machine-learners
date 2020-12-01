@@ -1,6 +1,6 @@
 <div *ngIf="!subtask.st_archived;else archiveButton">
     <button mat-raised-button color="primary" (click)="return()"> <- Back to SubTask View</button>
-    <button mat-raised-button class="right-align" color="primary" (click)="return()"> Archive SubTask</button>
+    <button mat-raised-button class="right-align" color="primary" (click)="archive()"> Archive SubTask</button>
 </div>
 
 <br>

@@ -1,7 +1,7 @@
 
 <div *ngIf="!finding.f_archived;else archiveButton">
     <button mat-raised-button color="primary" (click)="return()"> <- Back to Finding View</button>
-    <button mat-raised-button class="right-align" color="primary" (click)="return()"> Archive Finding</button>
+    <button mat-raised-button class="right-align" color="primary" (click)="archive()"> Archive Finding</button>
 </div>
 
 <br>

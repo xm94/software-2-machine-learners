@@ -76,4 +76,9 @@ export class SystemService {
     return this.backendServicesProxy.get('/systems/archive/'+e_id)
     .pipe(map(response => response.body));
   }
+
+  archiveSystem(s_id: string): Observable<any> {
+    return this.backendServicesProxy.put('/systems/archive/'+s_id)
+    .pipe(map(response => response.body));
+  }
 }
