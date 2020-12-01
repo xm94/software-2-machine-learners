@@ -29,11 +29,10 @@ export class FindingsComponent implements OnInit {
   ) {
     this.findingList=[]
     this.event = this.eventService.event;
-    this.findingService.fetchSystems();
+    this.findingService.fetchFindings();
     console.log("constructor")
     this.findingService.allFindings.subscribe((findings) => {
       console.log("subscriber")
-      var i = 1;
       for(var finding of findings){
         var exists: boolean = false;
         for(var f of this.findingList){

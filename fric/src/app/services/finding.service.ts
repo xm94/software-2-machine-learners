@@ -31,7 +31,7 @@ export class FindingService {
     private readonly router: Router
   ) {}
 
-  fetchSystems(): any[] {
+  fetchFindings(): any[] {
     console.log("getting systems");
     const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/findings');
     response.subscribe((r) => {
