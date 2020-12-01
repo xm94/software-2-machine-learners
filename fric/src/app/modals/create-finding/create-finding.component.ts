@@ -29,6 +29,8 @@ import { SystemService } from 'src/app/services/system.service';
 import { FindingService } from 'src/app/services/finding.service';
 import { FileUploadComponent } from 'src/app/file-upload/file-upload.component'
 import { AnalystService } from 'src/app/services/analyst.service';
+import { TaskService } from 'src/app/services/task.service';
+import { SubtaskService } from 'src/app/services/subtask.service';
 @Component({
   selector: 'create-finding',
   templateUrl: './create-finding.component.html',
@@ -129,6 +131,8 @@ export class CreateFindingComponent implements OnInit {
 
   constructor(
     private readonly systemService: SystemService,
+    private readonly taskService: TaskService,
+    private readonly subtaskService: SubtaskService,
     private readonly findingService: FindingService,
     private readonly analystService: AnalystService) {
     this.systemService.fetchSystems();
@@ -163,6 +167,37 @@ export class CreateFindingComponent implements OnInit {
         }
       }
       this.analysts = [...this.analysts];
+    });
+    this.taskService.allTasks.subscribe((tasks) => {
+      for(var t of tasks){
+        var exists: boolean = false;
+        for(var task of this.tasks){
+          if(task.t_id == t.t_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.tasks.push(t);
+        }
+      }
+      this.tasks = [...this.tasks];
+    });
+    this.subtaskService.fetchSubtasks();
+    this.subtaskService.allSubtasks.subscribe((subtasks) => {
+      for(var subtask of subtasks){
+        var exists: boolean = false;
+        for(var st of this.subtasks){
+          if(st.st_id==subtask.st_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.subtasks.push(subtask);
+        }
+      }
+      this.subtasks = [...this.subtasks];
     });
   }
 
@@ -211,10 +246,6 @@ export class CreateFindingComponent implements OnInit {
     }
 
     formData.append("f_archived","false")
-
-    formData.set("t_id",this.eventId);
-
-    formData.set("st_id",this.eventId);
 
     formData.append("e_id",this.eventId);
 
