@@ -1,30 +1,19 @@
 
 <div *ngIf="system.s_archived!=true;else archiveButton"><button mat-raised-button color="primary" (click)="return()"> <- Back to System View</button></div>
 
-<br>
-<mat-card>
-    Name: {{system.s_name}}
-</mat-card>
-<br>
-<mat-card>
-    Confidentiality: {{system.s_confidentiality}}
-</mat-card>
-<br>
-<mat-card>
-    Availability: {{system.s_availability}}
-</mat-card>
-<br>
-<mat-card>
-    Integrity: {{system.s_integrity}}
-</mat-card>
-<br>
-<mat-card>
-    Description: {{system.s_description}}
-</mat-card>
-<br>
-<mat-card>
-    Test Plan: {{system.s_test_plan}}
-</mat-card>
+<h5> System Detailed View </h5>
+<mat-grid-list cols="3" rowHeight="120px">
+    <div *ngFor="let curr of system | keyvalue">
+        <div *ngIf="systemAttributeToDisplayText.get(curr.key)!=null">
+            <mat-grid-tile>
+                <mat-card class='display-card'>
+                    <mat-card-title>{{systemAttributeToDisplayText.get(curr.key)}}</mat-card-title>
+                    {{curr.value}}
+                </mat-card>
+            </mat-grid-tile>
+        </div>
+    </div>
+</mat-grid-list>
 
 <ng-template #archiveButton>
     <button mat-raised-button color="primary" (click)="gotoArchive()"> <- Back to Archive View</button>
