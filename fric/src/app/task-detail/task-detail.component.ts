@@ -18,7 +18,16 @@ import { TaskService } from '../services/task.service';
 export class TaskDetailComponent implements OnInit {
   task: any;
   system: any;
+  dueDateSimpleFormat;
 
+  taskAttributeToDisplayText = new Map([
+    ["t_name", "Name"],
+    ["t_description", "Description"],
+    ["t_priority", "Priority"],
+    ["t_progress", "Progress"],
+    ["t_due_date", "Due Date"],
+    ["t_archived", "Archived"]
+  ]);
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
