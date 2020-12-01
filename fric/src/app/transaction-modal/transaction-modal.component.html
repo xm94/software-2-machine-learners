@@ -1,0 +1,11 @@
+<p>transaction-modal works!</p>
+<h5>Transactions</h5>
+    <mat-grid-list cols="1" rowHeight="15vh">
+        
+        <div *ngFor="let item of transactionList;">
+           Analyst:{{item.a_initials}} 
+           <br>
+           Action:{{item.tl_action_performed}}
+            
+        </div>
+    </mat-grid-list>

@@ -6,23 +6,32 @@
 
 <h5> System Detailed View </h5>
 <!-- Hardcoded in order to get more customized view -->
-<mat-grid-list cols="3" rowHeight="120px">
+<mat-grid-list cols="3" rowHeight="15vh">
 
     <mat-grid-tile [colspan]="2" [rowspan]="4">
         
         <mat-card class="max-width-and-height margin-m">
-            <mat-card-title >Basic</mat-card-title>
-            <h6 class="bold-text">Name</h6>
-            {{system.s_name}}
+            <mat-card-title class="font-size-l">Basic</mat-card-title>
+            <h6 class="bold-text font-size-l">Name</h6>
+            <div class="font-size-m">
+                {{system.s_name}}
+            </div>
             <br>
-            <h6 class="bold-text pt-s">Description</h6>
-            {{system.s_description}}
+            <h6 class="bold-text pt-s font-size-l">Description</h6>
+            <div class="font-size-m">
+                {{system.s_description}}
+            </div>
+        
+            <h6 class="bold-text pt-s font-size-l">Created At</h6>
+            <div class="font-size-m">
+                {{createdAtSimpleFormat}}
+            </div>
 
-            <h6 class="bold-text pt-s">Created At</h6>
-            {{createdAtSimpleFormat}}
-
-            <h6 class="bold-text pt-s">Updated At</h6>
-            {{updatedAtSimpleFormat}}
+            <h6 class="bold-text pt-s font-size-l">Updated At</h6>
+            <div class="font-size-m">
+                {{updatedAtSimpleFormat}}
+            </div>
+            
         </mat-card>
 
     </mat-grid-tile>
@@ -30,13 +39,22 @@
     <mat-grid-tile [colspan]="1" [rowspan]="3" >
 
         <mat-card class="max-width-and-height margin-m">
-            <mat-card-title>CIA</mat-card-title>
-            <h6 class="bold-text">Confidentiality</h6>
-            {{system.s_confidentiality}}
+            <mat-card-title class="font-size-l">CIA</mat-card-title>
+            <h6 class="bold-text font-size-l">Confidentiality</h6>
+            <div class="font-size-m">
+                {{system.s_confidentiality}}
+            </div>
+            
             <h6 class="bold-text pt-s">Integrity</h6>
-            {{system.s_integrity}}
+            <div class="font-size-m">
+                {{system.s_integrity}}
+            </div>
+            
             <h6 class="bold-text pt-s">Availability</h6>
-            {{system.s_availability}}
+            <div class="font-size-m">
+                {{system.s_availability}}
+            </div>
+            
         </mat-card>
 
     </mat-grid-tile>

@@ -19,14 +19,17 @@
 
 <ng-template #eventDetailedView>
     <h5>Event Detailed View</h5>
-    <mat-grid-list cols="3" rowHeight="120px">
+    <mat-grid-list cols="3" rowHeight="15vh">
         
         <div *ngFor="let curr of event | keyvalue">
             <div *ngIf="eventAttributeToDisplayText.get(curr.key)!=null">
                 <mat-grid-tile>
                     <mat-card class='display-card'>
-                        <mat-card-title>{{eventAttributeToDisplayText.get(curr.key)}}</mat-card-title>
-                        {{curr.value}}
+                        <mat-card-title class="font-size-m" >{{eventAttributeToDisplayText.get(curr.key)}}</mat-card-title>
+                        <div class="font-size-s">
+                            {{curr.value}}
+                        </div>
+                        
                     </mat-card>
                 </mat-grid-tile>
             </div>

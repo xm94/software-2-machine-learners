@@ -5,6 +5,7 @@ import {
   Router,
   RouterEvent
 } from '@angular/router';
+import { element } from 'protractor';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, startWith, switchMap } from 'rxjs/operators';
 import { SystemService } from '../services/system.service';
@@ -18,7 +19,16 @@ import { TaskService } from '../services/task.service';
 export class TaskDetailComponent implements OnInit {
   task: any;
   system: any;
-
+  dueDateSimpleFormat;
+  attachmentsList: any []=[];
+  taskAttributeToDisplayText = new Map([
+    ["t_name", "Name"],
+    ["t_description", "Description"],
+    ["t_priority", "Priority"],
+    ["t_progress", "Progress"],
+    ["t_due_date", "Due Date"],
+    ["t_archived", "Archived"]
+  ]);
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
@@ -26,6 +36,12 @@ export class TaskDetailComponent implements OnInit {
     private readonly taskService: TaskService,) {
       this.activatedRoute.params.subscribe((params)=>{
         this.taskService.getTask(params.id).subscribe((task)=>{
+          for(var e of task.t_attachments){
+            let base64String = btoa(new Uint8Array(e.t_attachment.data).reduce(function (data, byte) {
+              return data + String.fromCharCode(byte);
+            }, ''));
+            this.attachmentsList.push("data:image/jpg;base64,"+base64String)
+          }
           console.log(task);
           this.task = task;
           this.systemService.getSystem(task.s_id).subscribe((system)=>{
@@ -43,6 +59,9 @@ export class TaskDetailComponent implements OnInit {
     this.router.navigate([".."],{relativeTo: this.activatedRoute});
   }
 
+  goToSystem(s_id){
+    this.router.navigate(["/system/"+s_id]);
+  }
   archive(){
     this.taskService.archiveTask(this.task.t_id).subscribe((task)=>{
       console.log(task);

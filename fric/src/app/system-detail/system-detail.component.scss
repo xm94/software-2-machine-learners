@@ -1,6 +1,6 @@
 .display-card {
-    min-width: 400px;
-    min-height: 100px;
+    width: 20vw;
+    height: 12vh;
 }
 
 .max-width-and-height{
@@ -24,6 +24,16 @@
     padding-top: 1.5em;
 }
 
+.font-size-s {
+    font-size: small;
+}
+
+.font-size-m{
+    font-size: medium;
+}
+
+.font-size-l{
+    font-size: large;
 .right-align{
     margin-left: 1.5em;
 }
