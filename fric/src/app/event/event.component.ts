@@ -21,6 +21,22 @@ export class EventComponent implements OnInit {
   @ViewChild(CreateEventModal, { static: false })
   modal: CreateEventModal;
   analyst;
+  // This is used on the html for displaying the correct attributes
+  eventAttributeToDisplayText = new Map([
+    ["createdAt", "Created At"],
+    ["e_assessment_date", "Assessment Date"],
+    ["e_classification", "Classification"],
+    ["e_customer", "Customer"],
+    ["e_declassification_date", "Declassification Date"],
+    ["e_description", "Description"],
+    ["e_name", "Name"],
+    ["e_org_name", "Organization Name"],
+    ["e_sec_class_title_guide", "Sec Class Title Guide"],
+    ["e_type", "Type"],
+    ["e_version", "Version"],
+    ["e_updated_at", "Updated At"]
+  ]);
+  
   constructor(
     private readonly proxyService: BackendServicesProxy,
     private readonly analystService: AnalystService,
