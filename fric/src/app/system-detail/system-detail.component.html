@@ -2,17 +2,42 @@
 <div *ngIf="system.s_archived!=true;else archiveButton"><button mat-raised-button color="primary" (click)="return()"> <- Back to System View</button></div>
 
 <h5> System Detailed View </h5>
+<!-- Hardcoded in order to get more customized view -->
 <mat-grid-list cols="3" rowHeight="120px">
-    <div *ngFor="let curr of system | keyvalue">
-        <div *ngIf="systemAttributeToDisplayText.get(curr.key)!=null">
-            <mat-grid-tile>
-                <mat-card class='display-card'>
-                    <mat-card-title>{{systemAttributeToDisplayText.get(curr.key)}}</mat-card-title>
-                    {{curr.value}}
-                </mat-card>
-            </mat-grid-tile>
-        </div>
-    </div>
+
+    <mat-grid-tile [colspan]="2" [rowspan]="4">
+        
+        <mat-card class="max-width-and-height margin-m">
+            <mat-card-title >Basic</mat-card-title>
+            <h6 class="bold-text">Name</h6>
+            {{system.s_name}}
+            <br>
+            <h6 class="bold-text pt-s">Description</h6>
+            {{system.s_description}}
+
+            <h6 class="bold-text pt-s">Created At</h6>
+            {{createdAtSimpleFormat}}
+
+            <h6 class="bold-text pt-s">Updated At</h6>
+            {{updatedAtSimpleFormat}}
+        </mat-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="3" >
+
+        <mat-card class="max-width-and-height margin-m">
+            <mat-card-title>CIA</mat-card-title>
+            <h6 class="bold-text">Confidentiality</h6>
+            {{system.s_confidentiality}}
+            <h6 class="bold-text pt-s">Integrity</h6>
+            {{system.s_integrity}}
+            <h6 class="bold-text pt-s">Availability</h6>
+            {{system.s_availability}}
+        </mat-card>
+
+    </mat-grid-tile>
+      
 </mat-grid-list>
 
 <ng-template #archiveButton>

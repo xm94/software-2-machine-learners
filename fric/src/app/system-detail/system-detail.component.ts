@@ -17,18 +17,9 @@ import { SystemService } from '../services/system.service';
 export class SystemDetailComponent implements OnInit {
   system:any;
   test2:any;
-  // This is used on the html for displaying the correct attributes
-  systemAttributeToDisplayText = new Map([
-    ["createdAt", "Created At"],
-    ["s_archived", "Archived"],
-    ["s_availability", "Availability"],
-    ["s_confidentiality", "Confidentiality"],
-    ["s_description", "Description"],
-    ["s_integrity", "Integrity"],
-    ["s_name", "System Name"],
-    ["s_test_plan", "Test Plan"],
-    ["updatedAt", "Updated At"]
-  ]);
+  createdAtSimpleFormat;
+  
+  updatedAtSimpleFormat;
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
@@ -37,6 +28,8 @@ export class SystemDetailComponent implements OnInit {
         this.systemService.getSystem(params.id).subscribe((sys)=>{
           console.log(sys);
           this.system = sys;
+          this.createdAtSimpleFormat = new Date(this.system.createdAt)
+          this.updatedAtSimpleFormat = new Date(this.system.updatedAt)
         });
       });
      }
