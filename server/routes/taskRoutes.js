@@ -48,8 +48,9 @@ router.post("/tasks",upload.any(), async function(req, res){
     for( f of req.files){
         req.body.t_attachments.push(f);
     }
-
-    req.body.t_collaborators=[];
+    if(!req.body.t_collaborators){
+        req.body.t_collaborators=[];
+    }
     req.body.t_associations=[];
 
     var task = await tasks.insert(req.body);

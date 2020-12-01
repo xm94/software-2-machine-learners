@@ -6,8 +6,8 @@ var systems = require("../dao/systems");
 var tasks = require("../dao/tasks");
 var subtasks = require("../dao/subtasks");
 var findings = require("../dao/findings");
-var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 const router = express.Router();
 var jsonParser = bodyParser.json();
 

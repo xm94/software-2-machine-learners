@@ -54,7 +54,9 @@ router.post("/subtasks",upload.any(), async function(req, res){
     for( f of req.files){
         req.body.st_attachments.push(f);
     }
-    req.body.st_collaborators=[];
+    if(!req.body.st_collaborators){
+        req.body.st_collaborators=[];
+    }
     req.body.st_associations=[];
 
     var subtask = await subtasks.insert(req.body);

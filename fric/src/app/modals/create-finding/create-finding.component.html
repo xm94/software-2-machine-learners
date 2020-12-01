@@ -171,9 +171,27 @@
                         <input matInput formControlName="f_impact_desc">
                     </mat-form-field>
 
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Assigned Analyst</mat-label>
+                        <mat-select  formControlName=a_id>
+                            <mat-option  *ngFor="let a of analysts" value="{{a.a_id}}">
+                                {{a.a_fname}} {{a.a_lname}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" class="example-full-width">
+                        <mat-label>Collaborators</mat-label>
+                        <mat-select  formControlName=f_collaborators multiple>
+                            <mat-option  *ngFor="let a of analysts" value="{{a.a_id}}">
+                                {{a.a_fname}} {{a.a_lname}}
+                              </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
                     <mat-card>
                         <h5>Upload Evidence</h5>
-                        <app-file-upload formControlName="evidence"></app-file-upload>
+                        <app-file-upload formControlName="f_evidence"></app-file-upload>
                     </mat-card>
                     <br>
 

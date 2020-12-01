@@ -28,6 +28,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { SystemService } from 'src/app/services/system.service';
 import { TaskService } from 'src/app/services/task.service';
 import { SubtaskService } from 'src/app/services/subtask.service';
+import { AnalystService } from 'src/app/services/analyst.service';
 
 @Component({
   selector: 'create-subtask',
@@ -42,12 +43,11 @@ export class CreateSubtaskComponent implements OnInit {
     st_priority: new FormControl(''),//done
     st_progress: new FormControl(''),//done
     st_due_date: new FormControl(''),//done
-    attachments: new FormControl(),
+    a_id: new FormControl(''),
+    st_collaborators: new FormControl(''),
+    st_attachments: new FormControl(),
     taskInd: new FormControl(''),//done
   });
-  s_c = new FormControl(false);
-  s_i = new FormControl(false);
-  s_a = new FormControl(false);
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   analystId: string;
   analsytInitials: string;
@@ -70,11 +70,13 @@ export class CreateSubtaskComponent implements OnInit {
     'Not Applicable'
   ];
   taskList = [];
+  analysts = [];
 
   constructor(
     private readonly systemService: SystemService,
     private readonly taskService: TaskService,
     private readonly subtaskService: SubtaskService,
+    private readonly analystService: AnalystService,
     ) {
     this.systemService.fetchSystems();
     this.taskService.fetchTasks();
@@ -92,6 +94,22 @@ export class CreateSubtaskComponent implements OnInit {
           }
         }
         this.taskList = [...this.taskList];
+      });
+      this.analystService.fetchAnalysts();
+      this.analystService.allAnalysts.subscribe((analysts) => {
+        for(var analyst of analysts){
+          var exists: boolean = false;
+          for(var a of this.analysts){
+            if(a.a_id==analyst.a_id){
+              exists=true;
+              break;
+            }
+          }
+          if(!exists){
+            this.analysts.push(analyst);
+          }
+        }
+        this.analysts = [...this.analysts];
       });
    }
 
@@ -121,16 +139,20 @@ export class CreateSubtaskComponent implements OnInit {
 
     let formData = new FormData();
     for(var key in this.form.value){
-      if(key!="attachments"){
+      if(key!="st_attachments"&&key!="st_collaborators"&&key!="st_associations"){
         console.log(key)
         console.log(this.form.get(key).value);
         formData.append(key,this.form.get(key).value)
       }
       else{
-        var aList = this.form.get(key).value;
-        for(var a of aList){
-          console.log(a);
-          formData.append("st_attachments",a)
+        console.log("multivalue");
+        var multiValue = this.form.get(key).value;
+        console.log(key);
+        if(multiValue){
+          for(var m of multiValue){
+            console.log(m);
+            formData.append(key,m)
+          }
         }
       }
     }
@@ -140,8 +162,6 @@ export class CreateSubtaskComponent implements OnInit {
     stJson["st_archived"]=false;
     formData.append("e_id",this.eventId);
     stJson["e_id"]=this.eventId;
-    formData.append("a_id",this.analystId);
-    stJson["a_id"]=this.analystId;
     formData.append("s_id",assocTask.s_id);
     stJson["s_id"]=assocTask.s_id;
     formData.append("t_id",assocTask.t_id);

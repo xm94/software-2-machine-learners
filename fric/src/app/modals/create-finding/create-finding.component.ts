@@ -28,6 +28,7 @@ import { MatNativeDateModule } from '@angular/material';
 import { SystemService } from 'src/app/services/system.service';
 import { FindingService } from 'src/app/services/finding.service';
 import { FileUploadComponent } from 'src/app/file-upload/file-upload.component'
+import { AnalystService } from 'src/app/services/analyst.service';
 @Component({
   selector: 'create-finding',
   templateUrl: './create-finding.component.html',
@@ -52,11 +53,13 @@ export class CreateFindingComponent implements OnInit {
     f_countermeasure_effectiveness_score: new FormControl(''),
     f_impact_desc: new FormControl(''),
     f_impact_level: new FormControl(''),
-    evidence: new FormControl(),
+    f_evidence: new FormControl(),
     f_cat_code: new FormControl(''),//done
     s_id: new FormControl(''),//done
     t_id: new FormControl(''),//on form
     st_id: new FormControl(''),//on form
+    a_id: new FormControl(''),
+    f_collaborators: new FormControl(''),
   });
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   analystId: string;
@@ -104,6 +107,7 @@ export class CreateFindingComponent implements OnInit {
   systems = [];
   tasks = [];
   subtasks = [];
+  analysts = [];
   effectivenessRating = [
     "Very High",
     "High",
@@ -123,7 +127,10 @@ export class CreateFindingComponent implements OnInit {
 
   
 
-  constructor(private readonly systemService:SystemService,private readonly findingService:FindingService) {
+  constructor(
+    private readonly systemService: SystemService,
+    private readonly findingService: FindingService,
+    private readonly analystService: AnalystService) {
     this.systemService.fetchSystems();
     this.systemService.allSystems.subscribe((systems) => {
       for(var sys of systems){
@@ -140,6 +147,22 @@ export class CreateFindingComponent implements OnInit {
       }
       this.systems = [...this.systems];
       console.log(this.systems);
+    });
+    this.analystService.fetchAnalysts();
+    this.analystService.allAnalysts.subscribe((analysts) => {
+      for(var analyst of analysts){
+        var exists: boolean = false;
+        for(var a of this.analysts){
+          if(a.a_id==analyst.a_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.analysts.push(analyst);
+        }
+      }
+      this.analysts = [...this.analysts];
     });
   }
 
@@ -162,7 +185,6 @@ export class CreateFindingComponent implements OnInit {
   }
 
   submit(){
-    console.log(this.form.get("evidence").value)
     console.log(this.form.value);
     console.log(this.eventId);
     let findingJson = this.form.value;
@@ -170,16 +192,20 @@ export class CreateFindingComponent implements OnInit {
     let formData = new FormData();
 
     for(var key in this.form.value){
-      if(key!="evidence"){
+      if(key!="f_evidence"&&key!="f_collaborators"&&key!="f_associations"){
         console.log(key)
         console.log(this.form.get(key).value);
         formData.append(key,this.form.get(key).value)
       }
       else{
-        var eList = this.form.get(key).value;
-        for(var e of eList){
-          console.log(e);
-          formData.append("f_evidence",e)
+        console.log("multivalue");
+        var multiValue = this.form.get(key).value;
+        console.log(key);
+        if(multiValue){
+          for(var m of multiValue){
+            console.log(m);
+            formData.append(key,m)
+          }
         }
       }
     }
@@ -194,10 +220,6 @@ export class CreateFindingComponent implements OnInit {
 
     formData.append("f_level","system");
 
-    formData.append("f_associations",this.eventId);
-    formData.append("f_associations",this.eventId);
-    formData.append("f_collaborators",this.eventId);
-    formData.append("f_collaborators",this.eventId);
     
     
     findingJson["f_mitigations"]=[
@@ -219,8 +241,8 @@ export class CreateFindingComponent implements OnInit {
       "m_long_description":"second mitigation"
     }));
 
-    formData.append("a_id",this.analystId);
-    formData.append("a_initials",this.analsytInitials);
+    formData.append("analyst_id",this.analystId);
+    formData.append("analyst_initials",this.analsytInitials);
 
     this.findingService.createFinding(formData);
     this.modal.hide();
