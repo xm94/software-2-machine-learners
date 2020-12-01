@@ -29,7 +29,6 @@ export class FindingsComponent implements OnInit {
   ) {
     this.findingList=[]
     this.event = this.eventService.event;
-    this.findingList = [{f_name:"test name"}];
     this.findingService.fetchSystems();
     console.log("constructor")
     this.findingService.allFindings.subscribe((findings) => {
