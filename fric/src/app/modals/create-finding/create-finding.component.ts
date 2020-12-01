@@ -62,6 +62,8 @@ export class CreateFindingComponent implements OnInit {
     st_id: new FormControl(''),//on form
     a_id: new FormControl(''),
     f_collaborators: new FormControl(''),
+    brief_mitigation: new FormControl(''),
+    long_mitigation: new FormControl(''),
     f_associations: new FormControl(),
   });
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
@@ -282,12 +284,8 @@ export class CreateFindingComponent implements OnInit {
 			}
     ];
     formData.append("f_mitigations",JSON.stringify({
-      "m_brief_description":"first",
-      "m_long_description":"first mitigation"
-    }))
-    formData.append("f_mitigations",JSON.stringify({
-      "m_brief_description":"second",
-      "m_long_description":"second mitigation"
+      "m_brief_description":this.form.get("brief_mitigation").value,
+      "m_long_description":this.form.get("long_mitigation").value
     }));
 
     formData.append("analyst_id",this.analystId);
