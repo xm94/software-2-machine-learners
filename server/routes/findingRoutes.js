@@ -53,12 +53,22 @@ router.post("/findings",upload.any(), async function(req, res){
     console.log(req.body);
     console.log(req.body);
     console.log(req.body.f_mitigations)
-    var mitigations=[];
-    for( m of req.body.f_mitigations){
-        console.log(m);
-        mitigations.push(JSON.parse(m));
+    if(!req.body.f_mitigations){
+        req.body.f_mitigations=[];
     }
-    req.body.f_mitigations=mitigations;
+    else if(typeof req.body.f_mitigations === 'string'){
+        console.log("is string");
+        var mitigations=[JSON.parse(req.body.f_mitigations)];
+        req.body.f_mitigations=mitigations;
+    }
+    else{
+        var mitigations=[];
+        for( m of req.body.f_mitigations){
+            console.log(m);
+            mitigations.push(JSON.parse(m));
+        }
+        req.body.f_mitigations=mitigations;
+    }
     req.body.f_evidence=[]
     for( f of req.files){
         req.body.f_evidence.push(f);
