@@ -46,6 +46,7 @@ import { CreateSubtaskComponent } from './modals/create-subtask/create-subtask.c
 import { SubtaskDetailComponent } from './subtask-detail/subtask-detail.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { TransactionModalComponent } from './transaction-modal/transaction-modal.component';
 
 @NgModule({
   declarations: [
@@ -74,6 +75,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
     CreateSubtaskComponent,
     SubtaskDetailComponent,
     FileUploadComponent,
+    TransactionModalComponent,
   ],
   imports: [
     BrowserModule,

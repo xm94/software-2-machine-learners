@@ -15,6 +15,7 @@ import { SystemDetailComponent } from './system-detail/system-detail.component';
 import { FindingDetailComponent } from './finding-detail/finding-detail.component';
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { SubtaskDetailComponent } from './subtask-detail/subtask-detail.component';
+import { TransactionModalComponent } from './transaction-modal/transaction-modal.component';
 
 
 const routes: Routes = [
@@ -52,6 +53,7 @@ const routes: Routes = [
   {path: "configuration", component: ConfigurationComponent},
   {path: "setup", component: SetupComponent},
   {path: "help", component: HelpComponent},
+  {path: "transactions", component: TransactionModalComponent},
 ];
 
 @NgModule({
