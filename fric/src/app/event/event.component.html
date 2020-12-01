@@ -17,42 +17,20 @@
     </div>
 </div>
 
+<ng-template #eventDetailedView>
+    <h5>Event Detailed View</h5>
+    <mat-grid-list cols="3" rowHeight="120px">
+        
+        <div *ngFor="let curr of event | keyvalue">
+            <div *ngIf="eventAttributeToDisplayText.get(curr.key)!=null">
+                <mat-grid-tile>
+                    <mat-card class='display-card'>
+                        <mat-card-title>{{eventAttributeToDisplayText.get(curr.key)}}</mat-card-title>
+                        {{curr.value}}
+                    </mat-card>
+                </mat-grid-tile>
+            </div>
+        </div>
+    </mat-grid-list>
 
-
-
-
-
-
-
-
-
-<ng-template #eventDetailedView><span>event detailed view</span>
-
-    <mat-card>
-        ID: {{event.e_id}}
-    </mat-card>
-    <br>
-    <mat-card>
-        Name: {{event.e_name}}
-    </mat-card>
-    <br>
-    <mat-card>
-        Org Name: {{event.e_org_name}}
-    </mat-card>
-    <br>
-    <mat-card>
-        Type: {{event.e_type}}
-    </mat-card>
-    <br>
-    <mat-card>
-        Version: {{event.e_version}}
-    </mat-card>
-    <br>
-    <mat-card>
-        Assessment Date: {{event.e_assessment_date}}
-    </mat-card>
-    <br>
-    <mat-card>
-        Classification: {{event.e_classification}}
-    </mat-card>
 </ng-template>

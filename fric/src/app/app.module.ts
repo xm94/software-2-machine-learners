@@ -45,7 +45,7 @@ import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { CreateSubtaskComponent } from './modals/create-subtask/create-subtask.component';
 import { SubtaskDetailComponent } from './subtask-detail/subtask-detail.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
-
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -98,7 +98,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     HttpClientModule,
     ModalModule.forRoot(),
     MatDatepickerModule, 
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatGridListModule
   ],entryComponents: [
     NotificationModalComponent,
   
