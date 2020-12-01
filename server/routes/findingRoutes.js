@@ -65,6 +65,22 @@ router.post("/findings",upload.any(), async function(req, res){
     for( f of req.files){
         req.body.f_evidence.push(f);
     }
+    if(!req.body.f_collaborators){
+        req.body.f_collaborators=[];
+    }
+    else if(typeof req.body.f_collaborators === 'string'){
+        console.log("is string");
+        var collaborators=[req.body.f_collaborators];
+        req.body.f_collaborators=collaborators;
+    }
+    if(!req.body.f_associations){
+        req.body.f_associations=[];
+    }
+    else if(typeof req.body.f_associations === 'string'){
+        console.log("is string");
+        var associations=[req.body.f_associations];
+        req.body.f_associations=associations;
+    }
     console.log("Attempting to create finding ");
     // req.body.event.e_assessment_date = new Date();
     // req.body.event.e_declassification_date = new Date();

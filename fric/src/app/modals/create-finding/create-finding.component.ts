@@ -29,6 +29,8 @@ import { SystemService } from 'src/app/services/system.service';
 import { FindingService } from 'src/app/services/finding.service';
 import { FileUploadComponent } from 'src/app/file-upload/file-upload.component'
 import { AnalystService } from 'src/app/services/analyst.service';
+import { TaskService } from 'src/app/services/task.service';
+import { SubtaskService } from 'src/app/services/subtask.service';
 @Component({
   selector: 'create-finding',
   templateUrl: './create-finding.component.html',
@@ -62,6 +64,7 @@ export class CreateFindingComponent implements OnInit {
     f_collaborators: new FormControl(''),
     brief_mitigation: new FormControl(''),
     long_mitigation: new FormControl(''),
+    f_associations: new FormControl(),
   });
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   analystId: string;
@@ -110,6 +113,7 @@ export class CreateFindingComponent implements OnInit {
   tasks = [];
   subtasks = [];
   analysts = [];
+  findings = [];
   effectivenessRating = [
     "Very High",
     "High",
@@ -131,6 +135,8 @@ export class CreateFindingComponent implements OnInit {
 
   constructor(
     private readonly systemService: SystemService,
+    private readonly taskService: TaskService,
+    private readonly subtaskService: SubtaskService,
     private readonly findingService: FindingService,
     private readonly analystService: AnalystService) {
     this.systemService.fetchSystems();
@@ -165,6 +171,53 @@ export class CreateFindingComponent implements OnInit {
         }
       }
       this.analysts = [...this.analysts];
+    });
+    this.taskService.allTasks.subscribe((tasks) => {
+      for(var t of tasks){
+        var exists: boolean = false;
+        for(var task of this.tasks){
+          if(task.t_id == t.t_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.tasks.push(t);
+        }
+      }
+      this.tasks = [...this.tasks];
+    });
+    this.subtaskService.fetchSubtasks();
+    this.subtaskService.allSubtasks.subscribe((subtasks) => {
+      for(var subtask of subtasks){
+        var exists: boolean = false;
+        for(var st of this.subtasks){
+          if(st.st_id==subtask.st_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.subtasks.push(subtask);
+        }
+      }
+      this.subtasks = [...this.subtasks];
+    });
+    this.findingService.fetchFindings();
+    this.findingService.allFindings.subscribe((findings) => {
+      for(var finding of findings){
+        var exists: boolean = false;
+        for(var f of this.findings){
+          if(f.f_id==finding.f_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.findings.push(finding);
+        }
+      }
+      this.findings = [...this.findings];
     });
   }
 
@@ -213,10 +266,6 @@ export class CreateFindingComponent implements OnInit {
     }
 
     formData.append("f_archived","false")
-
-    formData.set("t_id",this.eventId);
-
-    formData.set("st_id",this.eventId);
 
     formData.append("e_id",this.eventId);
 

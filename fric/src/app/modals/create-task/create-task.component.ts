@@ -45,6 +45,7 @@ export class CreateTaskComponent implements OnInit {
     a_id: new FormControl(''),
     t_collaborators: new FormControl(''),
     t_attachments: new FormControl(),
+    t_associations: new FormControl(),
   });
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   analystId: string;
@@ -69,6 +70,7 @@ export class CreateTaskComponent implements OnInit {
   ];
   systems = [];
   analysts = [];
+  tasks = [];
 
   constructor(
     private readonly systemService: SystemService, 
@@ -106,6 +108,21 @@ export class CreateTaskComponent implements OnInit {
         }
       }
       this.analysts = [...this.analysts];
+    });
+    this.taskService.allTasks.subscribe((tasks) => {
+      for(var t of tasks){
+        var exists: boolean = false;
+        for(var task of this.tasks){
+          if(task.t_id == t.t_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.tasks.push(t);
+        }
+      }
+      this.tasks = [...this.tasks];
     });
    }
 

@@ -57,7 +57,19 @@ router.post("/subtasks",upload.any(), async function(req, res){
     if(!req.body.st_collaborators){
         req.body.st_collaborators=[];
     }
-    req.body.st_associations=[];
+    else if(typeof req.body.st_collaborators === 'string'){
+        console.log("is string");
+        var collaborators=[req.body.st_collaborators];
+        req.body.st_collaborators=collaborators;
+    }
+    if(!req.body.st_associations){
+        req.body.st_associations=[];
+    }
+    else if(typeof req.body.st_associations === 'string'){
+        console.log("is string");
+        var associations=[req.body.st_associations];
+        req.body.st_associations=associations;
+    }
 
     var subtask = await subtasks.insert(req.body);
     

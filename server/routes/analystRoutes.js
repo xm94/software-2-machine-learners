@@ -12,4 +12,17 @@ router.get('/analysts/', async function(req, res, next){
     res.send(analystList);
 });
 
+router.get('/analysts/:id', async function(req, res, next){
+    try{
+        var analyst = await analysts.getFromId(req.params.id);
+        if(!analyst){
+            console.log("no analyst");
+            return res.status(404).send("404 Not Found");
+        }
+        res.send(analyst);
+    } catch(err){
+        res.status(500).send(err);
+    }
+});
+
 module.exports = router;
