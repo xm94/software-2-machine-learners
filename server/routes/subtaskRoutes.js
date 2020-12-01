@@ -4,6 +4,8 @@ var analysts = require("../dao/analysts");
 var transactionLogs = require("../dao/transactionLogs");
 var systems = require("../dao/systems");
 var subtasks = require("../dao/subtasks");
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
 
 const router = express.Router();
 var jsonParser = bodyParser.json();
@@ -39,15 +41,23 @@ router.get('/subtasks/archive/:id', async function(req, res, next){
     res.send(subtask);
 });
 
-router.post("/subtasks",jsonParser, async function(req, res){
+router.post("/subtasks",upload.any(), async function(req, res){
     // req.body.event.e_archived = false;
     console.log(req.body);
+    console.log(req.files);
     console.log("Attempting to create finding ");
     // req.body.event.e_assessment_date = new Date();
     // req.body.event.e_declassification_date = new Date();
     // req.body.analyst.a_initials = "EM"
     // var event = await events.insert(req.body.event);
-    var subtask = await subtasks.insert(req.body.subtask);
+    req.body.st_attachments=[]
+    for( f of req.files){
+        req.body.st_attachments.push(f);
+    }
+    req.body.st_collaborators=[];
+    req.body.st_associations=[];
+
+    var subtask = await subtasks.insert(req.body);
     
     // if(event){
     //     var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);

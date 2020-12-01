@@ -184,32 +184,18 @@ export class CreateFindingComponent implements OnInit {
       }
     }
 
-
-    console.log(formData.getAll("f_evidence"));
-
-    
-    
-    
-    
-
-    findingJson["f_archived"]=false;
     formData.append("f_archived","false")
 
     formData.set("t_id",this.eventId);
 
     formData.set("st_id",this.eventId);
 
-    findingJson["e_id"]=this.eventId;
     formData.append("e_id",this.eventId);
 
-    findingJson["f_level"]="system";
     formData.append("f_level","system");
 
-    findingJson["f_evidence"]=Array.from(this.form.get("evidence").value);
-    findingJson["f_associations"]=[];
     formData.append("f_associations",this.eventId);
     formData.append("f_associations",this.eventId);
-    findingJson["f_collaborators"]=[];
     formData.append("f_collaborators",this.eventId);
     formData.append("f_collaborators",this.eventId);
     
@@ -236,20 +222,6 @@ export class CreateFindingComponent implements OnInit {
     formData.append("a_id",this.analystId);
     formData.append("a_initials",this.analsytInitials);
 
-    console.log(formData.getAll("f_mitigations"));
-    console.log(formData.getAll("f_collaborators"));
-    console.log(formData.getAll("f_associations"));
-    let request = {
-      finding:findingJson,
-      analyst:{
-        a_id: this.analystId,
-        a_initials: this.analsytInitials
-      }
-    }
-
-  
-
-    console.log(formData);
     this.findingService.createFinding(formData);
     this.modal.hide();
   }

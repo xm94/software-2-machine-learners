@@ -52,6 +52,11 @@
                         <mat-datepicker-toggle matSuffix [for]="apicker"></mat-datepicker-toggle>
                         <mat-datepicker #apicker></mat-datepicker>
                     </mat-form-field>
+
+                    <mat-card>
+                        <h5>Upload Attachments</h5>
+                        <app-file-upload formControlName="attachments"></app-file-upload>
+                    </mat-card>
                     
                     <br>
 

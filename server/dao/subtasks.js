@@ -256,9 +256,11 @@ exports.insert = async function insert(object){
       st_archived: object.st_archived
     });
     for(a of attachments){
-      var insertedAttachment = await SubTaskAttachment.create({
-        st_id: inserted.st_id,
-        st_attachment: a
+      fs.readFile(a.path, async function (err,filedata){
+        var insertedAttachment = await SubTaskAttachment.create({
+          st_id: inserted.st_id,
+          st_attachment: filedata
+        });
       });
     }
     for(c of collaborators){

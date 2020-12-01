@@ -27,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker/typings/datepi
 import { MatNativeDateModule } from '@angular/material';
 import { SystemService } from 'src/app/services/system.service';
 import { TaskService } from 'src/app/services/task.service';
+import { FileUploadComponent } from 'src/app/file-upload/file-upload.component'
 @Component({
   selector: 'create-task',
   templateUrl: './create-task.component.html',
@@ -40,6 +41,7 @@ export class CreateTaskComponent implements OnInit {
     t_progress: new FormControl(''),//done
     t_due_date: new FormControl(''),//done
     s_id: new FormControl(''),//done
+    attachments: new FormControl(),
   });
   s_c = new FormControl(false);
   s_i = new FormControl(false);
@@ -108,9 +110,30 @@ export class CreateTaskComponent implements OnInit {
     console.log(this.form.value);
     console.log(this.eventId);
     let taskJson = this.form.value;
+    let formData = new FormData();
+
+    for(var key in this.form.value){
+      if(key!="attachments"){
+        console.log(key)
+        console.log(this.form.get(key).value);
+        formData.append(key,this.form.get(key).value)
+      }
+      else{
+        var aList = this.form.get(key).value;
+        for(var a of aList){
+          console.log(a);
+          formData.append("t_attachments",a)
+        }
+      }
+    }
+    formData.append("t_archived","false");
     taskJson["t_archived"]=false;
+    formData.append("e_id",this.eventId);
     taskJson["e_id"]=this.eventId;
+    formData.append("a_id",this.analystId);
     taskJson["a_id"]=this.analystId;
+    formData.append("analyst_id",this.analystId);
+    formData.append("analyst_initials",this.analsytInitials);
     taskJson["t_attachments"]=[];
     taskJson["t_associations"]=[];
     taskJson["t_collaborators"]=[];
@@ -123,7 +146,7 @@ export class CreateTaskComponent implements OnInit {
     }
 
     console.log(request);
-    this.taskService.createTask(request);
+    this.taskService.createTask(formData);
     this.modal.hide();
   }
 

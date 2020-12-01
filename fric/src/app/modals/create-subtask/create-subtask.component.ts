@@ -42,6 +42,7 @@ export class CreateSubtaskComponent implements OnInit {
     st_priority: new FormControl(''),//done
     st_progress: new FormControl(''),//done
     st_due_date: new FormControl(''),//done
+    attachments: new FormControl(),
     taskInd: new FormControl(''),//done
   });
   s_c = new FormControl(false);
@@ -117,16 +118,39 @@ export class CreateSubtaskComponent implements OnInit {
     console.log(this.form.value);
     console.log(this.eventId);
     let stJson = this.form.value;
+
+    let formData = new FormData();
+    for(var key in this.form.value){
+      if(key!="attachments"){
+        console.log(key)
+        console.log(this.form.get(key).value);
+        formData.append(key,this.form.get(key).value)
+      }
+      else{
+        var aList = this.form.get(key).value;
+        for(var a of aList){
+          console.log(a);
+          formData.append("st_attachments",a)
+        }
+      }
+    }
     let assocTask = this.taskList[this.form.get('taskInd').value];
     console.log(assocTask);
+    formData.append("st_archived","false");
     stJson["st_archived"]=false;
+    formData.append("e_id",this.eventId);
     stJson["e_id"]=this.eventId;
+    formData.append("a_id",this.analystId);
     stJson["a_id"]=this.analystId;
+    formData.append("s_id",assocTask.s_id);
     stJson["s_id"]=assocTask.s_id;
+    formData.append("t_id",assocTask.t_id);
     stJson["t_id"]=assocTask.t_id;
     stJson["st_attachments"]=[];
     stJson["st_associations"]=[];
     stJson["st_collaborators"]=[];
+    formData.append("analyst_id",this.analystId);
+    formData.append("analyst_initials",this.analsytInitials);
     let request = {
       subtask:stJson,
       analyst:{
@@ -136,7 +160,7 @@ export class CreateSubtaskComponent implements OnInit {
     }
 
     console.log(request);
-    this.subtaskService.createSubtask(request);
+    this.subtaskService.createSubtask(formData);
     this.modal.hide();
   }
 
