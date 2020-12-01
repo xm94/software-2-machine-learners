@@ -19,7 +19,13 @@ import { TaskService } from '../services/task.service';
 export class SubtaskDetailComponent implements OnInit {
   task: any;
   subtask: any;
-
+  subTaskAttributeToDisplayText = new Map([
+    ["st_name", "Name"],
+    ["st_priority", "Priority"],
+    ["st_progress", "Progress"],
+    ["st_due_date", "Due Date"],
+    ["st_description", "Description"],
+  ])
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
@@ -44,6 +50,10 @@ export class SubtaskDetailComponent implements OnInit {
 
   return(){
     this.router.navigate([".."],{relativeTo: this.activatedRoute});
+  }
+
+  goToTask(t_id){
+    this.router.navigate(["/tasks/"+t_id])
   }
 
   gotoArchive(){

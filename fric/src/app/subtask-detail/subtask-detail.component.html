@@ -1,29 +1,25 @@
 <div *ngIf="!subtask.st_archived;else archiveButton"><button mat-raised-button color="primary" (click)="return()"> <- Back to SubTask View</button></div>
 
 <br>
-<mat-card>
-    Name: {{subtask.st_name}}
-</mat-card>
-<br>
-<mat-card>
-    Priority: {{subtask.st_priority}}
-</mat-card>
-<br>
-<mat-card>
-    Progress: {{subtask.st_progress}}
-</mat-card>
-<br>
-<mat-card>
-    Due Date: {{subtask.st_due_date}}
-</mat-card>
-<br>
-<mat-card>
-    Description: {{subtask.st_description}}
-</mat-card>
-<br>
-<mat-card>
-    Associated System: {{task.t_name}}
-</mat-card>
+
+<mat-grid-list cols="3" rowHeight="15vh">
+    <div *ngFor="let curr of subtask | keyvalue">
+        <div *ngIf="subTaskAttributeToDisplayText.get(curr.key)!=null">
+            <mat-grid-tile class="display-card">
+                <mat-card class="display-card">
+                    <mat-card-title class="font-size-m">
+                        {{subTaskAttributeToDisplayText.get(curr.key)}}
+                    </mat-card-title>
+                    <div class="font-size-s">
+                        {{curr.value}}
+                    </div>
+                </mat-card>
+            </mat-grid-tile>
+        </div>
+    </div>
+</mat-grid-list>
+
+<button mat-raised-button color="primary" (click)="goToTask(subtask.t_id)">Go to Task</button>
 
 <ng-template #archiveButton>
     <button mat-raised-button color="primary" (click)="gotoArchive()"> <- Back to Archive View</button>
