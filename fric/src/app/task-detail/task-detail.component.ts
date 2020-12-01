@@ -52,6 +52,10 @@ export class TaskDetailComponent implements OnInit {
     this.router.navigate([".."],{relativeTo: this.activatedRoute});
   }
 
+  goToSystem(s_id){
+    this.router.navigate(["/system/"+s_id]);
+  }
+
   gotoArchive(){
     this.router.navigate(["../..","archive"])
   }

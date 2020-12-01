@@ -2,29 +2,25 @@
 
 <h4> Task Details </h4>
 <br>
-<mat-card>
-    Name: {{task.t_name}}
-</mat-card>
-<br>
-<mat-card>
-    Priority: {{task.t_priority}}
-</mat-card>
-<br>
-<mat-card>
-    Progress: {{task.t_progress}}
-</mat-card>
-<br>
-<mat-card>
-    Due Date: {{task.t_due_date}}
-</mat-card>
-<br>
-<mat-card>
-    Description: {{task.t_description}}
-</mat-card>
-<br>
-<mat-card>
-    Associated System: {{system.s_name}}
-</mat-card>
+
+<mat-grid-list cols="3" rowHeight="15vh">
+    <div *ngFor="let curr of task | keyvalue">
+        <div *ngIf="taskAttributeToDisplayText.get(curr.key) !=null">
+            <mat-grid-tile>
+                <mat-card class="display-card">
+                    <mat-card-title class="font-size-m">
+                        {{taskAttributeToDisplayText.get(curr.key)}}
+                    </mat-card-title>
+                    <div class="font-size-s">
+                        {{curr.value}}
+                    </div>
+                </mat-card>
+            </mat-grid-tile>
+        </div>
+    </div>
+</mat-grid-list>
+
+<button mat-raised-button color="primary" (click)="goToSystem(task.s_id.toString())">View Associated System</button>
 
 <ng-template #archiveButton>
     <button mat-raised-button color="primary" (click)="gotoArchive()"> <- Back to Archive View</button>
