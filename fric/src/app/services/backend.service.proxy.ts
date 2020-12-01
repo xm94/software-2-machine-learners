@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 
 const headers = new HttpHeaders();
 
-headers.append('Content-Type', 'application/json');
+headers.append('Content-Type', 'multipart/form-data');
 
 export const POST_REQUEST_OPTIONS = new Object({
   headers,

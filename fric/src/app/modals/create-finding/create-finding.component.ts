@@ -27,6 +27,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker/typings/datepi
 import { MatNativeDateModule } from '@angular/material';
 import { SystemService } from 'src/app/services/system.service';
 import { FindingService } from 'src/app/services/finding.service';
+import { FileUploadComponent } from 'src/app/file-upload/file-upload.component'
 @Component({
   selector: 'create-finding',
   templateUrl: './create-finding.component.html',
@@ -51,6 +52,7 @@ export class CreateFindingComponent implements OnInit {
     f_countermeasure_effectiveness_score: new FormControl(''),
     f_impact_desc: new FormControl(''),
     f_impact_level: new FormControl(''),
+    evidence: new FormControl(),
     f_cat_code: new FormControl(''),//done
     s_id: new FormControl(''),//done
     t_id: new FormControl(''),//on form
@@ -160,17 +162,58 @@ export class CreateFindingComponent implements OnInit {
   }
 
   submit(){
+    console.log(this.form.get("evidence").value)
     console.log(this.form.value);
     console.log(this.eventId);
     let findingJson = this.form.value;
+
+    let formData = new FormData();
+
+    for(var key in this.form.value){
+      if(key!="evidence"){
+        console.log(key)
+        console.log(this.form.get(key).value);
+        formData.append(key,this.form.get(key).value)
+      }
+      else{
+        var eList = this.form.get(key).value;
+        for(var e of eList){
+          console.log(e);
+          formData.append("f_evidence",e)
+        }
+      }
+    }
+
+
+    console.log(formData.getAll("f_evidence"));
+
+    
+    
+    
+    
+
     findingJson["f_archived"]=false;
-    findingJson["t_id"]=this.eventId;
-    findingJson["st_id"]=this.eventId;
+    formData.append("f_archived","false")
+
+    formData.set("t_id",this.eventId);
+
+    formData.set("st_id",this.eventId);
+
     findingJson["e_id"]=this.eventId;
+    formData.append("e_id",this.eventId);
+
     findingJson["f_level"]="system";
-    findingJson["f_evidence"]=[];
+    formData.append("f_level","system");
+
+    findingJson["f_evidence"]=Array.from(this.form.get("evidence").value);
     findingJson["f_associations"]=[];
+    formData.append("f_associations",this.eventId);
+    formData.append("f_associations",this.eventId);
     findingJson["f_collaborators"]=[];
+    formData.append("f_collaborators",this.eventId);
+    formData.append("f_collaborators",this.eventId);
+    
+    
     findingJson["f_mitigations"]=[
       {
 				"m_brief_description":"first",
@@ -181,6 +224,21 @@ export class CreateFindingComponent implements OnInit {
 				"m_long_description":"second mitigation"
 			}
     ];
+    formData.append("f_mitigations",JSON.stringify({
+      "m_brief_description":"first",
+      "m_long_description":"first mitigation"
+    }))
+    formData.append("f_mitigations",JSON.stringify({
+      "m_brief_description":"second",
+      "m_long_description":"second mitigation"
+    }));
+
+    formData.append("a_id",this.analystId);
+    formData.append("a_initials",this.analsytInitials);
+
+    console.log(formData.getAll("f_mitigations"));
+    console.log(formData.getAll("f_collaborators"));
+    console.log(formData.getAll("f_associations"));
     let request = {
       finding:findingJson,
       analyst:{
@@ -189,8 +247,10 @@ export class CreateFindingComponent implements OnInit {
       }
     }
 
-    console.log(request);
-    this.findingService.createFinding(request);
+  
+
+    console.log(formData);
+    this.findingService.createFinding(formData);
     this.modal.hide();
   }
 

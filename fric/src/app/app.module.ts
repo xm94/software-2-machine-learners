@@ -44,6 +44,7 @@ import { CreateTaskComponent } from './modals/create-task/create-task.component'
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { CreateSubtaskComponent } from './modals/create-subtask/create-subtask.component';
 import { SubtaskDetailComponent } from './subtask-detail/subtask-detail.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { SubtaskDetailComponent } from './subtask-detail/subtask-detail.componen
     TaskDetailComponent,
     CreateSubtaskComponent,
     SubtaskDetailComponent,
+    FileUploadComponent,
   ],
   imports: [
     BrowserModule,
