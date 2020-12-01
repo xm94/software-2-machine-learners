@@ -1,4 +1,7 @@
-<div *ngIf="!task.t_archived;else archiveButton"><button mat-raised-button color="primary" (click)="return()"> <- Back to Task View</button></div>
+<div *ngIf="!task.t_archived;else archiveButton">
+    <button mat-raised-button color="primary" (click)="return()"> <- Back to Task View</button>
+    <button mat-raised-button class="right-align" color="primary" (click)="archive()"> Archive Task</button>
+</div>
 
 <h4> Task Details </h4>
 <br>

@@ -62,6 +62,12 @@ export class TaskDetailComponent implements OnInit {
   goToSystem(s_id){
     this.router.navigate(["/system/"+s_id]);
   }
+  archive(){
+    this.taskService.archiveTask(this.task.t_id).subscribe((task)=>{
+      console.log(task);
+      this.router.navigate(["../..","archive"]);
+    })
+  }
 
   gotoArchive(){
     this.router.navigate(["../..","archive"])

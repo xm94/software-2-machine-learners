@@ -121,7 +121,7 @@ router.put("/findings", jsonParser, async function(req,res){
     res.status(200).send(finding);
 });
 
-router.post("/findings/archive", jsonParser, async function(req,res){
+router.put("/findings/archive/:f_id", jsonParser, async function(req,res){
     // req.body.event.e_archived = false;
     console.log(req.body.header)
     console.log(req.body);
@@ -130,7 +130,7 @@ router.post("/findings/archive", jsonParser, async function(req,res){
     // req.body.event.e_declassification_date = new Date();
     // req.body.analyst.a_initials = "EM"
     // var event = await events.insert(req.body.event);
-    var finding = await findings.archive(req.body.f_id);
+    var finding = await findings.archive(req.params.f_id);
     // if(event){
     //     var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);
     //     transactionLogs.insert({a_initials:req.body.analyst.a_initials,tl_action_performed: "Created New Event", a_id:req.body.analyst.a_id});

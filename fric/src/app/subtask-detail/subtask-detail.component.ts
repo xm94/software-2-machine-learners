@@ -63,6 +63,12 @@ export class SubtaskDetailComponent implements OnInit {
   goToTask(t_id){
     this.router.navigate(["/tasks/"+t_id])
   }
+  archive(){
+    this.subtaskService.archiveSubtask(this.subtask.st_id).subscribe((subtask)=>{
+      console.log(subtask);
+      this.router.navigate(["../..","archive"]);
+    })
+  }
 
   gotoArchive(){
     this.router.navigate(["../..","archive"])
