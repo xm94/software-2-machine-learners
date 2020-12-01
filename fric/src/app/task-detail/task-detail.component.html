@@ -22,6 +22,10 @@
 
 <button mat-raised-button color="primary" (click)="goToSystem(task.s_id.toString())">View Associated System</button>
 
+<div *ngFor="let curr of attachmentsList; index as i;">
+    <h5>Attachment #{{i+1}}</h5>
+    <img style="height:auto; width: auto;" src={{curr}}>
+</div>
 <ng-template #archiveButton>
     <button mat-raised-button color="primary" (click)="gotoArchive()"> <- Back to Archive View</button>
     <br>

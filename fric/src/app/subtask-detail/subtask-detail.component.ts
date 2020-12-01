@@ -19,6 +19,7 @@ import { TaskService } from '../services/task.service';
 export class SubtaskDetailComponent implements OnInit {
   task: any;
   subtask: any;
+  attachmentsList: any []=[];
   subTaskAttributeToDisplayText = new Map([
     ["st_name", "Name"],
     ["st_priority", "Priority"],
@@ -33,7 +34,14 @@ export class SubtaskDetailComponent implements OnInit {
     private readonly taskService: TaskService,
     private readonly subtaskService: SubtaskService) {
       this.activatedRoute.params.subscribe((params)=>{
+       
         this.subtaskService.getSubtask(params.id).subscribe((subtask)=>{
+          for(var e of subtask.st_attachments){
+            let base64String = btoa(new Uint8Array(e.st_attachment.data).reduce(function (data, byte) {
+              return data + String.fromCharCode(byte);
+            }, ''));
+            this.attachmentsList.push("data:image/jpg;base64,"+base64String)
+          }
           console.log(subtask);
           this.subtask = subtask;
           this.taskService.getTask(subtask.t_id).subscribe((task)=>{
