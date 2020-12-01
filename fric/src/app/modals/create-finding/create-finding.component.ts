@@ -62,6 +62,7 @@ export class CreateFindingComponent implements OnInit {
     st_id: new FormControl(''),//on form
     a_id: new FormControl(''),
     f_collaborators: new FormControl(''),
+    f_associations: new FormControl(),
   });
   @ViewChild(ModalDirective, { static: false }) modal: ModalDirective;
   analystId: string;
@@ -110,6 +111,7 @@ export class CreateFindingComponent implements OnInit {
   tasks = [];
   subtasks = [];
   analysts = [];
+  findings = [];
   effectivenessRating = [
     "Very High",
     "High",
@@ -198,6 +200,22 @@ export class CreateFindingComponent implements OnInit {
         }
       }
       this.subtasks = [...this.subtasks];
+    });
+    this.findingService.fetchFindings();
+    this.findingService.allFindings.subscribe((findings) => {
+      for(var finding of findings){
+        var exists: boolean = false;
+        for(var f of this.findings){
+          if(f.f_id==finding.f_id){
+            exists=true;
+            break;
+          }
+        }
+        if(!exists){
+          this.findings.push(finding);
+        }
+      }
+      this.findings = [...this.findings];
     });
   }
 
