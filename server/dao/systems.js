@@ -96,6 +96,26 @@ exports.getFromEventIdArchived = async function getFromEventIdArchived(e_id){
   return systems;
 }
 
+exports.archive = async function archive(s_id){
+  const t = await sequelize.transaction();
+  try{
+    var archivedSystem = await System.update({s_archived: true},{
+      where: {
+        s_id: s_id
+      },
+      returning: true,
+      plain: true
+    });
+    await t.commit();
+    return archivedSystem[1].dataValues;
+  }
+  catch(error){
+    console.log(error);
+    await t.rollback();
+    return error;
+  }
+}
+
 
 exports.initdb = async function initdb(){
     try {

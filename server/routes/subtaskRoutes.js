@@ -98,7 +98,7 @@ router.put("/subtasks", jsonParser, async function(req,res){
     res.status(200).send(subtask);
 });
 
-router.put("/subtasks/archive", jsonParser, async function(req,res){
+router.put("/subtasks/archive/:st_id", jsonParser, async function(req,res){
     // req.body.event.e_archived = false;
     console.log(req.body);
     console.log("Attempting to archive subtask ");
@@ -106,7 +106,7 @@ router.put("/subtasks/archive", jsonParser, async function(req,res){
     // req.body.event.e_declassification_date = new Date();
     // req.body.analyst.a_initials = "EM"
     // var event = await events.insert(req.body.event);
-    var subtask = await subtasks.archive(req.body.st_id);
+    var subtask = await subtasks.archive(req.params.st_id);
     // if(event){
     //     var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);
     //     transactionLogs.insert({a_initials:req.body.analyst.a_initials,tl_action_performed: "Created New Event", a_id:req.body.analyst.a_id});

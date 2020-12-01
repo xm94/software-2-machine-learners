@@ -1,5 +1,8 @@
 
-<div *ngIf="system.s_archived!=true;else archiveButton"><button mat-raised-button color="primary" (click)="return()"> <- Back to System View</button></div>
+<div *ngIf="system.s_archived!=true;else archiveButton">
+    <button mat-raised-button color="primary" (click)="return()"> <- Back to System View</button>
+    <button mat-raised-button class="right-align" color="primary" (click)="return()"> Archive System</button>
+</div>
 
 <h5> System Detailed View </h5>
 <!-- Hardcoded in order to get more customized view -->
