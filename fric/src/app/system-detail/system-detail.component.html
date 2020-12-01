@@ -1,30 +1,44 @@
 
 <div *ngIf="system.s_archived!=true;else archiveButton"><button mat-raised-button color="primary" (click)="return()"> <- Back to System View</button></div>
 
-<br>
-<mat-card>
-    Name: {{system.s_name}}
-</mat-card>
-<br>
-<mat-card>
-    Confidentiality: {{system.s_confidentiality}}
-</mat-card>
-<br>
-<mat-card>
-    Availability: {{system.s_availability}}
-</mat-card>
-<br>
-<mat-card>
-    Integrity: {{system.s_integrity}}
-</mat-card>
-<br>
-<mat-card>
-    Description: {{system.s_description}}
-</mat-card>
-<br>
-<mat-card>
-    Test Plan: {{system.s_test_plan}}
-</mat-card>
+<h5> System Detailed View </h5>
+<!-- Hardcoded in order to get more customized view -->
+<mat-grid-list cols="3" rowHeight="120px">
+
+    <mat-grid-tile [colspan]="2" [rowspan]="4">
+        
+        <mat-card class="max-width-and-height margin-m">
+            <mat-card-title >Basic</mat-card-title>
+            <h6 class="bold-text">Name</h6>
+            {{system.s_name}}
+            <br>
+            <h6 class="bold-text pt-s">Description</h6>
+            {{system.s_description}}
+
+            <h6 class="bold-text pt-s">Created At</h6>
+            {{createdAtSimpleFormat}}
+
+            <h6 class="bold-text pt-s">Updated At</h6>
+            {{updatedAtSimpleFormat}}
+        </mat-card>
+
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="3" >
+
+        <mat-card class="max-width-and-height margin-m">
+            <mat-card-title>CIA</mat-card-title>
+            <h6 class="bold-text">Confidentiality</h6>
+            {{system.s_confidentiality}}
+            <h6 class="bold-text pt-s">Integrity</h6>
+            {{system.s_integrity}}
+            <h6 class="bold-text pt-s">Availability</h6>
+            {{system.s_availability}}
+        </mat-card>
+
+    </mat-grid-tile>
+      
+</mat-grid-list>
 
 <ng-template #archiveButton>
     <button mat-raised-button color="primary" (click)="gotoArchive()"> <- Back to Archive View</button>

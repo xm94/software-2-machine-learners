@@ -17,7 +17,9 @@ import { SystemService } from '../services/system.service';
 export class SystemDetailComponent implements OnInit {
   system:any;
   test2:any;
-
+  createdAtSimpleFormat;
+  
+  updatedAtSimpleFormat;
   constructor(
     private readonly activatedRoute: ActivatedRoute,
     private readonly router: Router,
@@ -26,6 +28,8 @@ export class SystemDetailComponent implements OnInit {
         this.systemService.getSystem(params.id).subscribe((sys)=>{
           console.log(sys);
           this.system = sys;
+          this.createdAtSimpleFormat = new Date(this.system.createdAt)
+          this.updatedAtSimpleFormat = new Date(this.system.updatedAt)
         });
       });
      }
