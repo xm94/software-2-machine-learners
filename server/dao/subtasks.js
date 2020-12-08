@@ -204,7 +204,8 @@ exports.getFromTaskId = async function getFromTaskId(t_id){
 exports.getFromEventId = async function getFromEventId(e_id){
   var subtasks = await SubTask.findAll({
     where: {
-      e_id: e_id
+      e_id: e_id,
+      st_archived: false,
     }
   });
   let resList = [];

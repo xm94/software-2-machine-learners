@@ -29,6 +29,7 @@ import { SystemService } from 'src/app/services/system.service';
 import { TaskService } from 'src/app/services/task.service';
 import { FileUploadComponent } from 'src/app/file-upload/file-upload.component'
 import { AnalystService } from 'src/app/services/analyst.service';
+import { EventService } from 'src/app/services/event.service';
 @Component({
   selector: 'create-task',
   templateUrl: './create-task.component.html',
@@ -71,13 +72,15 @@ export class CreateTaskComponent implements OnInit {
   systems = [];
   analysts = [];
   tasks = [];
+  event: any;
 
   constructor(
     private readonly systemService: SystemService, 
     private readonly taskService: TaskService,
-    private readonly analystService: AnalystService
-    ) {
-    this.systemService.fetchSystems();
+    private readonly analystService: AnalystService,
+    private readonly eventService: EventService) {
+    this.event=this.eventService.event;
+    this.systemService.fetchSystems(this.event.e_id);
     this.systemService.allSystems.subscribe((systems) => {
       for(var sys of systems){
         var exists: boolean = false;

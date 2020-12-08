@@ -32,9 +32,9 @@ export class SubtaskService {
     private readonly router: Router
   ) {}
 
-  fetchSubtasks(): any[] {
+  fetchSubtasks(e_id: string): any[] {
     console.log("getting subtasks");
-    const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/subtasks');
+    const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/subtasks/event/'+e_id);
     response.subscribe((r) => {
         //console.log("in subscription");
         //console.log(r);

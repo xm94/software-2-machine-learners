@@ -283,7 +283,8 @@ exports.getFromEventId = async function getFromEventId(e_id){
   console.log("select");
   var findings = await Finding.findAll({
     where: {
-      e_id: e_id
+      e_id: e_id,
+      f_archived: false,
     }
   });
   resList=[]

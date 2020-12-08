@@ -80,7 +80,8 @@ exports.getFromId = async function getFromId(id){
 exports.getFromEventId = async function getFromEventId(e_id){
   var systems = await System.findAll({
     where: {
-      e_id: e_id
+      e_id: e_id,
+      s_archived: false,
     }
   });
   return systems;

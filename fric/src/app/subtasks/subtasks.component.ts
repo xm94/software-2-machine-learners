@@ -34,7 +34,7 @@ export class SubtasksComponent implements OnInit {
     private router: Router,
     private readonly activatedRoute: ActivatedRoute,) {
       this.event = this.eventService.event;
-      this.taskService.fetchTasks();
+      this.taskService.fetchTasks(this.event.e_id);
       this.taskService.allTasks.subscribe((tasks) => {
         for(var t of tasks){
           var exists: boolean = false;
@@ -51,7 +51,7 @@ export class SubtasksComponent implements OnInit {
         this.taskList = [...this.taskList];
         
       });
-      this.subtaskService.fetchSubtasks();
+      this.subtaskService.fetchSubtasks(this.event.e_id);
       this.subtaskService.allSubtasks.subscribe((subtasks) => {
         for(var st of subtasks){
           var exists: boolean = false;
