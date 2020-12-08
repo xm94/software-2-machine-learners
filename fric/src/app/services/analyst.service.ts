@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BackendServicesProxy } from './backend.service.proxy'
+import { TransactionLogService } from './transaction-log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -45,6 +46,7 @@ export class AnalystService {
 
   constructor(
     private readonly backendServicesProxy: BackendServicesProxy,
+    private readonly transactionLogService: TransactionLogService,
     private readonly router: Router
   ) {}
 
@@ -58,6 +60,7 @@ export class AnalystService {
     response.subscribe((r) => {
       console.log("in subscribr")
       console.log(r);
+      this.transactionLogService.fetchTransactions();
       var redirectUrl = '/';
       // }
       this.router.navigateByUrl(redirectUrl);

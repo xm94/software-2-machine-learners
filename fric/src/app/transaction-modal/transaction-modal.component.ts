@@ -23,10 +23,10 @@ export class TransactionModalComponent implements OnInit {
     this.transactionLogService.fetchTransactions();
     this.transactionLogService.allTransactions.subscribe((transactions)=>{
       this.transactionList = transactions;
-      console.log("PRINGTING");
+      console.log("PRINTING");
       console.log(this.transactionList);
       this.stringify = JSON.stringify(this.transactionList);
-    })
+    });
     console.log(this.transactionList)
   }
 

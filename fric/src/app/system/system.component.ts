@@ -5,6 +5,7 @@ import { AnalystService } from '../services/analyst.service';
 import { BackendServicesProxy } from '../services/backend.service.proxy';
 import { EventService } from '../services/event.service';
 import { SystemService } from '../services/system.service';
+import { TransactionLogService } from '../services/transaction-log.service';
 
 @Component({
   selector: 'app-system',

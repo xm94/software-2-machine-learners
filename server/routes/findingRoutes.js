@@ -58,6 +58,8 @@ router.get('/findings/archive/:id', async function(req, res, next){
 
 router.post("/findings",upload.any(), async function(req, res){
     // req.body.event.e_archived = false;
+    //analyst_id: '2d438a24-cde2-4488-bcec-f1d2e24c4403',
+    //analyst_initials: 'XM',
     console.log(req.headers)
     console.log(req.files);
     console.log(req.body);
@@ -105,7 +107,9 @@ router.post("/findings",upload.any(), async function(req, res){
     // req.body.analyst.a_initials = "EM"
     // var event = await events.insert(req.body.event);
     var finding = await findings.insert(req.body,req.body.a_id);
-    
+    if(finding){
+        transactionLogs.insert({a_initials:req.body.analyst_initials,tl_action_performed: "Created New Finding", a_id:req.body.analyst_id});
+    }
     // if(event){
     //     var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);
     //     transactionLogs.insert({a_initials:req.body.analyst.a_initials,tl_action_performed: "Created New Event", a_id:req.body.analyst.a_id});
