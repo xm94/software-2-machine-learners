@@ -26,6 +26,7 @@ import {
 import { MatDatepickerModule } from '@angular/material/datepicker/typings/datepicker-module';
 import { MatNativeDateModule } from '@angular/material';
 import { SystemService } from 'src/app/services/system.service';
+import { TransactionLogService } from 'src/app/services/transaction-log.service';
 
 @Component({
   selector: 'create-system',
@@ -62,7 +63,8 @@ export class CreateSystemComponent implements OnInit {
   cia = ["Informational","Low","Medium","High"]
 
 
-  constructor(private readonly systemService:SystemService) { }
+  constructor(private readonly systemService:SystemService,private readonly transactionLogService: TransactionLogService
+    ) { }
 
   ngOnInit() {
   }
@@ -98,6 +100,7 @@ export class CreateSystemComponent implements OnInit {
 
     console.log(request);
     this.systemService.createSystem(request);
+    this.transactionLogService.fetchTransactions();
     this.modal.hide();
   }
 

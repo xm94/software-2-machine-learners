@@ -7,6 +7,7 @@ import { AuthService } from './auth/auth.service';
 import { BackendServicesProxy } from './services/backend.service.proxy'
 import { AnalystService } from "./services/analyst.service"
 import { EventService } from "./services/event.service";
+import { TransactionLogService } from './services/transaction-log.service';
 
 @Component({
   selector: 'app-root',
@@ -22,17 +23,27 @@ export class AppComponent {
   event_list:any;
   initials:string = "";
   title = 'Findings and Reportings Information Console';
+  transactions = []
+  tLen=0
   constructor( 
     private readonly proxyService: BackendServicesProxy,
     private readonly analystService: AnalystService,
     private readonly eventService: EventService,
     public matDialog: MatDialog,
-    private authService: AuthService
+    private authService: AuthService,
+    private transactionLogService: TransactionLogService,
     ) {
       this.initials= analystService.currentUser? analystService.currentUser.a_initials : 'GG';
       this.eventService.reloadEvent();
       this.eventService.fetchEvents();
       this.eventService.event;
+      this.transactionLogService.fetchTransactions();
+      this.transactionLogService.allTransactions.subscribe((transactions)=>{
+        this.tLen = transactions.length
+        this.transactions = transactions.reverse().slice(0,5);
+        console.log("PRINTING");
+        console.log(this.transactions);
+      });
      }
 
   checkBoxClicked() {
