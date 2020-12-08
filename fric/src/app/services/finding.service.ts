@@ -81,6 +81,16 @@ export class FindingService {
     .pipe(map(response => response.body));
   }
 
+  getAnalystFindings(a_id: string): Observable<any> {
+    return this.backendServicesProxy.get('/findings/analyst/'+a_id)
+    .pipe(map(response => response.body));
+  }
+
+  getCollaboratorFindings(a_id: string): Observable<any> {
+    return this.backendServicesProxy.get('/findings/collaborator/'+a_id)
+    .pipe(map(response => response.body));
+  }
+
   archiveFinding(f_id: string): Observable<any> {
     return this.backendServicesProxy.put('/findings/archive/'+f_id)
     .pipe(map(response => response.body));

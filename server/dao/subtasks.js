@@ -218,6 +218,49 @@ exports.getFromEventId = async function getFromEventId(e_id){
   return resList;
 }
 
+exports.getFromAnalystId = async function getFromAnalystId(a_id){
+  var subtasks = await SubTask.findAll({
+    where: {
+      a_id: a_id
+    }
+  });
+  let resList = [];
+  for(st of subtasks){
+    var res = st.toJSON();
+    res["st_attachments"] = await getAttachments(st.st_id);
+    res["st_collaborators"] = await getCollaborators(st.st_id);
+    res["st_associations"] = await getAssociations(st.st_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromCollaboratorId = async function getFromCollaboratorId(a_id){
+  var subtaskList = await SubTaskCollaborator.findAll({
+    where: {
+      a_id: a_id
+    }
+  });
+  var sIdList = [];
+  for(subtask of subtaskList){
+    sIdList.push(subtask.st_id);
+  }
+  var subtasks = await SubTask.findAll({
+    where: {
+      st_id: sIdList
+    }
+  });
+  let resList = [];
+  for(st of subtasks){
+    var res = st.toJSON();
+    res["st_attachments"] = await getAttachments(st.st_id);
+    res["st_collaborators"] = await getCollaborators(st.st_id);
+    res["st_associations"] = await getAssociations(st.st_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
 exports.getFromEventIdArchived = async function getFromEventIdArchived(e_id){
   var subtasks = await SubTask.findAll({
     where: {

@@ -5,7 +5,7 @@ var subtasks = require("../dao/subtasks")
 var analysts = require("../dao/analysts")
 var fUtils = require("../utils/findingUtils")
 
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes, Model, Op } = require('sequelize');
 const sequelize = new Sequelize('postgres://localhost:5432/fric_test') // Example for postgres
 const fs = require('fs');
 
@@ -323,6 +323,53 @@ exports.getFromSystemId = async function getFromSystemId(s_id){
   var findings = await Finding.findAll({
     where: {
       s_id: s_id
+    }
+  });
+  resList=[]
+  for(f of findings){
+    res = f.toJSON();
+    res["f_mitigations"]= await getMitigations(f.f_id);
+    res["f_evidence"] = await getEvidence(f.f_id);
+    res["f_collaborators"] = await getCollaborators(f.f_id);
+    res["f_associations"] = await getAssociations(f.f_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromAnalystId = async function getFromAnalystId(a_id){
+  console.log("select");
+  var findings = await Finding.findAll({
+    where: {
+      a_id: a_id
+    }
+  });
+  resList=[]
+  for(f of findings){
+    res = f.toJSON();
+    res["f_mitigations"]= await getMitigations(f.f_id);
+    res["f_evidence"] = await getEvidence(f.f_id);
+    res["f_collaborators"] = await getCollaborators(f.f_id);
+    res["f_associations"] = await getAssociations(f.f_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromCollaboratorId = async function getFromCollaboratorId(a_id){
+  console.log("select");
+  var fList = await FindingCollaborator.findAll({
+    where: {
+      a_id: a_id
+    }
+  });
+  fIdList = []
+  for(f of fList){
+    fIdList.push(f.f_id)
+  }
+  var findings = await Finding.findAll({
+    where: {
+     f_id: fIdList
     }
   });
   resList=[]

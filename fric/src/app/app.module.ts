@@ -48,6 +48,7 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { TransactionModalComponent } from './transaction-modal/transaction-modal.component';
 import { ReportsComponent } from './reports/reports.component';
+import { AnalystProgressComponent } from './analyst-progress/analyst-progress.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { ReportsComponent } from './reports/reports.component';
     FileUploadComponent,
     TransactionModalComponent,
     ReportsComponent,
+    AnalystProgressComponent,
   ],
   imports: [
     BrowserModule,

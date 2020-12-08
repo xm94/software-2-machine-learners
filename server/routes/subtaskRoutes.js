@@ -36,6 +36,16 @@ router.get('/subtasks/task/:id', async function(req, res, next){
     res.send(subtask);
 });
 
+router.get('/subtasks/analyst/:id', async function(req, res, next){
+    var subtask = await subtasks.getFromAnalystId(req.params.id);
+    res.send(subtask);
+});
+
+router.get('/subtasks/collaborator/:id', async function(req, res, next){
+    var subtask = await subtasks.getFromCollaboratorId(req.params.id);
+    res.send(subtask);
+});
+
 router.get('/subtasks/archive/:id', async function(req, res, next){
     var subtask = await subtasks.getFromEventIdArchived(req.params.id);
     res.send(subtask);
