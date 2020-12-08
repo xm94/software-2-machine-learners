@@ -21,6 +21,7 @@ export class AppComponent {
   otherForm : FormGroup;
   lead:boolean = false;
   event_list:any;
+  analyst:any;
   initials:string = "";
   title = 'Findings and Reportings Information Console';
   transactions = []
@@ -37,6 +38,7 @@ export class AppComponent {
       this.eventService.reloadEvent();
       this.eventService.fetchEvents();
       this.eventService.event;
+      this.analyst=this.analystService.currentUser;
       this.transactionLogService.fetchTransactions();
       this.transactionLogService.allTransactions.subscribe((transactions)=>{
         this.tLen = transactions.length

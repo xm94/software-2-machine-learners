@@ -30,7 +30,8 @@ export class TasksComponent implements OnInit {
     private router: Router,
     private readonly activatedRoute: ActivatedRoute,) {
       this.event = this.eventService.event;
-      this.taskService.fetchTasks();
+      console.log(this.event);
+      this.taskService.fetchTasks(this.event.e_id);
       this.taskService.allTasks.subscribe((tasks) => {
         for(var t of tasks){
           var exists: boolean = false;

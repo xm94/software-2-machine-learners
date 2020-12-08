@@ -33,9 +33,9 @@ export class FindingService {
     private readonly router: Router
   ) {}
 
-  fetchFindings(): any[] {
-    console.log("getting systems");
-    const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/findings');
+  fetchFindings(e_id: string): any[] {
+    console.log("getting findings");
+    const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/findings/event/'+e_id);
     response.subscribe((r) => {
         //console.log("in subscription");
         //console.log(r);

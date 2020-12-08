@@ -29,7 +29,7 @@ export class FindingsComponent implements OnInit {
   ) {
     this.findingList=[]
     this.event = this.eventService.event;
-    this.findingService.fetchFindings();
+    this.findingService.fetchFindings(this.event.e_id);
     console.log("constructor")
     this.findingService.allFindings.subscribe((findings) => {
       console.log("subscriber")

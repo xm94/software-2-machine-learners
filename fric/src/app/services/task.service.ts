@@ -32,9 +32,9 @@ export class TaskService {
     private readonly router: Router
   ) {}
 
-  fetchTasks(): any[] {
+  fetchTasks(e_id: string): any[] {
     console.log("getting tasks");
-    const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/tasks');
+    const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/tasks/event/'+e_id);
     response.subscribe((r) => {
         //console.log("in subscription");
         //console.log(r);

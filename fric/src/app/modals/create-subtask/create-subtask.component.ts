@@ -29,6 +29,7 @@ import { SystemService } from 'src/app/services/system.service';
 import { TaskService } from 'src/app/services/task.service';
 import { SubtaskService } from 'src/app/services/subtask.service';
 import { AnalystService } from 'src/app/services/analyst.service';
+import { EventService } from 'src/app/services/event.service';
 
 @Component({
   selector: 'create-subtask',
@@ -73,15 +74,17 @@ export class CreateSubtaskComponent implements OnInit {
   taskList = [];
   analysts = [];
   subtasks = [];
+  event: any;
 
   constructor(
     private readonly systemService: SystemService,
     private readonly taskService: TaskService,
     private readonly subtaskService: SubtaskService,
     private readonly analystService: AnalystService,
-    ) {
-    this.systemService.fetchSystems();
-    this.taskService.fetchTasks();
+    private readonly eventService: EventService) {
+    this.event=this.eventService.event;
+    this.systemService.fetchSystems(this.event.e_id);
+    this.taskService.fetchTasks(this.event.e_id);
       this.taskService.allTasks.subscribe((tasks) => {
         for(var t of tasks){
           var exists: boolean = false;
@@ -113,7 +116,7 @@ export class CreateSubtaskComponent implements OnInit {
         }
         this.analysts = [...this.analysts];
       });
-      this.subtaskService.fetchSubtasks();
+      this.subtaskService.fetchSubtasks(this.event.e_id);
       this.subtaskService.allSubtasks.subscribe((subtasks) => {
         for(var subtask of subtasks){
           var exists: boolean = false;

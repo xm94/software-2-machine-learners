@@ -32,9 +32,9 @@ export class SystemService {
     private readonly router: Router
   ) {}
 
-  fetchSystems(): any[] {
+  fetchSystems(e_id: string): any[] {
     console.log("getting systems");
-    const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/systems');
+    const response: Observable<HttpResponse<Object>> = this.backendServicesProxy.get('/systems/event/'+e_id);
     response.subscribe((r) => {
         //console.log("in subscription");
         //console.log(r);

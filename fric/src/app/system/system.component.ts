@@ -31,7 +31,7 @@ export class SystemComponent implements OnInit {
   ) {
         
     this.event = this.eventService.event;
-    this.systemService.fetchSystems();
+    this.systemService.fetchSystems(this.event.e_id);
     this.systemService.allSystems.subscribe((systems) => {
       for(var sys of systems){
         var exists: boolean = false;

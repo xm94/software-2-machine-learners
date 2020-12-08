@@ -31,12 +31,14 @@ import { FileUploadComponent } from 'src/app/file-upload/file-upload.component'
 import { AnalystService } from 'src/app/services/analyst.service';
 import { TaskService } from 'src/app/services/task.service';
 import { SubtaskService } from 'src/app/services/subtask.service';
+import { EventService } from 'src/app/services/event.service';
 @Component({
   selector: 'create-finding',
   templateUrl: './create-finding.component.html',
   styleUrls: ['./create-finding.component.scss']
 })
 export class CreateFindingComponent implements OnInit {
+  event: any;
   form: FormGroup = new FormGroup({
     f_name: new FormControl(''), //done
     f_description: new FormControl(''),//done
@@ -138,8 +140,10 @@ export class CreateFindingComponent implements OnInit {
     private readonly taskService: TaskService,
     private readonly subtaskService: SubtaskService,
     private readonly findingService: FindingService,
-    private readonly analystService: AnalystService) {
-    this.systemService.fetchSystems();
+    private readonly analystService: AnalystService,
+    private readonly eventService: EventService) {
+    this.event=this.eventService.event;
+    this.systemService.fetchSystems(this.event.e_id);
     this.systemService.allSystems.subscribe((systems) => {
       for(var sys of systems){
         var exists: boolean = false;
@@ -187,7 +191,7 @@ export class CreateFindingComponent implements OnInit {
       }
       this.tasks = [...this.tasks];
     });
-    this.subtaskService.fetchSubtasks();
+    this.subtaskService.fetchSubtasks(this.event.e_id);
     this.subtaskService.allSubtasks.subscribe((subtasks) => {
       for(var subtask of subtasks){
         var exists: boolean = false;
@@ -203,7 +207,7 @@ export class CreateFindingComponent implements OnInit {
       }
       this.subtasks = [...this.subtasks];
     });
-    this.findingService.fetchFindings();
+    this.findingService.fetchFindings(this.event.e_id);
     this.findingService.allFindings.subscribe((findings) => {
       for(var finding of findings){
         var exists: boolean = false;

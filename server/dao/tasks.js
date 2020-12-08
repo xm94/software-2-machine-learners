@@ -181,7 +181,8 @@ exports.getFromSystemId = async function getFromSystemId(s_id){
 exports.getFromEventId = async function getFromEventId(e_id){
   var tasks = await Task.findAll({
     where: {
-      e_id: e_id
+      e_id: e_id,
+      t_archived: false,
     }
   });
   let resList = [];

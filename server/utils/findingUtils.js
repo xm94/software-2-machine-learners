@@ -91,9 +91,9 @@ exports.computeCATScore = function computeCATScore(code){
 }
 
 exports.computeImpactScore = function computeImpactScore(c,i,a){
-    h = (c=="H"?1:0) + (i=="H"?1:0) + (a=="H"?1:0);
-    m = (c=="M"?1:0) + (i=="M"?1:0) + (a=="M"?1:0);
-    l = (c=="L"?1:0) + (i=="L"?1:0) + (a=="L"?1:0);
+    h = (c=="High"?1:0) + (i=="High"?1:0) + (a=="High"?1:0);
+    m = (c=="Medium"?1:0) + (i=="Medium"?1:0) + (a=="Medium"?1:0);
+    l = (c=="Low"?1:0) + (i=="Low"?1:0) + (a=="Low"?1:0);
     return h==0? m==0? l==0? 0 : impact_score_table.get(JSON.stringify({level:"L",impacted:l})) : impact_score_table.get(JSON.stringify({level:"M",impacted:m})) : impact_score_table.get(JSON.stringify({level:"H",impacted:h}));
 }
 
