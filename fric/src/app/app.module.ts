@@ -47,6 +47,7 @@ import { SubtaskDetailComponent } from './subtask-detail/subtask-detail.componen
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { TransactionModalComponent } from './transaction-modal/transaction-modal.component';
+import { AnalystProgressComponent } from './analyst-progress/analyst-progress.component';
 
 @NgModule({
   declarations: [
@@ -76,6 +77,7 @@ import { TransactionModalComponent } from './transaction-modal/transaction-modal
     SubtaskDetailComponent,
     FileUploadComponent,
     TransactionModalComponent,
+    AnalystProgressComponent,
   ],
   imports: [
     BrowserModule,

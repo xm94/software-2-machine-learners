@@ -72,6 +72,16 @@ export class SubtaskService {
     .pipe(map(response => response.body));
   }
 
+  getAnalystSubtasks(a_id: string): Observable<any> {
+    return this.backendServicesProxy.get('/subtasks/analyst/'+a_id)
+    .pipe(map(response => response.body));
+  }
+
+  getCollaboratorSubtasks(a_id: string): Observable<any> {
+    return this.backendServicesProxy.get('/subtasks/collaborator/'+a_id)
+    .pipe(map(response => response.body));
+  }
+
   getArchivedSubtasks(e_id: string): Observable<any> {
     return this.backendServicesProxy.get('/subtasks/archive/'+e_id)
     .pipe(map(response => response.body));

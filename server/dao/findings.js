@@ -356,7 +356,7 @@ exports.getFromAnalystId = async function getFromAnalystId(a_id){
   return resList;
 }
 
-exports.getFromCollaboratorId = async function getFromCollaboratorId(c_id){
+exports.getFromCollaboratorId = async function getFromCollaboratorId(a_id){
   console.log("select");
   var fList = await FindingCollaborator.findAll({
     where: {
