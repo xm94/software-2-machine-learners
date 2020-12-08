@@ -29,7 +29,7 @@ exports.generateFromEvent=async function generateFromEvent(e_id,e_name,e_type){
     out.on('error', function(err) {
         console.log(err)
       })
-    var path = process.cwd() + filename + '.xlsx';
+    var path = process.cwd() + "/" + filename + '.xlsx';
     let sheet = xlsx.makeNewSheet()
     sheet.name = 'Officegen Excel'
     sheet.data[0] = []

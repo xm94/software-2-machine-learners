@@ -1,0 +1,74 @@
+<h1>Reports</h1>
+<mat-card>
+    <button mat-raised-button color="primary" (click)="riskMatrix()">Generate Risk Matrix</button>
+    <br>
+    <br>
+    <mat-card *ngIf="rmGen">
+        A Risk Matrix has been generated at {{rmPath}}
+    </mat-card>
+    <br>
+    <button mat-raised-button color="primary" (click)="erb()">Generate Emerging Results Brief</button>
+    <br>
+    <br>
+    <mat-card *ngIf="erbGen">
+        An Emerging Results Brief has been generated at {{erbPath}}
+    </mat-card>
+    <br>
+    <button mat-raised-button color="primary" (click)="startFinal()">Generate Final Technical Report</button>
+    <br>
+    <br>
+    <mat-card *ngIf="finalPosting&&!finalGen">
+        <h4>Please fill out the following fields to generate the Final Technical Report</h4>
+        <form class="example-form" [formGroup]="form">
+            <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width" [hideRequiredMarker]=true>
+                <mat-label>Introduction</mat-label>
+                <textarea matInput formControlName="introduction" required></textarea>
+            </mat-form-field>
+            <br>
+            <h5>Please type the names of individuals you wish to acknowledge in the report, seperated by a semi-colon(;).</h5>
+            <mat-form-field appearance="outline" class="example-full-width" style=" width: 89%;" [hideRequiredMarker]=true>
+                <mat-label>Acknowledged Individuals</mat-label>
+                <input matInput formControlName="a_individuals" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width" [hideRequiredMarker]=true>
+                <mat-label>Executive Summary</mat-label>
+                <textarea matInput formControlName="excutive_summary" required></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width" [hideRequiredMarker]=true>
+                <mat-label>System/Network Architecture Description</mat-label>
+                <textarea matInput formControlName="arch_desc" required></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width" [hideRequiredMarker]=true>
+                <mat-label>Test Setup and Network Postures</mat-label>
+                <textarea matInput formControlName="ts_np" required></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width" [hideRequiredMarker]=true>
+                <mat-label>Limitations</mat-label>
+                <textarea matInput formControlName="ts_np" required></textarea>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width" [hideRequiredMarker]=true>
+                <mat-label>Conclusion</mat-label>
+                <textarea matInput formControlName="conclusion" required></textarea>
+            </mat-form-field>
+            <br>
+            <h5>Please type the names of individuals you wish to add to the distribution list, seperated by a semi-colon(;).</h5>
+            <mat-form-field appearance="outline" style=" width: 89%;" class="example-full-width" [hideRequiredMarker]=true>
+                <mat-label>Distribution List</mat-label>
+                <input matInput formControlName="d_list" required>
+            </mat-form-field>
+
+
+            <br>
+            <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+
+        </form>
+    </mat-card>
+    <mat-card *ngIf="finalGen">
+        A Final Technical Report has been generated at {{finalPath}}
+    </mat-card>
+</mat-card>

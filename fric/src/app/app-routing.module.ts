@@ -16,6 +16,7 @@ import { FindingDetailComponent } from './finding-detail/finding-detail.componen
 import { TaskDetailComponent } from './task-detail/task-detail.component';
 import { SubtaskDetailComponent } from './subtask-detail/subtask-detail.component';
 import { TransactionModalComponent } from './transaction-modal/transaction-modal.component';
+import { ReportsComponent } from './reports/reports.component';
 import { AnalystProgressComponent } from './analyst-progress/analyst-progress.component';
 
 
@@ -55,6 +56,7 @@ const routes: Routes = [
   {path: "setup", component: SetupComponent},
   {path: "help", component: HelpComponent},
   {path: "transactions", component: TransactionModalComponent},
+  {path: "reports", component: ReportsComponent},
   {path: "analyst", component: AnalystProgressComponent},
 ];
 

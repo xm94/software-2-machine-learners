@@ -10,6 +10,7 @@ var events = require("../dao/events");
 var riskmatrix = require("../utils/riskMatrix");
 var erb = require("../utils/erb");
 var finalTechnicalReport = require('../utils/finalTechnicalReport')
+var fs = require('fs')
 
 
 const router = express.Router();
@@ -23,7 +24,7 @@ router.get('/findings/', async function(req, res, next){
 router.get('/riskmatrix/:id', async function(req, res, next){
     var event = await events.getFromId(req.params.id);
     var report = await riskmatrix.generateFromEvent(event.e_id,event.e_name,event.e_type)
-    res.send(report);
+    res.send({'path':report});
 });
 
 router.get('/erb/:id', async function(req, res, next){
@@ -40,7 +41,7 @@ router.get('/erb/:id', async function(req, res, next){
     }
     var a_name = lead.a_fname + " " + lead.a_lname;
     var report = await erb.generateFromEvent(event.e_id,event.e_name,event.e_type,a_name,leadTitle);
-    res.send(report);
+    res.send({'path':report});
 });
 
 router.post('/final/', jsonParser,async function(req, res, next){
@@ -65,7 +66,7 @@ router.post('/final/', jsonParser,async function(req, res, next){
     try{
         console.log("making docx");
         path = await finalTechnicalReport.generate(req.body.template,event,teamNames,systemNames,allFindings)
-        res.send(path);
+        res.send({'path':path});
     } catch(err){
         res.status(500).send(err);
     }
