@@ -195,6 +195,49 @@ exports.getFromEventId = async function getFromEventId(e_id){
   return resList;
 }
 
+exports.getFromAnalystId = async function getFromAnalystId(a_id){
+  var tasks = await Task.findAll({
+    where: {
+      a_id: a_id
+    }
+  });
+  let resList = [];
+  for(t of tasks){
+    var res = t.toJSON();
+    res["t_attachments"] = await getAttachments(t.t_id);
+    res["t_collaborators"] = await getCollaborators(t.t_id);
+    res["t_associations"] = await getAssociations(t.t_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
+exports.getFromCollaboratorId = async function getFromCollaboratorId(a_id){
+  var taskList = await TaskCollaborator.findAll({
+    where: {
+      a_id: a_id
+    }
+  });
+  tIdList = []
+  for(task of taskList){
+    tIdList.push(task.t_id)
+  }
+  var tasks = await Task.findAll({
+    where: {
+      t_id: tIdList
+    }
+  });
+  let resList = [];
+  for(t of tasks){
+    var res = t.toJSON();
+    res["t_attachments"] = await getAttachments(t.t_id);
+    res["t_collaborators"] = await getCollaborators(t.t_id);
+    res["t_associations"] = await getAssociations(t.t_id);
+    resList.push(res);
+  }
+  return resList;
+}
+
 exports.getFromEventIdArchived = async function getFromEventIdArchived(e_id){
   var tasks = await Task.findAll({
     where: {
