@@ -30,6 +30,16 @@ router.get('/tasks/system/:id', async function(req, res, next){
     res.send(task);
 });
 
+router.get('/tasks/analyst/:id', async function(req, res, next){
+    var task = await tasks.getFromAnalystId(req.params.id);
+    res.send(task);
+});
+
+router.get('/tasks/collaborator/:id', async function(req, res, next){
+    var task = await tasks.getFromCollaboratorId(req.params.id);
+    res.send(task);
+});
+
 router.get('/tasks/archive/:id', async function(req, res, next){
     var task = await tasks.getFromEventIdArchived(req.params.id);
     res.send(task);

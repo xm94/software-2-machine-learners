@@ -41,6 +41,16 @@ router.get('/findings/subtask/:id', async function(req, res, next){
     res.send(finding);
 });
 
+router.get('/findings/analyst/:id', async function(req, res, next){
+    var finding = await findings.getFromAnalystId(req.params.id);
+    res.send(finding);
+});
+
+router.get('/findings/collaborator/:id', async function(req, res, next){
+    var finding = await findings.getFromCollaboratorId(req.params.id);
+    res.send(finding);
+});
+
 router.get('/findings/archive/:id', async function(req, res, next){
     var finding = await findings.getFromEventIdArchived(req.params.id);
     res.send(finding);
