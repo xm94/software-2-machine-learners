@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BackendServicesProxy } from './backend.service.proxy'
+import { TransactionLogService } from './transaction-log.service';
 
 @Injectable({
   providedIn: 'root'
@@ -44,6 +45,7 @@ export class EventService {
 
   constructor(
     private readonly backendServicesProxy: BackendServicesProxy,
+    private readonly transactionLogService: TransactionLogService,
     private readonly router: Router
   ) {}
 
@@ -90,6 +92,7 @@ export class EventService {
           //console.log("event posted");
           //console.log(event);
           if(event!=null){
+            this.transactionLogService.fetchTransactions();
             localStorage.setItem("event",JSON.stringify(event));
             //console.log("setting");
           }

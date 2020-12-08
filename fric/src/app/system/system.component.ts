@@ -28,7 +28,6 @@ export class SystemComponent implements OnInit {
     private readonly systemService: SystemService,
     private router: Router,
     private readonly activatedRoute: ActivatedRoute,
-    private readonly transactionLogService: TransactionLogService
   ) {
         
     this.event = this.eventService.event;

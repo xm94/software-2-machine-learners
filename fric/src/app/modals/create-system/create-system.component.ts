@@ -100,7 +100,6 @@ export class CreateSystemComponent implements OnInit {
 
     console.log(request);
     this.systemService.createSystem(request);
-    this.transactionLogService.fetchTransactions();
     this.modal.hide();
   }
 

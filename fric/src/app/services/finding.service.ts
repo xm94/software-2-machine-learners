@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BackendServicesProxy } from './backend.service.proxy'
+import { TransactionLogService } from './transaction-log.service';
 
 
 
@@ -28,6 +29,7 @@ export class FindingService {
 
   constructor(
     private readonly backendServicesProxy: BackendServicesProxy,
+    private readonly transactionLogService: TransactionLogService,
     private readonly router: Router
   ) {}
 
@@ -53,6 +55,7 @@ export class FindingService {
           console.log(finding);
           if(finding!=null){
             //localStorage.setItem("event",JSON.stringify(event));
+            this.transactionLogService.fetchTransactions();
             this._allFindings.next([finding]);
             //console.log("setting");
           }
