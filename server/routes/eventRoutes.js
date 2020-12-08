@@ -12,7 +12,6 @@ router.post("/events",jsonParser, async function(req, res){
     console.log("Attempting to create event ");
     req.body.event.e_assessment_date = new Date();
     req.body.event.e_declassification_date = new Date();
-    req.body.analyst.a_initials = "EM"
     var event = await events.insert(req.body.event);
     console.log(event);
     console.log("printing even");

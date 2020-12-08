@@ -72,6 +72,9 @@ router.post("/subtasks",upload.any(), async function(req, res){
     }
 
     var subtask = await subtasks.insert(req.body);
+    if(subtask){
+        transactionLogs.insert({a_initials:req.body.analyst_initials,tl_action_performed: "Created New Subtask", a_id:req.body.analyst_id});
+    }
     
     // if(event){
     //     var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);

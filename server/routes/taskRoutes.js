@@ -65,6 +65,9 @@ router.post("/tasks",upload.any(), async function(req, res){
         req.body.t_associations=associations;
     }
     var task = await tasks.insert(req.body);
+    if(task){
+        transactionLogs.insert({a_initials:req.body.analyst_initials,tl_action_performed: "Created New Task", a_id:req.body.analyst_id});
+    }
     
     // if(event){
     //     var lead = events.addTeamMember(event.e_id,req.body.analyst.a_id);
